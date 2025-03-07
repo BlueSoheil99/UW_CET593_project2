@@ -23,7 +23,7 @@ def set_common_paras(paras):
     paras["weight(Vehicles/Pedestrians)"] = (0.5, 0.5)
 
     ## IDM model parameters, see Equation (11) in the second paper.
-    # Maximum acceleration that the vechiles can reach, in m/s^{2}.
+    # Maximum acceleration that the vehicles can reach, in m/s^{2}.
     paras["max_acc"] = 3.5
     # Minimum acceleration, i.e., the maximum braking capability, in m/s^{2}.
     paras["min_acc"] = -5
@@ -43,7 +43,7 @@ def set_common_paras(paras):
     paras["poisson_gamma_pedestrian"] = 0.04  # high:0.04 medium=0.02 low=0.01
     paras["ped_demand_symmetry"] = "Asymmetric" # Asymmetric or Symmetric pedestrian demand
     # Concurrent or Exclusive Pedestrian phasing
-    paras["ped_phasing"] = "Concurrent" # "Concurrent" or "Exclusive"
+    paras["ped_phasing"] = "Exclusive" # "Concurrent" or "Exclusive"
     # Random seed used to generate the volume.
     paras["random_seed"] = 1
     # simulation duration.
@@ -63,26 +63,42 @@ def set_common_paras(paras):
     paras["speed_limit"] = 13
     # Vehicle length.
     paras["vehicle_length"] = 5
-    # Communication range, in m.
-    paras["comminication_range"] = 200
-    # Number of lanes for each road.
-    paras["num_lanes_each_road"] = 3
-    # Total number of lanes around this intersection
-    paras["num_lanes_intersection"] = 12
-    # Road length, in m.
-    paras["distance_from_upstream_intersections"] = 200
-    # Number of signal phases.
-    paras["num_phases"] = 9
     # We simulate the volumes in a wave feature. This parameter represents the half-period of such waves. In seconds.
     paras["time_interval_seconds"] = int(paras["simulation_duration"]/6)
 
+    if paras['network_type'] is not 'UW_intersection':
+        # Communication range, in m.
+        paras["comminication_range"] = 200
+        # Number of lanes for each road.
+        paras["num_lanes_each_road"] = 3
+        # Total number of lanes around this intersection
+        paras["num_lanes_intersection"] = 12
+        # Road length, in m.
+        paras["distance_from_upstream_intersections"] = 200
+        # Number of signal phases.
+        paras["num_phases"] = 9
 
-    ## pedestrian parameters:
-    paras['crossing_length']=3.2*5 #m
-    paras['X_crossing_length']=3.2*5*math.sqrt(2)
-    paras["crossing_width"]=3.5 #m
-    paras['ped_speed']=1 #m/s
-    paras['num_cross']=6
+        ## pedestrian parameters:
+        paras['crossing_length'] = 3.2 * 5  # m  lane width * num lanes
+        paras['X_crossing_length'] = 3.2 * 5 * math.sqrt(2)
+        paras["crossing_width"] = 3.5  # m
+        paras['ped_speed'] = 1  # m/s
+        paras['num_cross'] = 6
+    else:
+        # todo some parts of the code is not given so we won't generate the network automatically
+        paras["comminication_range"] = 200 # this probably should be out of the if-statement
+        paras["num_lanes_each_road"] = 3
+        paras["num_lanes_intersection"] = 12
+        # paras["num_lanes_each_road"] = {'NB':3, 'SB':3, 'EB':1, 'WB':2}
+        paras["distance_from_upstream_intersections"] = 200 # Road length, in m.
+        # paras["distance_from_upstream_intersections"] = {'NB':200, 'SB':200, 'EB':200, 'WB':200}
+        paras["num_phases"] = 9
+        ## pedestrian parameters:
+        paras['crossing_length'] = 3.2*5 #m  lane width * num lanes
+        paras['X_crossing_length'] = 3.2*5 * math.sqrt(2)
+        paras["crossing_width"]=3.5 #m
+        paras['ped_speed']=1 #m/s
+        paras['num_cross']=6
 
 
 def set_network_topology_paras(paras):
@@ -105,7 +121,7 @@ def set_network_topology_paras(paras):
     num_phases = paras["num_phases"]
     network_type = paras["network_type"]
 
-    if network_type == "single_intersection":
+    if network_type in ["single_intersection", 'UW_intersection']:
         paras["traffic_graph"] = {
             1: {
                 "pos": (0, 0),
@@ -541,6 +557,8 @@ def set_parameters(network_type, volume_type):
 
     Args:
         network_type: Should be one of (single_intersection, corridor, 4_4_network)
+        ** 'UW_intersection' is also added to account for 15th and Stevens Wy near UW campus
+        volume_type: 'symmetric' or 'asymmetric'
 
     Returns:
         paras: The parameters used to build the SUMO/MPC models, and all about this project.
