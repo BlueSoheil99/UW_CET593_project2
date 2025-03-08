@@ -43,7 +43,7 @@ def set_common_paras(paras):
     paras["poisson_gamma_pedestrian"] = 0.04  # high:0.04 medium=0.02 low=0.01
     paras["ped_demand_symmetry"] = "Asymmetric" # Asymmetric or Symmetric pedestrian demand
     # Concurrent or Exclusive Pedestrian phasing
-    paras["ped_phasing"] = "Exclusive" # "Concurrent" or "Exclusive"
+    paras["ped_phasing"] = "Concurrent" # "Concurrent" or "Exclusive"
     # Random seed used to generate the volume.
     paras["random_seed"] = 1
     # simulation duration.
@@ -121,7 +121,18 @@ def set_network_topology_paras(paras):
     num_phases = paras["num_phases"]
     network_type = paras["network_type"]
 
-    if network_type in ["single_intersection", 'UW_intersection']:
+    if network_type is "single_intersection":
+        paras["traffic_graph"] = {
+            1: {
+                "pos": (0, 0),
+                "adj": [],
+                "distance_from_upstream_intersections": distance_from_upstream_intersections,
+                "num_lanes_each_road": num_lanes_each_road,
+                "range": comminication_range,
+                "num_phases": num_phases,
+            }
+        }
+    elif network_type is 'UW_intersection':
         paras["traffic_graph"] = {
             1: {
                 "pos": (0, 0),

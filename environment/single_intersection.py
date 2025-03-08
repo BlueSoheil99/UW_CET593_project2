@@ -67,7 +67,7 @@ class SingleIntersection:
 
         ## Create folder to store simulation data.
         data_dir = os.path.dirname(os.path.realpath(__file__)) + "/simulation_data"
-        if network_type in ["single_intersection", "corridor", "4_4_network"]:
+        if network_type in ["UW_intersection", "single_intersection", "corridor", "4_4_network"]:
             data_dir_next = data_dir + "/" + network_type
         else:
             raise TypeError("unknown traffic network!")

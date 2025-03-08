@@ -7,11 +7,196 @@ class SumoNetworkBuilder:
         self.paras = paras
 
     def build_UW_intersection(self):
-        #todo return a dictionary for 'neighbors' parameter
-        return dict()
+        # paras['neighbors'] --- what does it mean?!
+
+        a = {1: {'west': (2, 200, 1), 'south': (3, 200, 2), 'east': (4, 200, 2), 'north': (5, 200, 2)},
+          2: {'east': (1, 200, 2)},
+          3: {'north': (1, 200, 3)},
+          4: {'west': (1, 200, 1)},
+          5: {'south': (1, 200, 3)}}
+
+        # h = self.paras["traffic_graph"]
+        # neighbors = collections.defaultdict(dict)
+        # visited_node = set()
+        # visited_edge = set()
+        #
+        # model_dir = os.path.dirname(os.path.realpath(__file__)) + "/network_model"
+        # if not os.path.exists(model_dir):os.mkdir(model_dir)
+        # file_name = model_dir + "/" + 'UW_intersection'
+        #
+        # with open(file_name + ".nod.xml", "w") as nodes, open(
+        #         file_name + ".edg.xml", "w"
+        # ) as edges:
+        #     print("""<?xml version="1.0" encoding="UTF-8"?>""", file=nodes)
+        #     print("""<nodes>""", file=nodes)
+        #     print("""<?xml version="1.0" encoding="UTF-8"?>""", file=edges)
+        #     print("""<edges>""", file=edges)
+        #     for inter in traffic_graph:
+        #         print(
+        #             """   <node id="%i" x="%f" y="%f"  type="traffic_light"/>"""
+        #             % (
+        #                 inter,
+        #                 traffic_graph[inter]["pos"][0],
+        #                 traffic_graph[inter]["pos"][1],
+        #             ),
+        #             file=nodes,
+        #         )
+        #         visited_node.add(traffic_graph[inter]["pos"])
+        #         for node, num_lane in traffic_graph[inter]["adj"]:
+        #             if (inter, node) not in visited_edge:
+        #                 print(
+        #                     """   <edge id="%i_%i" from="%i" to="%i" priority="10" numLanes="%i" speed="20" />"""
+        #                     % (inter, node, inter, node, num_lane),
+        #                     file=edges,
+        #                 )
+        #                 visited_edge.add((inter, node))
+        #             if (node, inter) not in visited_edge:
+        #                 print(
+        #                     """   <edge id="%i_%i" from="%i" to="%i" priority="10" numLanes="%i" speed="20" />"""
+        #                     % (node, inter, node, inter, num_lane),
+        #                     file=edges,
+        #                 )
+        #                 visited_edge.add((node, inter))
+        #             x_1, y_1 = traffic_graph[inter]["pos"]
+        #             x_2, y_2 = traffic_graph[node]["pos"]
+        #             if x_1 == x_2:
+        #                 if y_1 > y_2:
+        #                     neighbors[inter]["south"] = (node, y_1 - y_2, num_lane)
+        #                     neighbors[node]["north"] = (inter, y_1 - y_2, num_lane)
+        #                 else:
+        #                     neighbors[inter]["north"] = (node, y_2 - y_1, num_lane)
+        #                     neighbors[node]["south"] = (inter, y_2 - y_1, num_lane)
+        #             else:
+        #                 if x_1 > x_2:
+        #                     neighbors[inter]["west"] = (node, x_1 - x_2, num_lane)
+        #                     neighbors[node]["east"] = (inter, x_1 - x_2, num_lane)
+        #                 else:
+        #                     neighbors[inter]["east"] = (node, x_2 - x_1, num_lane)
+        #                     neighbors[node]["west"] = (inter, x_2 - x_1, num_lane)
+        #     for inter in traffic_graph:
+        #         dx, dy = [], []
+        #         if "west" not in neighbors[inter]:
+        #             dx.append(
+        #                 -traffic_graph[inter]["distance_from_upstream_intersections"]
+        #             )
+        #             dy.append(0)
+        #         if "south" not in neighbors[inter]:
+        #             dx.append(0)
+        #             dy.append(
+        #                 -traffic_graph[inter]["distance_from_upstream_intersections"]
+        #             )
+        #         if "east" not in neighbors[inter]:
+        #             dx.append(
+        #                 traffic_graph[inter]["distance_from_upstream_intersections"]
+        #             )
+        #             dy.append(0)
+        #         if "north" not in neighbors[inter]:
+        #             dx.append(0)
+        #             dy.append(
+        #                 traffic_graph[inter]["distance_from_upstream_intersections"]
+        #             )
+        #         # dx, dy = [0, traffic_graph[inter]["distance_from_upstream_intersections"], 0, -traffic_graph[inter]["distance_from_upstream_intersections"]], [traffic_graph[inter]["distance_from_upstream_intersections"], 0, -traffic_graph[inter]["distance_from_upstream_intersections"], 0]
+        #         for k in range(len(dx)):
+        #             x, y = (
+        #                 traffic_graph[inter]["pos"][0] + dx[k],
+        #                 traffic_graph[inter]["pos"][1] + dy[k],
+        #             )
+        #             # if (x, y) not in visited_node:
+        #             print(
+        #                 """   <node id="%i" x="%f" y="%f"  type="priority"/>"""
+        #                 % (len(visited_node) + 1, x, y),
+        #                 file=nodes,
+        #             )
+        #             print(
+        #                 """   <edge id="%i_%i" from="%i" to="%i" priority="10" numLanes="%i" speed="20" />"""
+        #                 % (
+        #                     len(visited_node) + 1,
+        #                     inter,
+        #                     len(visited_node) + 1,
+        #                     inter,
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 ),
+        #                 file=edges,
+        #             )
+        #             print(
+        #                 """   <edge id="%i_%i" from="%i" to="%i" priority="10" numLanes="%i" speed="20" />"""
+        #                 % (
+        #                     inter,
+        #                     len(visited_node) + 1,
+        #                     inter,
+        #                     len(visited_node) + 1,
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 ),
+        #                 file=edges,
+        #             )
+        #             visited_node.add((x, y))
+        #             if dy[k] > 0:
+        #                 neighbors[inter]["north"] = (
+        #                     len(visited_node),
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #                 neighbors[len(visited_node)]["south"] = (
+        #                     inter,
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #             elif dx[k] > 0:
+        #                 neighbors[inter]["east"] = (
+        #                     len(visited_node),
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #                 neighbors[len(visited_node)]["west"] = (
+        #                     inter,
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #             elif dy[k] < 0:
+        #                 neighbors[inter]["south"] = (
+        #                     len(visited_node),
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #                 neighbors[len(visited_node)]["north"] = (
+        #                     inter,
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #             else:
+        #                 neighbors[inter]["west"] = (
+        #                     len(visited_node),
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #                 neighbors[len(visited_node)]["east"] = (
+        #                     inter,
+        #                     traffic_graph[inter][
+        #                         "distance_from_upstream_intersections"
+        #                     ],
+        #                     traffic_graph[inter]["num_lanes_each_road"],
+        #                 )
+        #     print("""</nodes>""", file=nodes)
+        #     print("""</edges>""", file=edges)
+        # traffic_grap
+        return a
 
     def build(self):
-        if self.paras['network_type'] is 'UW_intersection':
+        if self.paras['network_type'] == 'UW_intersection':
             return self.build_UW_intersection()
         traffic_graph = self.paras["traffic_graph"]
         network_type = self.paras["network_type"]
