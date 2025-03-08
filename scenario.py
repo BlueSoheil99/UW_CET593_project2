@@ -60,3 +60,9 @@ control_type = "multi_scale"
 parameter_name = "poisson_gamma_pedestrian"
 parameter_value = 0.02
 scenario(network_type, volume_type, control_type, parameter_name, parameter_value)
+"""
+parameter_name = "penetration"
+values = [0, 0.33, 0.66, 1]
+for parameter_value in values:
+    scenario(network_type, volume_type, control_type, parameter_name, parameter_value)"
+"""

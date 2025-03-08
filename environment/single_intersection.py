@@ -488,6 +488,47 @@ class SingleIntersection:
             file.write(f"average phase lengths:  {self.phase_avg}\n")
             file.write(f"number of times each phase happened: {self.phase_ntimes}\n")
 
+    def performance_results_scenario(self, phase_list_multi, duration_list_multi, network_type, volume_type, control_type, step, name=''):
+        data_dir = os.path.dirname(os.path.realpath(__file__)) + "/simulation_data"
+        data_dir_next = data_dir + "/" + network_type
+        queue_file = (data_dir_next + "/queues_" + control_type + "_" + volume_type + "_pene_" + str(int(self.paras["penetration"] * 100)) + ".xml")
+        tripinfo_file = (data_dir_next + "/tripinfo_" + control_type + "_" + volume_type + "_pene_" + str(int(self.paras["penetration"] * 100)) + ".xml")
+        self.get_average_delay_endtime(tripinfo_file)
+        self.get_average_queue_length_endtime(queue_file)
+        self.get_average_phase_duration(phase_list_multi, duration_list_multi, control_type)
+        right_conflicts=self.right_turn_conflicts_measure()
+        print(f"average fuel consumption (external model) for {control_type} (in mg): ",
+              self.fuel_total_cav_external_model / len(self.paras["cav_ids"]["all"]))
+        # print(f"average fuel consumption (SUMO output) for {control_type} (in mg): ",
+        #       self.fuel_total_cav_sumo / len(self.paras["cav_ids"]["all"]))
+        print(f"average waiting time for {control_type} (in s): ",
+              self.waiting_time_avg)
+        print(f"average time loss for {control_type} (in s): ",
+              self.lost_time_avg)
+        print(f"average queue for {control_type} length (in m): ",
+              self.queue_avg)
+        print(f"average pedestrian time loss for {control_type} (in s): ",
+              self.lost_time_avg_ped)
+        print(f"number of right-turn conflicts between vehicles and pedestrians: {right_conflicts}")
+        print(f"number of CAVs passing through the specific intersection for {control_type}: ",
+              len(self.paras["cav_ids"]["all"]))
+        print(f"number of pedestrians passing through the specific intersection for {control_type}: ",
+              len(self.paras["ped_ids"]))
+        print(f"The time of simulation termination in {control_type} scenario:",step/2 )
+        with open(f"Results/Metrics_Results_{control_type}_scenario_{name}.txt", 'w') as file:
+            file.write(f"average fuel consumption for {control_type} scenario (external model) (in mg): {self.fuel_total_cav_external_model / len(self.paras['cav_ids']['all'])}\n")
+            #file.write(f"average fuel consumption for {control_type} scenario (SUMO output) (in mg): {self.fuel_total_cav_sumo / len(self.paras['cav_ids']['all'])}\n")
+            file.write(f"average waiting time for {control_type} scenario (in s): {self.waiting_time_avg}\n")
+            file.write(f"average time loss for {control_type} scenario (in s): {self.lost_time_avg}\n")
+            file.write(f"average queue length for {control_type} scenario (in m): {self.queue_avg}\n")
+            file.write(f"average pedestrian time loss for {control_type} scenario (in s): {self.lost_time_avg_ped}\n")
+            file.write(f"number of right-turn conflicts between vehicles and pedestrians: {right_conflicts}\n")
+            file.write(f"number of CAVs passing through the specific intersection in {control_type} scenario: {len(self.paras['cav_ids']['all'])}\n")
+            file.write(f"number of pedestrians passing through the specific intersection in {control_type} scenario: {len(self.paras['ped_ids'])}\n")
+            file.write(f"The time of simulation termination in {control_type} scenario: {step/2}\n")
+            file.write(f"average phase lengths:  {self.phase_avg}\n")
+            file.write(f"number of times each phase happened: {self.phase_ntimes}\n")
+
     def right_turn_conflicts_measure(self):
         a=0
         for key in self.right_turn_conflicts.keys():
