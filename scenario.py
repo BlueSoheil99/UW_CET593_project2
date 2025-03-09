@@ -57,8 +57,8 @@ def scenario(network_type, volume_type, control_type, parameter_name, parameter_
 network_type = "single_intersection"
 volume_type = "symmetric"
 control_type = "multi_scale"
-parameter_name = "poisson_gamma_pedestrian"
-parameter_value = 0.02
+parameter_name = "penetration"
+parameter_value = 0.33
 scenario(network_type, volume_type, control_type, parameter_name, parameter_value)
 """
 parameter_name = "penetration"
