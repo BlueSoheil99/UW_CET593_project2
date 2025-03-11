@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-10 16:11:57 by Eclipse SUMO netedit Version 1.22.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="cars" accel="3" decel="5" sigma="1" length="5" minGap="2" maxSpeed="13" guiShape="passenger"/>
+    <!-- Routes -->
+    <route id="NS" edges="5_1 1_3"/>
+    <route id="r_1" edges="5_1 1_4"/>
+    <route id="r_2" edges="5_1 1_2"/>
+    <route id="SN" edges="3_1 1_5"/>
+    <route id="r_4" edges="3_1 1_4"/>
+    <route id="r_5" edges="3_1 1_2"/>
+    <route id="r_6" edges="4_1 1_2"/>
+    <route id="r_7" edges="4_1 1_5"/>
+    <route id="r_8" edges="4_1 1_3"/>
+
+    <route id="SN_ped" edges="3_1 :1_w2 :1_c2 :1_w1 1_5" />
+
+
+    <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.04)" departPos="100">
+                <walk route="SN_ped"/>
+    </personFlow>
+    <personFlow id="person_WN_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+        <walk from="2_1" to="1_5"/>
+    </personFlow>
+
+    <vehicle id="SN_0" type="cars" route="SN" depart="0" departLane="2" color="0,1,0"/>
+    <vehicle id="WE_0" type="cars" route="SN" depart="1" departLane="2" color="0,1,0"/>
+    <vehicle id="NS_1" type="cars" route="NS" depart="1" departLane="2" color="0,1,0"/>
+    <vehicle id="SN_2" type="cars" route="NS" depart="5" departLane="2" color="0,1,0"/>
+
+
+</routes>

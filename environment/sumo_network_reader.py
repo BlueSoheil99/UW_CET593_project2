@@ -7,13 +7,27 @@ class SumoNetworkReader:
         self.paras = paras
         self.network_graph = collections.defaultdict()
         self.paras["network_graph"] = self.network_graph
+
+
     def read(self):
         data_dir = os.path.dirname(os.path.realpath(__file__)) + "/network_model/"
-        network_file = (data_dir + "single_intersection_pedestrian_X.net.xml")
-        if self.paras["ped_phasing"] == "Concurrent":
-            signal_file = (data_dir + "single_intersection_Concurrent.add.xml")
-        elif self.paras["ped_phasing"] == "Exclusive":
-            signal_file = (data_dir + "single_intersection_Exclusive.add.xml")
+        if self.paras['network_type'] == 'UW_intersection':
+            network_file = (data_dir + "UW_intersection_pedestrian_X.net.xml")
+            if self.paras["ped_phasing"] == "Concurrent":
+                signal_file = (data_dir + "UW_intersection_signalFixed.add.xml")
+            elif self.paras["ped_phasing"] == "Exclusive":
+                signal_file = (data_dir + "UW_intersection_signalFixed_X.add.xml")
+
+        elif self.paras['network_type'] == 'single_intersection':
+            network_file = (data_dir + "single_intersection_pedestrian_X.net.xml")
+            if self.paras["ped_phasing"] == "Concurrent":
+                signal_file = (data_dir + "single_intersection_Concurrent.add.xml")
+            elif self.paras["ped_phasing"] == "Exclusive":
+                signal_file = (data_dir + "single_intersection_Exclusive.add.xml")
+        else:
+            raise TypeError('Network type must be UW_intersection or single_intersection')
+
+
         tree = ET.parse(network_file)
         root = tree.getroot()
 
