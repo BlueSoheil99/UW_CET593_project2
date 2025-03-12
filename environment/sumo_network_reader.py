@@ -1,6 +1,7 @@
 import collections
 import os
 import xml.etree.ElementTree as ET
+import sumolib.xml as sumoxml
 
 class SumoNetworkReader:
     def __init__(self, paras):
@@ -10,22 +11,30 @@ class SumoNetworkReader:
 
 
     def read(self):
-        data_dir = os.path.dirname(os.path.realpath(__file__)) + "/network_model/"
-        if self.paras['network_type'] == 'UW_intersection':
-            network_file = (data_dir + "UW_intersection_pedestrian_X.net.xml")
-            if self.paras["ped_phasing"] == "Concurrent":
-                signal_file = (data_dir + "UW_intersection_signalFixed.add.xml")
-            elif self.paras["ped_phasing"] == "Exclusive":
-                signal_file = (data_dir + "UW_intersection_signalFixed_X.add.xml")
-
-        elif self.paras['network_type'] == 'single_intersection':
-            network_file = (data_dir + "single_intersection_pedestrian_X.net.xml")
-            if self.paras["ped_phasing"] == "Concurrent":
-                signal_file = (data_dir + "single_intersection_Concurrent.add.xml")
-            elif self.paras["ped_phasing"] == "Exclusive":
-                signal_file = (data_dir + "single_intersection_Exclusive.add.xml")
-        else:
+        if  self.paras['network_type'] not in ['UW_intersection', 'single_intersection']:
             raise TypeError('Network type must be UW_intersection or single_intersection')
+
+        # read the sumo config file
+        data_dir = os.path.dirname(os.path.realpath(__file__)) + "/network_model/"
+        cfg_adr = (data_dir +
+                   self.paras['network_type']+ '_' +
+                   self.paras['control_type']+ '_' +
+                   self.paras['ped_phasing']+ '.sumocfg')
+        input = list(sumoxml.parse(cfg_adr, ['input']))[0]
+
+        # read sumo files needed for the selected configuration.
+        network_file = data_dir + input['net-file'][0].value
+        route_file = data_dir + input['route-files'][0].value
+        signal_file = data_dir + input['additional-files'][0].value
+
+        # if  self.paras['network_type'] == 'single_intersection':
+        #     network_file = (data_dir + "single_intersection_pedestrian_X.net.xml")
+        #     if self.paras["ped_phasing"] == "Concurrent":
+        #         signal_file = (data_dir + "single_intersection_Concurrent.add.xml")
+        #     elif self.paras["ped_phasing"] == "Exclusive":
+        #         signal_file = (data_dir + "single_intersection_Exclusive.add.xml")
+        # else:
+        #     raise TypeError('Network type must be UW_intersection or single_intersection')
 
 
         tree = ET.parse(network_file)

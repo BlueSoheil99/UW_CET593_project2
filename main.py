@@ -5,9 +5,9 @@ from environment.single_intersection import SingleIntersection
 from agent.mpc_agent import MpcAgent
 
 
-def main(network_type, volume_type, control_type):
+def main(network_type, volume_type, control_type, ped_phasing):
     print("----Get parameters...")
-    paras = set_parameters(network_type, volume_type)
+    paras = set_parameters(network_type, volume_type, control_type, ped_phasing)
 
     print("----Build single intersection environments...")
     env_single_intersection = SingleIntersection(paras)
@@ -53,5 +53,7 @@ def main(network_type, volume_type, control_type):
 
 if __name__ == "__main__":
     # main("single_intersection", "symmetric", "multi_scale")
-    main("UW_intersection", "symmetric", "fixed_time")
+    main("UW_intersection", "symmetric",
+         "multi_scale", "Exclusive")
     # control_type: "multi_scale", "actuated", "fixed_time"
+    # ped_phasing: "Concurrent" or "Exclusive"

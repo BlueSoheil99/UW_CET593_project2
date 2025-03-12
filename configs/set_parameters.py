@@ -35,7 +35,7 @@ def set_common_paras(paras):
     # Penetration rate of CAVs.
     paras["penetration"] = 1
     # Concurrent or Exclusive Pedestrian phasing
-    paras["ped_phasing"] = "Concurrent" #"Concurrent" or "Exclusive"
+    # paras["ped_phasing"] = "Concurrent" #"Concurrent" or "Exclusive"
     # Random seed used to generate the volume.
     paras["random_seed"] = 1
     # simulation duration.
@@ -57,11 +57,11 @@ def set_common_paras(paras):
     paras["communication_range"] = 200
     # We simulate the volumes in a wave feature. This parameter represents the half-period of such waves. In seconds.
     paras["time_interval_seconds"] = int(paras["simulation_duration"]/6)
-
     ## pedestrian parameters:
     paras['ped_speed']=1 #m/s average speed assumed for pedestrians
 
-def set_parameters(network_type, volume_type):
+
+def set_parameters(network_type, volume_type, control_type, ped_phasing='Concurrent'):
     """Get the parameters for the entire simulation.
     Args:
         network_type: Should be one of (single_intersection, corridor, 4_4_network)
@@ -71,6 +71,8 @@ def set_parameters(network_type, volume_type):
     paras = collections.defaultdict()
     paras["network_type"] = network_type
     paras["volume_type"] = volume_type
+    paras["control_type"] = control_type
+    paras["ped_phasing"] = ped_phasing #"Concurrent" or "Exclusive"
 
     ## Common parameters
     set_common_paras(paras)
