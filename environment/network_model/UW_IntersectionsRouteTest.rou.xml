@@ -16,23 +16,6 @@
     <route id="EN" edges="4_1 1_5"/>
     <route id="ES" edges="4_1 1_3"/>
 
-     <route id="NS_ped" edges="5_1 :1_w0 :1_c5 :1_w3 1_3" />
-            <route id="SN_ped" edges="3_1 :1_w2 :1_c2 :1_w1 1_5" />
-            <route id="WE_ped" edges="2_1 :1_w3 :1_c4 :1_w2 1_4" />
-            <route id="EW_ped" edges="4_1 :1_w1 :1_c0 :1_w0 1_2" />
-            <route id="WN_ped_wn" edges="2_1 :1_w3 :1_c5 :1_w0 :1_c0 :1_w1 1_5" />
-            <route id="WN_ped_se" edges="2_1 :1_w3 :1_c4 :1_w2 :1_c2 :1_w1 1_5" />
-            <route id="SW_ped_sw" edges="3_1 :1_w2 :1_c4 :1_w3 :1_c5 :1_w0 1_2" />
-            <route id="SW_ped_en" edges="3_1 :1_w2 :1_c2 :1_w1 :1_c0 :1_w0 1_2" />
-            <route id="ES_ped_es" edges="4_1 :1_w1 :1_c2 :1_w2 :1_c4 :1_w3 1_3" />
-            <route id="ES_ped_nw" edges="4_1 :1_w1 :1_c0 :1_w0 :1_c5 :1_w3 1_3" />
-            <route id="NE_ped_ne" edges="5_1 :1_w0 :1_c0 :1_w1 :1_c2 :1_w2 1_4" />
-            <route id="NE_ped_ws" edges="5_1 :1_w0 :1_c5 :1_w3 :1_c4 :1_w2 1_4" />
-            <route id="WN_ped_diag" edges="2_1 :1_w3 :1_c1 :1_w1 1_5" />
-            <route id="SW_ped_diag" edges="3_1 :1_w2 :1_c3 :1_w0 1_2" />
-            <route id="ES_ped_diag" edges="4_1 :1_w1 :1_c1 :1_w3 1_3" />
-            <route id="NE_ped_diag" edges="5_1 :1_w0 :1_c3 :1_w2 1_4" />
-
 
     <flow id="EN" begin="0.00" departLane="random" from="4_1" to="1_5" end="600.00" vehsPerHour="24"/>
     <flow id="ES" begin="0.00" departLane="random" from="4_1" to="1_3" end="600.00" vehsPerHour="6"/>
@@ -47,28 +30,30 @@
     <flow id="WN" begin="0.00" departLane="random" from="2_1" to="1_5" end="600.00" vehsPerHour="12"/>
     <flow id="WS" begin="0.00" departLane="random" from="2_1" to="1_3" end="600.00" vehsPerHour="54"/>
 
-<personFlow id="person_WE_s" begin="0" end="600" period="exp(0.06)" departPos="100">
-                <walk route="WE_ped"/>
-             </personFlow>
-            <personFlow id="person_EW_n" begin="0" end="600" period="exp(0.02)" departPos="100">
-                <walk route="EW_ped"/>
+
+
+            <personFlow id="person_WE_s" begin="0" end="600" period="exp(0.117)" departPos="100">
+                <walk from="2_1" to="1_4"/>
             </personFlow>
-            <personFlow id="person_NS_w" begin="0" end="600" period="exp(0.12)" departPos="100">
-                <walk route="NS_ped"/>
+            <personFlow id="person_EW_n" begin="0" end="600" period="exp(0.116)" departPos="100">
+                <walk from="4_1" to="1_2"/>
             </personFlow>
-            <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.04)" departPos="100">
-                <walk route="SN_ped"/>
+            <personFlow id="person_NS_w" begin="0" end="600" period="exp(0.052)" departPos="100">
+                <walk from="5_1" to="1_3"/>
             </personFlow>
-            <personFlow id="person_WN_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
-                <walk from="2_1" to="1_5"/>
+            <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.021)" departPos="100">
+                <walk from="3_1" to="1_5"/>
             </personFlow>
-            <personFlow id="person_SW_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+            <personFlow id="person_NW_diag" begin="0" end="600" period="exp(0.035)" departPos="100">
+                <walk from="5_1" to="1_2"/>
+            </personFlow>
+            <personFlow id="person_SW_diag" begin="0" end="600" period="exp(0.008)" departPos="100">
                 <walk from="3_1" to="1_2"/>
             </personFlow>
-            <personFlow id="person_ES_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
-                <walk from="4_1" to="1_3"/>
+            <personFlow id="person_SE_diag" begin="0" end="600" period="exp(0.03)" departPos="100">
+                <walk from="3_1" to="1_4"/>
             </personFlow>
-            <personFlow id="person_NE_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+            <personFlow id="person_NE_diag" begin="0" end="600" period="exp(0.017)" departPos="100">
                 <walk from="5_1" to="1_4"/>
             </personFlow>
 </routes>
