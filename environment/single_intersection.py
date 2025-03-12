@@ -515,7 +515,7 @@ class SingleIntersection:
         print(f"number of pedestrians passing through the specific intersection for {control_type}: ",
               len(self.paras["ped_ids"]))
         print(f"The time of simulation termination in {control_type} scenario:",step/2 )
-        with open(f"Results/Metrics_Results_{control_type}_scenario_{name}.txt", 'w') as file:
+        with open(f"Results/Metrics_{str(self.paras["ped_phasing"])}_Results_{control_type}_penetration_{str(self.paras["penetration"])}.txt", 'w') as file:
             file.write(f"average fuel consumption for {control_type} scenario (external model) (in mg): {self.fuel_total_cav_external_model / len(self.paras['cav_ids']['all'])}\n")
             #file.write(f"average fuel consumption for {control_type} scenario (SUMO output) (in mg): {self.fuel_total_cav_sumo / len(self.paras['cav_ids']['all'])}\n")
             file.write(f"average waiting time for {control_type} scenario (in s): {self.waiting_time_avg}\n")
