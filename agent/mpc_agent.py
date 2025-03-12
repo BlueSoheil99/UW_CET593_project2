@@ -24,9 +24,10 @@ class MpcAgent:
         self.extract_signal_info()
 
         ## Check if the intersection type is supported.
-        if intersection_type not in ["unified_four_legs_three_lanes"]:
+        if intersection_type not in ["UW_intersection", "single_intersection"]:
             raise TypeError("Unknown intersection type")
-
+        name_dict = {"UW_intersection": 'UW_intersection', 'single_intersection': "unified_four_legs_three_lanes"}
+        intersection_type = name_dict[intersection_type]
         ## Set up the GAMS workspace
         self.models_dir = os.path.dirname(os.path.realpath(__file__)) + "/gams_models"
         if not os.path.exists(self.models_dir):
