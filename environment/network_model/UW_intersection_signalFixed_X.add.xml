@@ -31,14 +31,13 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <tlLogic id="1" type="static" programID="my_program" offset="0">
-        <phase duration="5"  state="rrrGrrrrrrGrrrrrrrrr"/>
-        <phase duration="25" state="gGGgrrrgGGgrrrrrrrrr"/>
+        <phase duration="27.5" state="gGGgrrrgGGgrrrrrrrrr"/>
         <phase duration="3"  state="yyyyrrryyyyrrrrrrrrr"/>
         <phase duration="1.50"  state="rrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="20" state="rrrrgGgrrrrgGgrrrrrr"/>
-        <phase duration="2.50"  state="rrrryyyrrrryyyrrrrrr"/>
-        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrr"/>
-        <phase duration="30" state="rrrrrrrrrrrrrrGGGGGG"/>
-        <phase duration="3"  state="rrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="17.5" state="rrrrgGgrrrrgGgrrrrrr"/>
+        <phase duration="3"  state="rrrryyyrrrryyyrrrrrr"/>
+        <phase duration="1.5"  state="rrrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="34" state="rrrrrrrrrrrrrrGGGGGG"/>
+        <phase duration="2"  state="rrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 </additional>
