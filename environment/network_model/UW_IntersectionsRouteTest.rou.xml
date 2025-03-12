@@ -33,17 +33,29 @@
 
 
 
-            <personFlow id="person_WE_s" begin="0" end="600" period="exp(0.117)" departPos="100">
+            <personFlow id="person_WE_s" begin="0" end="600" period="exp(0.075)" departPos="100">
                 <walk from="2_1" to="1_4"/>
             </personFlow>
-            <personFlow id="person_EW_n" begin="0" end="600" period="exp(0.116)" departPos="100">
+            <personFlow id="person_WE_n" begin="0" end="600" period="exp(0.042)" departPos="100">
+                <walk from="1_2" to="4_1"/>
+            </personFlow>
+            <personFlow id="person_EW_n" begin="0" end="600" period="exp(0.093)" departPos="100">
                 <walk from="4_1" to="1_2"/>
             </personFlow>
-            <personFlow id="person_NS_w" begin="0" end="600" period="exp(0.052)" departPos="100">
+            <personFlow id="person_EW_s" begin="0" end="600" period="exp(0.023)" departPos="100">
+                <walk from="1_4" to="2_1"/>
+            </personFlow>
+            <personFlow id="person_NS_w" begin="0" end="600" period="exp(0.012)" departPos="100">
                 <walk from="5_1" to="1_3"/>
             </personFlow>
-            <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.021)" departPos="100">
+            <personFlow id="person_NS_e" begin="0" end="600" period="exp(0.04)" departPos="100">
+                <walk from="1_5" to="3_1"/>
+            </personFlow>
+            <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.015)" departPos="100">
                 <walk from="3_1" to="1_5"/>
+            </personFlow>
+            <personFlow id="person_SN_w" begin="0" end="600" period="exp(0.006)" departPos="100">
+                <walk from="1_3" to="5_1"/>
             </personFlow>
             <personFlow id="person_NW_diag" begin="0" end="600" period="exp(0.035)" departPos="100">
                 <walk from="5_1" to="1_2"/>
