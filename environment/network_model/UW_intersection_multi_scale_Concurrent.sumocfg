@@ -5,7 +5,7 @@
     <input>
         <net-file value="UW_intersection_pedestrian_X.net.xml"/>
         <route-files value="UW_intersection.rou.xml"/>
-        <additional-files value="UW_intersection.add.xml"/>
+        <additional-files value="UW_intersection_Concurrent.add.xml"/>
     </input>
 
     <time>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-07 17:20:07 by Eclipse SUMO netedit Version 1.22.0
+<!-- generated on 2025-03-11 17:47:14 by Eclipse SUMO netedit Version 1.22.0
 <neteditConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/neteditConfiguration.xsd">
 
     <input>
+        <additional-files value="/Users/soheil/OneDrive - UW/8 quarter WI 25/CET593 Transportation Systems Analysis/project_2/UW_CET593_project2/environment/network_model/UW_intersection_signalActuated.add.xml"/>
         <sumo-net-file value="/Users/soheil/OneDrive - UW/8 quarter WI 25/CET593 Transportation Systems Analysis/project_2/UW_CET593_project2/environment/network_model/UW_intersection_pedestrian_X.net.xml"/>
     </input>
 
@@ -45,13 +46,13 @@
         <lane id=":1_1_1" index="1" disallow="pedestrian" speed="11.20" length="21.12" shape="195.20,210.40 195.70,204.19 196.80,200.00 197.90,195.81 198.40,189.60"/>
     </edge>
     <edge id=":1_3" function="internal">
-        <lane id=":1_3_0" index="0" disallow="pedestrian" speed="9.84" length="7.51" shape="198.40,210.40 199.35,205.15 200.66,203.42"/>
+        <lane id=":1_3_0" index="0" disallow="pedestrian" speed="9.84" length="5.47" shape="198.40,210.40 199.35,205.15 199.43,205.04"/>
     </edge>
     <edge id=":1_14" function="internal">
         <lane id=":1_14_0" index="0" disallow="pedestrian" speed="7.33" length="10.47" shape="191.89,209.15 191.65,206.55 190.60,203.80 188.85,202.15 186.40,201.60"/>
     </edge>
     <edge id=":1_15" function="internal">
-        <lane id=":1_15_0" index="0" disallow="pedestrian" speed="9.84" length="14.49" shape="200.66,203.42 202.20,201.40 206.95,199.15 213.60,198.40"/>
+        <lane id=":1_15_0" index="0" disallow="pedestrian" speed="9.84" length="16.52" shape="199.43,205.04 202.20,201.40 206.95,199.15 213.60,198.40"/>
     </edge>
     <edge id=":1_4" function="internal">
         <lane id=":1_4_0" index="0" disallow="pedestrian" speed="7.33" length="7.77" shape="213.60,204.80 209.75,205.15 207.00,206.20 206.34,206.90"/>
@@ -60,13 +61,13 @@
         <lane id=":1_5_0" index="0" disallow="pedestrian" speed="11.20" length="27.20" shape="213.60,201.60 186.40,201.60"/>
     </edge>
     <edge id=":1_6" function="internal">
-        <lane id=":1_6_0" index="0" disallow="pedestrian" speed="9.84" length="10.33" shape="213.60,201.60 206.95,200.85 203.67,199.29"/>
+        <lane id=":1_6_0" index="0" disallow="pedestrian" speed="9.84" length="5.70" shape="213.60,201.60 207.94,200.96"/>
     </edge>
     <edge id=":1_16" function="internal">
         <lane id=":1_16_0" index="0" disallow="pedestrian" speed="7.33" length="3.95" shape="206.34,206.90 205.35,207.95 204.80,210.40"/>
     </edge>
     <edge id=":1_17" function="internal">
-        <lane id=":1_17_0" index="0" disallow="pedestrian" speed="9.84" length="11.67" shape="203.67,199.29 202.20,198.60 199.35,194.85 198.40,189.60"/>
+        <lane id=":1_17_0" index="0" disallow="pedestrian" speed="9.84" length="16.29" shape="207.94,200.96 206.95,200.85 202.20,198.60 199.35,194.85 198.40,189.60"/>
     </edge>
     <edge id=":1_7" function="internal">
         <lane id=":1_7_0" index="0" disallow="pedestrian" speed="6.51" length="5.33" shape="208.00,189.60 208.35,192.05 209.40,193.80 210.10,194.22"/>
@@ -208,17 +209,18 @@
         <phase duration="5"  state="rrrrrrrrrrrrrrrrrrrrr"/>
     </tlLogic>
 
+
     <junction id="1" type="traffic_light_right_on_red" x="200.00" y="200.00" incLanes="5_1_0 5_1_1 5_1_2 5_1_3 4_1_0 4_1_1 4_1_2 3_1_0 3_1_1 3_1_2 3_1_3 2_1_0 2_1_1 :1_w1_0 :1_w3_0 :1_w2_0 :1_w0_0" intLanes=":1_14_0 :1_1_0 :1_1_1 :1_15_0 :1_16_0 :1_5_0 :1_17_0 :1_18_0 :1_8_0 :1_8_1 :1_19_0 :1_20_0 :1_12_0 :1_21_0 :1_c0_0 :1_c1_0 :1_c2_0 :1_c3_0 :1_c4_0 :1_c5_0" shape="188.40,210.40 208.40,210.40 208.98,209.29 209.70,208.90 210.71,208.62 212.01,208.46 213.60,208.40 213.60,191.60 212.49,191.38 212.10,191.10 211.82,190.71 211.66,190.21 211.60,189.60 191.60,189.60 191.02,192.49 190.30,193.50 189.29,194.22 187.99,194.66 186.40,194.80 186.40,205.20 187.51,205.78 187.90,206.50 188.18,207.51 188.34,208.81">
         <request index="0"  response="10100100010000100000" foes="10100100010000100000" cont="1"/>
-        <request index="1"  response="01101110010001000000" foes="01101111110001100000" cont="0"/>
-        <request index="2"  response="01101110010001000000" foes="01101111110001100000" cont="0"/>
+        <request index="1"  response="01101110010000000000" foes="01101111110001100000" cont="0"/>
+        <request index="2"  response="01101110010000000000" foes="01101111110001100000" cont="0"/>
         <request index="3"  response="00011110001101000000" foes="00011110001101100000" cont="1"/>
         <request index="4"  response="00011100001100000000" foes="00011100001100000000" cont="1"/>
         <request index="5"  response="10111000000000000000" foes="10111010011100001111" cont="0"/>
         <request index="6"  response="01111001011100001110" foes="01111001011100001110" cont="1"/>
         <request index="7"  response="01111001000000000000" foes="01111001000000000000" cont="1"/>
-        <request index="8"  response="01101110000001001000" foes="01101111000001111000" cont="0"/>
-        <request index="9"  response="01101110000001001000" foes="01101111000001111000" cont="0"/>
+        <request index="8"  response="01101110000000000000" foes="01101111000001111000" cont="0"/>
+        <request index="9"  response="01101110000000000000" foes="01101111000001111000" cont="0"/>
         <request index="10" response="11101000000000000000" foes="11101011000001100111" cont="1"/>
         <request index="11" response="11101000000000000110" foes="11101000000000000110" cont="1"/>
         <request index="12" response="10111000011110000110" foes="10111000011111000110" cont="0"/>
@@ -244,9 +246,9 @@
     </junction>
 
     <junction id=":1_14_0" type="internal" x="191.89" y="209.15" incLanes=":1_0_0" intLanes=":1_5_0 :1_10_0 :1_c0_0 :1_c3_0 :1_c5_0"/>
-    <junction id=":1_15_0" type="internal" x="200.66" y="203.42" incLanes=":1_3_0" intLanes=":1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_8_1 :1_12_0 :1_13_0 :1_c0_0 :1_c1_0 :1_c2_0"/>
+    <junction id=":1_15_0" type="internal" x="199.43" y="205.04" incLanes=":1_3_0 3_1_1 3_1_2" intLanes=":1_5_0 :1_6_0 :1_7_0 :1_8_0 :1_8_1 :1_12_0 :1_13_0 :1_c0_0 :1_c1_0 :1_c2_0"/>
     <junction id=":1_16_0" type="internal" x="206.34" y="206.90" incLanes=":1_4_0" intLanes=":1_8_0 :1_8_1 :1_13_0 :1_c0_0 :1_c1_0 :1_c2_0"/>
-    <junction id=":1_17_0" type="internal" x="203.67" y="199.29" incLanes=":1_6_0 2_1_1" intLanes=":1_1_0 :1_1_1 :1_3_0 :1_8_0 :1_8_1 :1_10_0 :1_11_0 :1_12_0 :1_c1_0 :1_c1_0 :1_c2_0 :1_c3_0 :1_c4_0"/>
+    <junction id=":1_17_0" type="internal" x="207.94" y="200.96" incLanes=":1_6_0 2_1_1 3_1_1 3_1_2 5_1_1 5_1_2" intLanes=":1_1_0 :1_1_1 :1_3_0 :1_8_0 :1_8_1 :1_10_0 :1_11_0 :1_12_0 :1_c1_0 :1_c1_0 :1_c2_0 :1_c3_0 :1_c4_0"/>
     <junction id=":1_18_0" type="internal" x="210.10" y="194.22" incLanes=":1_7_0" intLanes=":1_3_0 :1_12_0 :1_c1_0 :1_c1_0 :1_c2_0 :1_c3_0 :1_c4_0"/>
     <junction id=":1_19_0" type="internal" x="189.90" y="201.21" incLanes=":1_10_0" intLanes=":1_0_0 :1_1_0 :1_1_1 :1_5_0 :1_6_0 :1_12_0 :1_13_0 :1_c1_0 :1_c3_0 :1_c3_0 :1_c4_0 :1_c5_0"/>
     <junction id=":1_20_0" type="internal" x="193.55" y="195.28" incLanes=":1_11_0" intLanes=":1_1_0 :1_1_1 :1_6_0 :1_c1_0 :1_c3_0 :1_c3_0 :1_c4_0 :1_c5_0"/>
