@@ -7,29 +7,68 @@
     <vType id="cars" accel="3" decel="5" sigma="1" length="5" minGap="2" maxSpeed="13" guiShape="passenger"/>
     <!-- Routes -->
     <route id="NS" edges="5_1 1_3"/>
-    <route id="r_1" edges="5_1 1_4"/>
-    <route id="r_2" edges="5_1 1_2"/>
+    <route id="NE" edges="5_1 1_4"/>
+    <route id="NW" edges="5_1 1_2"/>
     <route id="SN" edges="3_1 1_5"/>
-    <route id="r_4" edges="3_1 1_4"/>
-    <route id="r_5" edges="3_1 1_2"/>
-    <route id="r_6" edges="4_1 1_2"/>
-    <route id="r_7" edges="4_1 1_5"/>
-    <route id="r_8" edges="4_1 1_3"/>
+    <route id="SE" edges="3_1 1_4"/>
+    <route id="SW" edges="3_1 1_2"/>
+    <route id="EW" edges="4_1 1_2"/>
+    <route id="EN" edges="4_1 1_5"/>
+    <route id="ES" edges="4_1 1_3"/>
 
-    <route id="SN_ped" edges="3_1 :1_w2 :1_c2 :1_w1 1_5" />
+     <route id="NS_ped" edges="5_1 :1_w0 :1_c5 :1_w3 1_3" />
+            <route id="SN_ped" edges="3_1 :1_w2 :1_c2 :1_w1 1_5" />
+            <route id="WE_ped" edges="2_1 :1_w3 :1_c4 :1_w2 1_4" />
+            <route id="EW_ped" edges="4_1 :1_w1 :1_c0 :1_w0 1_2" />
+            <route id="WN_ped_wn" edges="2_1 :1_w3 :1_c5 :1_w0 :1_c0 :1_w1 1_5" />
+            <route id="WN_ped_se" edges="2_1 :1_w3 :1_c4 :1_w2 :1_c2 :1_w1 1_5" />
+            <route id="SW_ped_sw" edges="3_1 :1_w2 :1_c4 :1_w3 :1_c5 :1_w0 1_2" />
+            <route id="SW_ped_en" edges="3_1 :1_w2 :1_c2 :1_w1 :1_c0 :1_w0 1_2" />
+            <route id="ES_ped_es" edges="4_1 :1_w1 :1_c2 :1_w2 :1_c4 :1_w3 1_3" />
+            <route id="ES_ped_nw" edges="4_1 :1_w1 :1_c0 :1_w0 :1_c5 :1_w3 1_3" />
+            <route id="NE_ped_ne" edges="5_1 :1_w0 :1_c0 :1_w1 :1_c2 :1_w2 1_4" />
+            <route id="NE_ped_ws" edges="5_1 :1_w0 :1_c5 :1_w3 :1_c4 :1_w2 1_4" />
+            <route id="WN_ped_diag" edges="2_1 :1_w3 :1_c1 :1_w1 1_5" />
+            <route id="SW_ped_diag" edges="3_1 :1_w2 :1_c3 :1_w0 1_2" />
+            <route id="ES_ped_diag" edges="4_1 :1_w1 :1_c1 :1_w3 1_3" />
+            <route id="NE_ped_diag" edges="5_1 :1_w0 :1_c3 :1_w2 1_4" />
 
 
-    <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.04)" departPos="100">
+    <flow id="EN" begin="0.00" departLane="random" from="4_1" to="1_5" end="600.00" vehsPerHour="24"/>
+    <flow id="ES" begin="0.00" departLane="random" from="4_1" to="1_3" end="600.00" vehsPerHour="6"/>
+    <flow id="EW" begin="0.00" departLane="random" from="4_1" to="1_2" end="600.00" vehsPerHour="24"/>
+    <flow id="NE" begin="0.00" departLane="random" from="5_1" to="1_4" end="600.00" vehsPerHour="24"/>
+    <flow id="NS" begin="0.00" departLane="random" from="5_1" to="1_3" end="600.00" vehsPerHour="192"/>
+    <flow id="NW" begin="0.00" departLane="random" from="5_1" to="1_2" end="600.00" vehsPerHour="72"/>
+    <flow id="SE" begin="0.00" departLane="random" from="3_1" to="1_4" end="600.00" vehsPerHour="65.99"/>
+    <flow id="SN" begin="0.00" departLane="random" from="3_1" to="1_5" end="600.00" vehsPerHour="132"/>
+    <flow id="SW" begin="0.00" departLane="random" from="3_1" to="1_2" end="600.00" vehsPerHour="12"/>
+    <flow id="WE" begin="0.00" departLane="random" from="2_1" to="1_4" end="600.00" vehsPerHour="72"/>
+    <flow id="WN" begin="0.00" departLane="random" from="2_1" to="1_5" end="600.00" vehsPerHour="12"/>
+    <flow id="WS" begin="0.00" departLane="random" from="2_1" to="1_3" end="600.00" vehsPerHour="54"/>
+
+<personFlow id="person_WE_s" begin="0" end="600" period="exp(0.06)" departPos="100">
+                <walk route="WE_ped"/>
+             </personFlow>
+            <personFlow id="person_EW_n" begin="0" end="600" period="exp(0.02)" departPos="100">
+                <walk route="EW_ped"/>
+            </personFlow>
+            <personFlow id="person_NS_w" begin="0" end="600" period="exp(0.12)" departPos="100">
+                <walk route="NS_ped"/>
+            </personFlow>
+            <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.04)" departPos="100">
                 <walk route="SN_ped"/>
-    </personFlow>
-    <personFlow id="person_WN_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
-        <walk from="2_1" to="1_5"/>
-    </personFlow>
-
-    <vehicle id="SN_0" type="cars" route="SN" depart="0" departLane="2" color="0,1,0"/>
-    <vehicle id="WE_0" type="cars" route="SN" depart="1" departLane="2" color="0,1,0"/>
-    <vehicle id="NS_1" type="cars" route="NS" depart="1" departLane="2" color="0,1,0"/>
-    <vehicle id="SN_2" type="cars" route="NS" depart="5" departLane="2" color="0,1,0"/>
-
-
+            </personFlow>
+            <personFlow id="person_WN_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+                <walk from="2_1" to="1_5"/>
+            </personFlow>
+            <personFlow id="person_SW_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+                <walk from="3_1" to="1_2"/>
+            </personFlow>
+            <personFlow id="person_ES_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+                <walk from="4_1" to="1_3"/>
+            </personFlow>
+            <personFlow id="person_NE_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
+                <walk from="5_1" to="1_4"/>
+            </personFlow>
 </routes>
