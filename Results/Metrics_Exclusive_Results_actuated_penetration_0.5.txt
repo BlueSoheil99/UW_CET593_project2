@@ -1,0 +1,11 @@
+average fuel consumption for actuated scenario (external model) (in mg): 211.99982732228793
+average waiting time for actuated scenario (in s): 465.23509933774835
+average time loss for actuated scenario (in s): 510.09238410596004
+average queue length for actuated scenario (in m): 32.7632407792373
+average pedestrian time loss for actuated scenario (in s): 886.0980076628351
+number of right-turn conflicts between vehicles and pedestrians: 12
+number of CAVs passing through the specific intersection in actuated scenario: 151
+number of pedestrians passing through the specific intersection in actuated scenario: 261
+The time of simulation termination in actuated scenario: 2914.0
+average phase lengths:  {6: 10.0, 7: 5.0, 0: 32.833333333333336, 1: 5.0, 2: 11.166666666666666, 3: 5.0, 4: 26.03448275862069, 5: 5.0}
+number of times each phase happened: {6: 60.0, 7: 30.0, 0: 197.0, 1: 20.0, 2: 67.0, 3: 29.0, 4: 151.0, 5: 28.0}

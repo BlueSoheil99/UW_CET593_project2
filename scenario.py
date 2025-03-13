@@ -105,8 +105,8 @@ def scenario_base(network_type, volume_type, control_type, ped_phasing_val, pene
 
 network_type = "single_intersection"
 volume_type = "symmetric"
-control_type = "multi_scale"
-ped_phasing_val = 'Concurrent'
+control_type = "fixed_time"
+ped_phasing_val = 'Exclusive' # "Concurrent" or "Exclusive"
 pene_value = 1
 scenario_base(network_type, volume_type, control_type, ped_phasing_val, pene_value)
 """

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2025-03-12 17:53:55 by Eclipse SUMO GUI Version 1.22.0
+<!-- generated on 2025-03-12 17:50:15 by Eclipse SUMO GUI Version 1.22.0
 <sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -10,8 +10,8 @@
     </input>
 
     <output>
-        <queue-output value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/simulation_data/single_intersection/queues_actuated_symmetric_pene_100.xml"/>
-        <tripinfo-output value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/simulation_data/single_intersection/tripinfo_actuated_symmetric_pene_100.xml"/>
+        <queue-output value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/simulation_data/single_intersection/queues_actuated_symmetric_pene_20.xml"/>
+        <tripinfo-output value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/simulation_data/single_intersection/tripinfo_actuated_symmetric_pene_20.xml"/>
     </output>
 
     <time>
@@ -29,7 +29,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="63310"/>
+        <remote-port value="63191"/>
     </traci_server>
 
     <gui_only>
