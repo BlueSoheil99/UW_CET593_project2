@@ -1,13 +1,14 @@
 ## The single intersection environment.
-import traci
 import collections
-import os
-import xml.etree.ElementTree as ET
-import matplotlib.pyplot as plt
-import numpy as np
 import math
+import os
+import random
 
+import numpy as np
+import matplotlib.pyplot as plt
 from sumolib import checkBinary
+import traci
+import xml.etree.ElementTree as ET
 
 from .sumo_network_reader import SumoNetworkReader
 from .sumo_routes_generator import SumoRoutesGenerator
@@ -61,6 +62,7 @@ class SingleIntersection:
         self.right_turn_conflicts = {}
         print("--------Vehicles and routes generated.")
 
+
     def start_sumo(self, show_gui, control_type, network_type, volume_type):
         penetration = self.paras["penetration"]
         pedestrian_phasing = self.paras["ped_phasing"]
@@ -77,7 +79,8 @@ class SingleIntersection:
         model_dir = os.path.dirname(os.path.realpath(__file__)) + "/network_model"
         if not os.path.exists(model_dir):
             raise TypeError("Network model is not built yet.")
-        if control_type != "multi_scale":
+
+        if network_type == 'single_intersection' and control_type != "multi_scale":
             model_file_name = (
                 model_dir + "/" + network_type + "_" + control_type + ".sumocfg"
             )
@@ -85,7 +88,6 @@ class SingleIntersection:
             model_file_name = (
                 model_dir + "/" + network_type + "_" + control_type + "_" + pedestrian_phasing + ".sumocfg"
             )
-
 
         ## Create folder to store simulation data.
         data_dir = os.path.dirname(os.path.realpath(__file__)) + "/simulation_data"
@@ -135,8 +137,10 @@ class SingleIntersection:
         if control_type=="actuated":
             traci.trafficlight.setProgram("1", "actuated_program")
 
+
     def is_active(self):
         return traci.simulation.getMinExpectedNumber() > 0
+
 
     def get_state_cur_intersection(self, cur_step):
         ## Get the parameters needed to get the network state.
@@ -249,7 +253,12 @@ class SingleIntersection:
                 #         self.paras["cav_ids"] = self.paras["cav_ids"].union({car})
 
                 for car in cars_lane:
-                    self.paras["cav_ids"] = self.paras["cav_ids"].union({car})
+                    # self.paras["cav_ids"] = self.paras["cav_ids"].union({car})
+                    if car not in self.paras["cav_ids"].union(self.paras["hdv_ids"]):
+                        if random.uniform(0, 1) <= self.paras["penetration"]:
+                            self.paras["cav_ids"] = self.paras["cav_ids"].union({car})
+                        else:
+                            self.paras["hdv_ids"] = self.paras["hdv_ids"].union({car})
 
                 # Number of vehicles in the current lane and also in the communication range.
                 num_vehicles_lane = 0
@@ -429,6 +438,7 @@ class SingleIntersection:
             }
         return self.network_state
 
+
     def apply_control_commands(
         self, should_update_signal, next_signal_phase, speed_commands
     ):
@@ -452,8 +462,10 @@ class SingleIntersection:
                 if veh_id in network_vehs:
                     traci.vehicle.setSpeed(veh_id, speed_commands[veh_id])
 
+
     def move_one_step_forward(self):
         traci.simulationStep()
+
 
     def performance_results(self, phase_list_multi, duration_list_multi, network_type, volume_type, control_type, step):
         data_dir = os.path.dirname(os.path.realpath(__file__)) + "/simulation_data"
@@ -464,7 +476,7 @@ class SingleIntersection:
         self.get_average_queue_length_endtime(queue_file)
         self.get_average_phase_duration(phase_list_multi, duration_list_multi, control_type)
         right_conflicts=self.right_turn_conflicts_measure()
-        print(f"average fuel consumption (external model) for {control_type} (in mg): ",
+        print(f"average CAV fuel consumption (external model) for {control_type} (in mg): ",
               self.fuel_total_cav_external_model / len(self.paras["cav_ids"]))
         # print(f"average fuel consumption (SUMO output) for {control_type} (in mg): ",
         #       self.fuel_total_cav_sumo / len(self.paras["cav_ids"]["all"]))
@@ -482,8 +494,13 @@ class SingleIntersection:
         print(f"number of pedestrians passing through the specific intersection for {control_type}: ",
               len(self.paras["ped_ids"]))
         print(f"The time of simulation termination in {control_type} scenario:",step/2 )
+
+        print("HDVs: ", len(self.paras['hdv_ids']))
+        print("CAVs: ", len(self.paras['cav_ids']))
+
         with open(f"Results/Metrics_Results_{control_type}_scenario.txt", 'w') as file:
-            file.write(f"average fuel consumption for {control_type} scenario (external model) (in mg): {self.fuel_total_cav_external_model / len(self.paras['cav_ids'])}\n")
+            file.write(f"average CAV fuel consumption for {control_type} scenario (external model) (in mg): "
+                       f"{self.fuel_total_cav_external_model / len(self.paras['cav_ids'])}\n")
             #file.write(f"average fuel consumption for {control_type} scenario (SUMO output) (in mg): {self.fuel_total_cav_sumo / len(self.paras['cav_ids']['all'])}\n")
             file.write(f"average waiting time for {control_type} scenario (in s): {self.waiting_time_avg}\n")
             file.write(f"average time loss for {control_type} scenario (in s): {self.lost_time_avg}\n")
@@ -496,11 +513,14 @@ class SingleIntersection:
             file.write(f"average phase lengths:  {self.phase_avg}\n")
             file.write(f"number of times each phase happened: {self.phase_ntimes}\n")
 
+
     def right_turn_conflicts_measure(self):
         a=0
         for key in self.right_turn_conflicts.keys():
             a+=len(self.right_turn_conflicts[key])
         return a
+
+
     def get_average_phase_duration(self, phase_list_multi, duration_list_multi, control_type):
         phase_dict = {}
         if control_type!="multi_scale":
@@ -564,9 +584,12 @@ class SingleIntersection:
                 cnt_ped += 1
         #print("wt cnt: ", cnt)
         #print("max wt: ", wt_max)
-        self.waiting_time_avg = wt / len(self.paras["cav_ids"])
-        self.lost_time_avg = tl / len(self.paras["cav_ids"])
+        # self.waiting_time_avg = wt / len(self.paras["cav_ids"])
+        # self.lost_time_avg = tl / len(self.paras["cav_ids"])
+        self.waiting_time_avg = wt / cnt
+        self.lost_time_avg = tl / cnt
         self.lost_time_avg_ped = tl_ped / len(self.paras["ped_ids"])
+
 
     def get_average_queue_length_endtime(self, file):
         tree = ET.parse(file)
@@ -589,6 +612,7 @@ class SingleIntersection:
         temp_cav, temp_hdv = self.get_instant_fuel_sumo()
         self.fuel_total_cav_sumo += temp_cav
         self.fuel_total_hdv_sumo += temp_hdv
+
 
     def get_instant_fuel_external_model(self):
         fuel_cav = 0
@@ -620,6 +644,7 @@ class SingleIntersection:
                         fuel_hdv += fuel_temp
         return fuel_cav, fuel_hdv
 
+
     def get_instant_fuel_sumo(self):
         fuel_cav = 0
         fuel_hdv = 0
@@ -637,6 +662,6 @@ class SingleIntersection:
                         fuel_hdv += fuel_temp
         return fuel_cav, fuel_hdv
 
+
     def close_sumo_simulation(self):
         traci.close()
-
