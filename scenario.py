@@ -101,8 +101,6 @@ def scenario_base(network_type, volume_type, control_type, ped_phasing_val, pene
     env_single_intersection.performance_results_scenario(phase_list_multi, duration_list_multi, network_type, volume_type, control_type, step)
     agent_unified_four_legs_three_lanes.clear_redundant_gams_files()
 
-
-
 network_type = "single_intersection"
 volume_type = "symmetric"
 control_type = "fixed_time"

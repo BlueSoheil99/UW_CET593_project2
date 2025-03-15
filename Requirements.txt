@@ -3,3 +3,7 @@ sumolib
 numpy
 gamsapi
 matplotlib
+os
+re
+ast
+seaborn
