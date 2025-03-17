@@ -8,7 +8,7 @@ import seaborn as sns
 
 def extract_metrics_from_file(file_contents):
     metrics = {
-        'fuel_consumption': r'average fuel consumption for .*? scenario.*? \(in mg\):\s*([\d\.]+)',
+        'fuel_consumption': r'average .*? fuel consumption for .*? scenario.*? \(in mg\):\s*([\d\.]+)',
         'waiting_time': r'average waiting time for .*? scenario.*? \(in s\):\s*([\d\.]+)',
         'time_loss': r'average time loss for .*? scenario.*? \(in s\):\s*([\d\.]+)',
         'queue_length': r'average queue length for .*? scenario.*? \(in m\):\s*([\d\.]+)',
@@ -96,6 +96,32 @@ def norm_by_fixed_time(df, cols_list, grp_cols):
             fixed_time_values = grp_data[grp_data.control_type=='fixed_time'][col]
             norm_df.loc[grp_data.index, col] /= fixed_time_values.values
     return norm_df
+
+def rel_percent_by_fixed_time(df, cols_list, grp_cols):
+    """
+    Calculate the relative percentage of specified columns based on 'fixed_time' control_type values within groups.
+
+    Parameters:
+    - df: DataFrame, the input data.
+    - cols_list: list, columns to calculate relative percentage for.
+    - grp_cols: list, columns to group by.
+
+    Returns:
+    - DataFrame, the DataFrame with relative percentages.
+    """
+    relative_df = df.copy()
+    
+    # Group by the specified columns
+    grped = df.groupby(grp_cols)
+    
+    for col in cols_list:
+        # Calculate relative percentage within each group
+        relative_df[col] = grped[col].transform(
+            lambda x: ((x - x[df.loc[x.index, 'control_type'] == 'fixed_time'].values[0]) / 
+                       x[df.loc[x.index, 'control_type'] == 'fixed_time'].values[0])
+        )
+    
+    return relative_df
 
 def plot_selected_columns(df, x, y, kind='line', marker='o', **kwargs):
     """

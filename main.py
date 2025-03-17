@@ -12,28 +12,16 @@ def main(generate, inputs):
     elif generate=='plot':
         df = plots.read_results_files('Results')
         focus_col_list = ['waiting_time', 'queue_length', 'fuel_consumption']
-        plots.plot_matrix(df, focus_col_list, 'penetration', export=inputs['export_1'], filename='maxtrix plot-default intersection-absolute value.png')
+        plots.plot_matrix(df, focus_col_list, 'penetration', export=inputs['export_1'], filename='maxtrix plot-UW intersection-absolute value.png')
         df_avg = plots.norm_by_fixed_time(df, focus_col_list, ['ped_phasing', 'penetration'])
-        plots.plot_matrix(df_avg, focus_col_list, 'penetration', percentage=True, export=inputs['export_2'], filename='maxtrix plot-default intersection-percentage.png')
+        plots.plot_matrix(df_avg, focus_col_list, 'penetration', percentage=True, export=inputs['export_2'], filename='maxtrix plot-UW intersection-percentage.png')
+        df.to_csv('Results/UW_normal.csv')
 
 
 if __name__ == "__main__":
     # main("single_intersection", "symmetric", "multi_scale")
     # control_type: "multi_scale", "actuated", "fixed_time"
 
-    """
-    network_type = "single_intersection"
-    volume_type = "symmetric"
-    control_type = "fixed_time"
-    ped_phasing_val = 'Exclusive' # "Concurrent" or "Exclusive"
-    pene_value = 1
-    scenario_base(network_type, volume_type, control_type, ped_phasing_val, pene_value)
-    
-    df = plots.read_results_files('Results')
-    focus_col_list = ['waiting_time', 'queue_length', 'fuel_consumption']
-    plots.plot_matrix(df, focus_col_list, 'penetration', export=True, filename='maxtrix plot-default intersection-absolute value.png')
-    df_avg = plots.norm_by_fixed_time(df, focus_col_list, ['ped_phasing', 'penetration'])
-    plots.plot_matrix(df_avg, focus_col_list, 'penetration', percentage=True, export=True, filename='maxtrix plot-default intersection-percentage.png')
     """
     generate = 'result'
     inputs = {}
@@ -42,7 +30,17 @@ if __name__ == "__main__":
     for control_type in ["multi_scale", "actuated", "fixed_time"]:
         for ped_phasing in ["Exclusive", "Concurrent"]:
             for pene_value in [1, 0.8, 0.5, 0.2]:
-                inputs['control_type'] = control_type # "multi_scale", "actuated", "fixed_time"
-                inputs['ped_phasing'] = ped_phasing # "Concurrent" or "Exclusive"
-                inputs['pene_value'] = pene_value
-                main(generate, inputs)
+                if ((control_type == "multi_scale") & (ped_phasing == "Exclusive")) \
+                    | ((control_type == "multi_scale") & (ped_phasing == "Concurrent") & (pene_value != 0.2)):
+                    continue
+                else:
+                    inputs['control_type'] = control_type # "multi_scale", "actuated", "fixed_time"
+                    inputs['ped_phasing'] = ped_phasing # "Concurrent" or "Exclusive"
+                    inputs['pene_value'] = pene_value
+                    main(generate, inputs)
+    """
+    generate = 'plot'
+    inputs = {}
+    inputs['export_1'] = True
+    inputs['export_2'] = True
+    main(generate, inputs)
