@@ -116,5 +116,5 @@ if __name__ == "__main__":
     df = plots.read_results_files('Results')
     focus_col_list = ['waiting_time', 'queue_length', 'fuel_consumption']
     plots.plot_matrix(df, focus_col_list, 'penetration', export=True, filename='maxtrix plot-default intersection-absolute value.png')
-    df_avg = plots.norm_by_fixed_time(df, focus_col_list, ['ped_phasing', 'penetration'])
+    df_avg = plots.rel_percent_by_fixed_time(df, focus_col_list, ['ped_phasing', 'penetration'])
     plots.plot_matrix(df_avg, focus_col_list, 'penetration', percentage=True, export=True, filename='maxtrix plot-default intersection-percentage.png')
