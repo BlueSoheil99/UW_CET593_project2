@@ -54,9 +54,9 @@ def scenario_base(network_type, volume_type, control_type, ped_phasing_val, pene
     env_single_intersection.performance_results_scenario(phase_list_multi, duration_list_multi, network_type, volume_type, control_type, step)
     agent_unified_four_legs_three_lanes.clear_redundant_gams_files()
 
-def main(network_type, volume_type, control_type):
+def main(network_type, volume_type, control_type, ped_phasing):
     print("----Get parameters...")
-    paras = set_parameters(network_type, volume_type)
+    paras = set_parameters(network_type, volume_type, control_type, ped_phasing)
 
     print("----Build single intersection environments...")
     env_single_intersection = SingleIntersection(paras)
@@ -65,8 +65,10 @@ def main(network_type, volume_type, control_type):
     env_single_intersection.start_sumo(True, control_type, network_type, volume_type)
 
     print("----Initializing the agent...")
-    agent_unified_four_legs_three_lanes = MpcAgent(paras, "unified_four_legs_three_lanes")
-    agent_unified_four_legs_three_lanes.clear_redundant_gams_files()
+    # agent_unified_four_legs_three_lanes = MpcAgent(paras, "unified_four_legs_three_lanes")
+    # agent_unified_four_legs_three_lanes.clear_redundant_gams_files()
+    agent = MpcAgent(paras, paras['network_type'])
+    agent.clear_redundant_gams_files()
 
     phase_list_multi=[]
     duration_list_multi=[]
@@ -79,16 +81,13 @@ def main(network_type, volume_type, control_type):
         if control_type == "multi_scale":
             # print("----Get control commands from the agent")
             (next_global_step_to_re_solve_the_network, phase_list_multi, duration_list_multi, should_update_signal, next_signal_phase, speed_commands) = (
-                agent_unified_four_legs_three_lanes.get_control_commands(
-                    paras, network_state, step
+                agent.get_control_commands(
+                    network_state, step
                 )
             )
             env_single_intersection.apply_control_commands(
                 should_update_signal, next_signal_phase, speed_commands
             )
-
-        elif control_type == "actuated":
-             env_single_intersection.pedestrian_actuation()
 
             #env_single_intersection.pedestrian_movement_control()
         env_single_intersection.calculate_extra_metrics()
@@ -98,7 +97,7 @@ def main(network_type, volume_type, control_type):
 
     env_single_intersection.close_sumo_simulation()
     env_single_intersection.performance_results(phase_list_multi, duration_list_multi, network_type, volume_type, control_type, step)
-    agent_unified_four_legs_three_lanes.clear_redundant_gams_files()
+    agent.clear_redundant_gams_files()
 
 
 if __name__ == "__main__":

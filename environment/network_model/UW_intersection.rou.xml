@@ -43,21 +43,21 @@
             </personFlow>
             <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.04)" departPos="100">
                 <walk route="SN_ped"/>
-            </personFlow>
+            </personFlow>   
             <personFlow id="person_WN_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
                 <walk from="2_1" to="1_5"/>
             </personFlow>
             <personFlow id="person_SW_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
                 <walk from="3_1" to="1_2"/>
-            </personFlow>
+            </personFlow>   
             <personFlow id="person_ES_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
                 <walk from="4_1" to="1_3"/>
-            </personFlow>
+            </personFlow>       
             <personFlow id="person_NE_diag" begin="0" end="600" period="exp(0.06)" departPos="100">
                 <walk from="5_1" to="1_4"/>
-            </personFlow>
-
-
+            </personFlow>      
+   
+            
     <vehicle id="SN_0" type="cars" route="SN" depart="0" departLane="2" color="0,1,0"/>
     <vehicle id="WE_0" type="cars" route="WE" depart="1" departLane="2" color="0,1,0"/>
     <vehicle id="NS_1" type="cars" route="NS" depart="1" departLane="2" color="0,1,0"/>

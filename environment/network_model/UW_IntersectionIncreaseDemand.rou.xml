@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-10 16:11:57 by Eclipse SUMO netedit Version 1.22.0
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="cars" accel="3" decel="5" sigma="1" length="5" minGap="2" maxSpeed="13" guiShape="passenger"/>
+    <!-- Routes -->
+    <route id="NS" edges="5_1 1_3"/>
+    <route id="NE" edges="5_1 1_4"/>
+    <route id="NW" edges="5_1 1_2"/>
+    <route id="SN" edges="3_1 1_5"/>
+    <route id="SE" edges="3_1 1_4"/>
+    <route id="SW" edges="3_1 1_2"/>
+    <route id="EW" edges="4_1 1_2"/>
+    <route id="EN" edges="4_1 1_5"/>
+    <route id="ES" edges="4_1 1_3"/>
+
+
+
+    <flow id="EN" begin="0.00" departLane="best" from="4_1" to="1_5" end="600.00" vehsPerHour="28.8"/>
+    <flow id="ES" begin="0.00" departLane="best" from="4_1" to="1_3" end="600.00" vehsPerHour="7.2"/>
+    <flow id="EW" begin="0.00" departLane="best" from="4_1" to="1_2" end="600.00" vehsPerHour="28.8"/>
+    <flow id="NE" begin="0.00" departLane="best" from="5_1" to="1_4" end="600.00" vehsPerHour="28.8"/>
+    <flow id="NS" begin="0.00" departLane="best" from="5_1" to="1_3" end="600.00" vehsPerHour="230.4"/>
+    <flow id="NW" begin="0.00" departLane="best" from="5_1" to="1_2" end="600.00" vehsPerHour="86.4"/>
+    <flow id="SE" begin="0.00" departLane="best" from="3_1" to="1_4" end="600.00" vehsPerHour="79.2"/>
+    <flow id="SN" begin="0.00" departLane="best" from="3_1" to="1_5" end="600.00" vehsPerHour="158.4"/>
+    <flow id="SW" begin="0.00" departLane="best" from="3_1" to="1_2" end="600.00" vehsPerHour="14.4"/>
+    <flow id="WE" begin="0.00" departLane="best" from="2_1" to="1_4" end="600.00" vehsPerHour="86.4"/>
+    <flow id="WN" begin="0.00" departLane="best" from="2_1" to="1_5" end="600.00" vehsPerHour="14.4"/>
+    <flow id="WS" begin="0.00" departLane="best" from="2_1" to="1_3" end="600.00" vehsPerHour="64.8"/>
+
+
+
+            <personFlow id="person_WE_s" begin="0" end="600" period="exp(0.09)" departPos="100">
+                <walk from="2_1" to="1_4"/>
+            </personFlow>
+            <personFlow id="person_WE_n" begin="0" end="600" period="exp(0.05)" departPos="100">
+                <walk from="1_2" to="4_1"/>
+            </personFlow>
+            <personFlow id="person_EW_n" begin="0" end="600" period="exp(0.11)" departPos="100">
+                <walk from="4_1" to="1_2"/>
+            </personFlow>
+            <personFlow id="person_EW_s" begin="0" end="600" period="exp(0.0276)" departPos="100">
+                <walk from="1_4" to="2_1"/>
+            </personFlow>
+            <personFlow id="person_NS_w" begin="0" end="600" period="exp(0.014)" departPos="100">
+                <walk from="5_1" to="1_3"/>
+            </personFlow>
+            <personFlow id="person_NS_e" begin="0" end="600" period="exp(0.048)" departPos="100">
+                <walk from="1_5" to="3_1"/>
+            </personFlow>
+            <personFlow id="person_SN_e" begin="0" end="600" period="exp(0.018)" departPos="100">
+                <walk from="3_1" to="1_5"/>
+            </personFlow>
+            <personFlow id="person_SN_w" begin="0" end="600" period="exp(0.007)" departPos="100">
+                <walk from="1_3" to="5_1"/>
+            </personFlow>
+            <personFlow id="person_NW_diag" begin="0" end="600" period="exp(0.042)" departPos="100">
+                <walk from="5_1" to="1_2"/>
+            </personFlow>
+            <personFlow id="person_SW_diag" begin="0" end="600" period="exp(0.0096)" departPos="100">
+                <walk from="3_1" to="1_2"/>
+            </personFlow>
+            <personFlow id="person_SE_diag" begin="0" end="600" period="exp(0.036)" departPos="100">
+                <walk from="3_1" to="1_4"/>
+            </personFlow>
+            <personFlow id="person_NE_diag" begin="0" end="600" period="exp(0.0204)" departPos="100">
+                <walk from="5_1" to="1_4"/>
+            </personFlow>
+</routes>

@@ -78,9 +78,6 @@ equations
          phase_equal_7(k) 'signal phase constraint',
          phase_equal_8(k) 'signal phase constraint',
          phase_equal_9(k) 'signal phase constraint',
-         phase_equal_10(k) 'signal phase constraint',
-         phase_equal_11(k) 'signal phase constraint',
-         phase_equal_12(k) 'signal phase constraint',
          ped_phase_equal_1 'pedestrian phase constraint',
          ped_phase_equal_2 'pedestrian phase constraint',
          ped_phase_equal_3 'pedestrian phase constraint',
@@ -146,24 +143,21 @@ signal_rule_4(l)..                                                              
 
 
 * Equation (23e)
-phase_equal_1(k)..                                                               p('6',k) + p('8',k) =e= r('3',k);
-phase_equal_2(k)..                                                               p('5',k) + p('6',k) =e= r('2',k);
-phase_equal_3(k)..                                                               p('5',k) + p('6',k) =e= r('1',k);
-phase_equal_4(k)..                                                               p('3',k) + p('4',k) =e= r('6',k);
-phase_equal_5(k)..                                                               p('1',k) + p('3',k) =e= r('5',k);
-phase_equal_6(k)..                                                               p('1',k) + p('3',k) =e= r('4',k);
-phase_equal_7(k)..                                                               p('7',k) + p('8',k) =e= r('9',k);
-phase_equal_8(k)..                                                               p('5',k) + p('7',k) =e= r('8',k);
-phase_equal_9(k)..                                                               p('5',k) + p('7',k) =e= r('7',k);
-phase_equal_10(k)..                                                              p('2',k) + p('4',k) =e= r('12',k);
-phase_equal_11(k)..                                                              p('1',k) + p('2',k) =e= r('11',k);
-phase_equal_12(k)..                                                              p('1',k) + p('2',k) =e= r('10',k);
-ped_phase_equal_1(k)..                                                           p('9',k) =e= q('1',k);
-ped_phase_equal_2(k)..                                                           p('9',k) =e= q('2',k);
-ped_phase_equal_3(k)..                                                           p('9',k) =e= q('3',k);
-ped_phase_equal_4(k)..                                                           p('9',k) =e= q('4',k);
-ped_phase_equal_5(k)..                                                           p('9',k) =e= q('5',k);
-ped_phase_equal_6(k)..                                                           p('9',k) =e= q('6',k);
+phase_equal_1(k)..                                                                    p('6',k) + p('8',k)  =e= r('1',k);
+phase_equal_2(k)..                                                          p('1',k) + p('2',k) + p('3',k) =e= r('2',k);
+phase_equal_3(k)..                                                          p('1',k) + p('2',k) + p('3',k) =e= r('3',k);
+phase_equal_4(k)..                                                          p('1',k) + p('3',k) + p('5',k) =e= r('4',k);
+phase_equal_5(k)..                                   p('4',k) + p('5',k) + p('6',k) + p('7',k) + p('8',k)  =e= r('5',k);
+phase_equal_6(k)..                                                                     p('7',k) + p('8',k) =e= r('6',k);
+phase_equal_7(k)..                                                          p('2',k) + p('3',k) + p('4',k) =e= r('7',k);
+phase_equal_8(k)..                                                          p('2',k) + p('3',k) + p('4',k) =e= r('8',k);
+phase_equal_9(k)..                                                          p('3',k) + p('4',k) + p('5',k) =e= r('9',k);
+ped_phase_equal_1(k)..                                                                            p('9',k) =e= q('1',k);
+ped_phase_equal_2(k)..                                                                            p('9',k) =e= q('2',k);
+ped_phase_equal_3(k)..                                                                            p('9',k) =e= q('3',k);
+ped_phase_equal_4(k)..                                                                            p('9',k) =e= q('4',k);
+ped_phase_equal_5(k)..                                                                            p('9',k) =e= q('5',k);
+ped_phase_equal_6(k)..                                                                            p('9',k) =e= q('6',k);
 
 *Equation (23h)
 s.up(i,j,k)$vehicle_indi(i,j)= 700;
@@ -172,17 +166,16 @@ s.fx(i,j,"1")$vehicle_indi(i,j) = s_init(i,j);
 p.fx(l,'1') = p_init(l);
 
 *model mo /cost, cost_throughput, cost_distance, cost_transition, cost_delay, cost_ped_throughput, signal_rule_1, signal_rule_2, signal_rule_3,signal_rule_4, ped_phase_equal_1, ped_phase_equal_2, ped_phase_equal_3, ped_phase_equal_4/;
-model mo /cost, cost_throughput, cost_distance, cost_transition, cost_delay, cost_ped_throughput, vehicle_dynamics_1, vehicle_dynamics_2, car_following, vehicle_position_1, vehicle_position_2, traffic_rule, signal_rule_1, signal_rule_2, signal_rule_3,signal_rule_4, phase_equal_1, phase_equal_2, phase_equal_3, phase_equal_4, phase_equal_5, phase_equal_6, phase_equal_7, phase_equal_8, phase_equal_9, phase_equal_10, phase_equal_11, phase_equal_12, ped_phase_equal_1, ped_phase_equal_2, ped_phase_equal_3, ped_phase_equal_4, ped_phase_equal_5, ped_phase_equal_6/;
-
+model mo /cost, cost_throughput, cost_distance, cost_transition, cost_delay, cost_ped_throughput, vehicle_dynamics_1, vehicle_dynamics_2, car_following, vehicle_position_1, vehicle_position_2, traffic_rule, signal_rule_1, signal_rule_2, signal_rule_3,signal_rule_4, phase_equal_1, phase_equal_2, phase_equal_3, phase_equal_4, phase_equal_5, phase_equal_6, phase_equal_7, phase_equal_8, phase_equal_9, ped_phase_equal_1, ped_phase_equal_2, ped_phase_equal_3, ped_phase_equal_4, ped_phase_equal_5, ped_phase_equal_6/;
 *model mo /cost, cost_throughput, cost_distance, cost_transition, cost_delay, cost_ped_throughput, vehicle_dynamics_1, vehicle_dynamics_2, car_following, vehicle_position_1, vehicle_position_2, traffic_rule, signal_rule_1, signal_rule_2, signal_rule_3,signal_rule_4, phase_equal_1, phase_equal_2, phase_equal_3, phase_equal_4, phase_equal_5, phase_equal_6, phase_equal_7, phase_equal_8, phase_equal_9, phase_equal_10, phase_equal_11, phase_equal_12/;
 
 *q.l('1','2')=EW;
 *q.l('3','2')=EW;
 *q.l('2','2')=NS;
 *q.l('4','2')=NS;
-
 *p.fx('5','2')=NS;
 *p.fx('1','2')=EW;
+
 *option optcr=0;
 *option minlp=BONMIN;
 mo.optfile = 1;
