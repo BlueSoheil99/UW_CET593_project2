@@ -1,0 +1,1063 @@
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  *option nlp=SCIP;
+   2  option nlp=IPOPT;
+   3  *option nlp=CONOPT;
+   4   
+   5  parameter
+   6           model_status,
+   7           solver_status;
+   8  sets
+   9           i 'vehicles',
+  10           k 'prediction steps';
+  11   
+  12  parameter
+  13           h 'length of the time interval',
+  14           tau 'tau in the car-following model',
+  15           d_0 'd_0 in the car-following model',
+  16           k_dynamics(k) 'dynamic prediction steps used to calculate the differences',
+  17           k_critical_points(k) 'the position where there should be critical points',
+  18           s_init(i) 'initial position of vehicle i',
+  19           s_critical(i,k) 'critical position points of vehicle i at time k',
+  20           v_init(i) 'initial speed of vehicle i',
+  21           veh_dynamics(i) 'indicator of vehicles to calculate the car-following distances';
+  22  *$gdxin _gams_py_gdb1
+GDXIN   C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\_gams_py_gdb374.gdx
+--- LOAD  i = 7:i
+--- LOAD  k = 1:k
+--- LOAD  h = 2:h
+--- LOAD  tau = 3:tau
+--- LOAD  d_0 = 4:d_0
+--- LOAD  k_dynamics = 5:k_dynamics
+--- LOAD  k_critical_points = 6:k_critical_points
+--- LOAD  s_init = 9:s_init
+--- LOAD  s_critical = 8:s_critical
+--- LOAD  v_init = 10:v_init
+--- LOAD  veh_dynamics = 11:veh_dynamics
+  27   
+  28  variable
+  29           f 'cost function',
+  30           f_inst(i,k) 'the instantanuous fuel consumption rate',
+  31           f_position(i,k) 'position penalty',
+  32           a(i,k) 'acceleration of vehicle i at time step k',
+  33           v(i,k) 'speed of vehicle i on lane k at time step k',
+  34           s(i,k) 'position of vehicle i on lane k at time step k';
+  35   
+  36  equations
+  37           cost 'cost function',
+  38           fuel_consumption(i,k) 'calculate fuel consumption rate',
+  39           dynamics_speed(i,k) 'dynamics of the speed',
+  40           dynamics_position(i,k) 'lower bound of a vehicle position',
+  41           car_following(i,k) 'car-following model',
+  42           position_penalty(i,k) 'car-following model';
+  43   
+  44  *Cost function. A relaxed version of Equation (24). We do not require exact match for the critical points. Instead, we try to minimizze the errors for matching those points.
+  45  cost..                                                                           f =e= sum(k, sum(i, f_inst(i,k))) + sum(k$(k_critical_points(k) ne 0), sum(i, power(s(i,k) - s_critical(i,k), 2)));
+  46   
+  47  *Equation (25a)
+  48  dynamics_speed(i,k)$(k_dynamics(k) ne 0)..                                       v(i,k) - v(i,k-1) =e= h*a(i,k-1);
+  49   
+  50  *Equation (25b)
+  51  dynamics_position(i,k)$(k_dynamics(k) ne 0)..                                    s(i,k) - s(i,k-1) =e= h*v(i,k-1) + a(i,k-1)*h*h/2;
+  52   
+  53  *A relaxed version of Equation (25c)
+  54  car_following(i,k)$(veh_dynamics(i) ne 0 and k_dynamics(k) ne 0)..               s(i,k) - s(i+1,k) =g= tau*v(i,k);
+  55   
+  56  *Fuel consumption.
+  57  fuel_consumption(i,k)..                                                          f_inst(i,k) =e= 0.2736 + 0.0599*v(i,k) + 0.3547*a(i,k) - 0.0058*power(v(i,k),2) + 0.0179*v(i,k)*a(i,k) + 0.0663*power(a(i,k),2) + 0.0002*power(v(i,k),3) + 0.002*power(v(i,k),2)*a(i,k) + 0.0245*v(i,k)*power(a(i,k),2) - 0.0489*power(a(i,k),3);
+  58   
+  59  *Equation (25e)
+  60  a.up(i,k) = 4;
+  61  a.lo(i,k) = -5;
+  62  v.up(i,k) = 11;
+  63  v.lo(i,k) = -1;
+  64  s.up(i,k) = 700;
+  65  s.lo(i,k) = -200;
+  66  v.fx(i,'1') = v_init(i);
+  67  s.fx(i,'1') = s_init(i);
+  68   
+  69  model m /cost, dynamics_speed, dynamics_position, car_following, fuel_consumption/;
+  70   
+  71  solve m using nlp minimizing f;
+  72  model_status = m.Modelstat;
+  73  solver_status = m.solvestat;
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\UW_intersection_faster.gms
+     2       24 GDXIN          1      24  C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\_gams_py_gdb374.gdx
+
+
+COMPILATION TIME     =        0.016 SECONDS      3 MB  49.1.0 5c4d4ed6 WEX-WEI
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE m Using NLP From line 71
+
+
+---- cost  =E=  cost function
+
+cost..  f - f_inst(1,1) - f_inst(1,2) - f_inst(1,3) - f_inst(1,4) - f_inst(1,5) - f_inst(1,6) - f_inst(1,7) - f_inst(1,8) - f_inst(1,9) - f_inst(1,10) - f_inst(1,11) - f_inst(1,12) - f_inst(1,13) - f_inst(1,14) - f_inst(1,15) - f_inst(1,16) - f_inst(1,17) - f_inst(1,18) - f_inst(1,19) - f_inst(1,20) - f_inst(1,21) - f_inst(1,22) - f_inst(1,23) - f_inst(1,24) - f_inst(1,25) - f_inst(1,26) - f_inst(1,27) - f_inst(1,28) - f_inst(1,29) - f_inst(1,30) - f_inst(1,31) - f_inst(2,1) - f_inst(2,2) - f_inst(2,3) - f_inst(2,4) - f_inst(2,5) - f_inst(2,6) - f_inst(2,7) - f_inst(2,8) - f_inst(2,9) - f_inst(2,10) - f_inst(2,11) - f_inst(2,12) - f_inst(2,13) - f_inst(2,14) - f_inst(2,15) - f_inst(2,16) - f_inst(2,17) - f_inst(2,18) - f_inst(2,19) - f_inst(2,20) - f_inst(2,21) - f_inst(2,22) - f_inst(2,23) - f_inst(2,24) - f_inst(2,25) - f_inst(2,26) - f_inst(2,27) - f_inst(2,28) - f_inst(2,29) - f_inst(2,30) - f_inst(2,31) - f_inst(3,1) - f_inst(3,2) - f_inst(3,3) - f_inst(3,4) - f_inst(3,5) - f_inst(3,6) - f_inst(3,7) - f_inst(3,8) - f_inst(3,9) - f_inst(3,10) - f_inst(3,11) - f_inst(3,12) - f_inst(3,13) - f_inst(3,14) - f_inst(3,15) - f_inst(3,16) - f_inst(3,17) - f_inst(3,18) - f_inst(3,19) - f_inst(3,20) - f_inst(3,21) - f_inst(3,22) - f_inst(3,23) - f_inst(3,24) - f_inst(3,25) - f_inst(3,26) - f_inst(3,27) - f_inst(3,28) - f_inst(3,29) - f_inst(3,30) - f_inst(3,31) + (0)*s(1,11) + (0)*s(1,21) + (0)*s(1,31) - (14)*s(2,11) - (14)*s(2,21) - (14)*s(2,31) - (218.620489077847)*s(3,11) - (88.6204890778469)*s(3,21) - (28)*s(3,31) =E= 0 ; (LHS = -14255.1273322584, INFES = 14255.1273322584 ****)
+     
+
+---- dynamics_speed  =E=  dynamics of the speed
+
+dynamics_speed(1,2)..  - 0.5*a(1,1) - v(1,1) + v(1,2) =E= 0 ; (LHS = 0)
+     
+dynamics_speed(1,3)..  - 0.5*a(1,2) - v(1,2) + v(1,3) =E= 0 ; (LHS = 0)
+     
+dynamics_speed(1,4)..  - 0.5*a(1,3) - v(1,3) + v(1,4) =E= 0 ; (LHS = 0)
+     
+REMAINING 87 ENTRIES SKIPPED
+
+
+---- dynamics_position  =E=  lower bound of a vehicle position
+
+dynamics_position(1,2)..  - 0.125*a(1,1) - 0.5*v(1,1) - s(1,1) + s(1,2) =E= 0 ; (LHS = 0.1, INFES = 0.1 ****)
+     
+dynamics_position(1,3)..  - 0.125*a(1,2) - 0.5*v(1,2) - s(1,2) + s(1,3) =E= 0 ; (LHS = 0)
+     
+dynamics_position(1,4)..  - 0.125*a(1,3) - 0.5*v(1,3) - s(1,3) + s(1,4) =E= 0 ; (LHS = 0)
+     
+REMAINING 87 ENTRIES SKIPPED
+
+
+---- car_following  =G=  car-following model
+
+car_following(1,2)..  - 0.6*v(1,2) + s(1,2) - s(2,2) =G= 0 ; (LHS = 0)
+     
+car_following(1,3)..  - 0.6*v(1,3) + s(1,3) - s(2,3) =G= 0 ; (LHS = 0)
+     
+car_following(1,4)..  - 0.6*v(1,4) + s(1,4) - s(2,4) =G= 0 ; (LHS = 0)
+     
+REMAINING 57 ENTRIES SKIPPED
+
+
+---- fuel_consumption  =E=  calculate fuel consumption rate
+
+fuel_consumption(1,1)..  f_inst(1,1) - (0.3547)*a(1,1) - (0.0599)*v(1,1) =E= 0.2736 ; (LHS = 0, INFES = 0.2736 ****)
+     
+fuel_consumption(1,2)..  f_inst(1,2) - (0.3547)*a(1,2) - (0.0599)*v(1,2) =E= 0.2736 ; (LHS = 0, INFES = 0.2736 ****)
+     
+fuel_consumption(1,3)..  f_inst(1,3) - (0.3547)*a(1,3) - (0.0599)*v(1,3) =E= 0.2736 ; (LHS = 0, INFES = 0.2736 ****)
+     
+REMAINING 90 ENTRIES SKIPPED
+
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE m Using NLP From line 71
+
+
+---- f  cost function
+
+f
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       cost
+
+
+---- f_inst  the instantanuous fuel consumption rate
+
+f_inst(1,1)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       cost
+        1       fuel_consumption(1,1)
+
+f_inst(1,2)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       cost
+        1       fuel_consumption(1,2)
+
+f_inst(1,3)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       cost
+        1       fuel_consumption(1,3)
+
+REMAINING 90 ENTRIES SKIPPED
+
+---- a  acceleration of vehicle i at time step k
+
+a(1,1)
+                (.LO, .L, .UP, .M = -5, 0, 4, 0)
+       -0.5     dynamics_speed(1,2)
+       -0.125   dynamics_position(1,2)
+      (-0.3547) fuel_consumption(1,1)
+
+a(1,2)
+                (.LO, .L, .UP, .M = -5, 0, 4, 0)
+       -0.5     dynamics_speed(1,3)
+       -0.125   dynamics_position(1,3)
+      (-0.3547) fuel_consumption(1,2)
+
+a(1,3)
+                (.LO, .L, .UP, .M = -5, 0, 4, 0)
+       -0.5     dynamics_speed(1,4)
+       -0.125   dynamics_position(1,4)
+      (-0.3547) fuel_consumption(1,3)
+
+REMAINING 90 ENTRIES SKIPPED
+
+---- v  speed of vehicle i on lane k at time step k
+
+v(1,1)
+                (.LO, .L, .UP, .M = 0, 0, 0, 0)
+       -1       dynamics_speed(1,2)
+       -0.5     dynamics_position(1,2)
+      (-0.0599) fuel_consumption(1,1)
+
+v(1,2)
+                (.LO, .L, .UP, .M = -1, 0, 11, 0)
+        1       dynamics_speed(1,2)
+       -1       dynamics_speed(1,3)
+       -0.5     dynamics_position(1,3)
+       -0.6     car_following(1,2)
+      (-0.0599) fuel_consumption(1,2)
+
+v(1,3)
+                (.LO, .L, .UP, .M = -1, 0, 11, 0)
+        1       dynamics_speed(1,3)
+       -1       dynamics_speed(1,4)
+       -0.5     dynamics_position(1,4)
+       -0.6     car_following(1,3)
+      (-0.0599) fuel_consumption(1,3)
+
+REMAINING 90 ENTRIES SKIPPED
+
+---- s  position of vehicle i on lane k at time step k
+
+s(1,1)
+                (.LO, .L, .UP, .M = -0.1, -0.1, -0.1, 0)
+       -1       dynamics_position(1,2)
+
+s(1,2)
+                (.LO, .L, .UP, .M = -200, 0, 700, 0)
+        1       dynamics_position(1,2)
+       -1       dynamics_position(1,3)
+        1       car_following(1,2)
+
+s(1,3)
+                (.LO, .L, .UP, .M = -200, 0, 700, 0)
+        1       dynamics_position(1,3)
+       -1       dynamics_position(1,4)
+        1       car_following(1,3)
+
+REMAINING 90 ENTRIES SKIPPED
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE m Using NLP From line 71
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS          334
+BLOCKS OF VARIABLES           5     SINGLE VARIABLES          373
+NON ZERO ELEMENTS         1,192     NON LINEAR N-Z            195
+CODE LENGTH               3,570     CONSTANT POOL              29
+
+
+GENERATION TIME      =        0.016 SECONDS      4 MB  49.1.0 5c4d4ed6 WEX-WEI
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE m Using NLP From line 71
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   m                   OBJECTIVE  f
+     TYPE    NLP                 DIRECTION  MINIMIZE
+     SOLVER  IPOPT               FROM LINE  71
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE              916.2205
+
+ RESOURCE USAGE, LIMIT          0.036 10000000000.000
+ ITERATION COUNT, LIMIT        23    2147483647
+ EVALUATION ERRORS              0             0
+
+COIN-OR Ipopt    49.1.0 5c4d4ed6 Feb 15, 2025          WEI x86 64bit/MS Window
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU cost                .              .              .             1.0000      
+
+  cost  cost function
+
+---- EQU dynamics_speed  dynamics of the speed
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.2           .              .              .            -0.6898      
+1.3           .       6.938894E-18          .            -0.6872      
+1.4           .              .              .            -0.6842      
+1.5           .              .              .            -0.6808      
+1.6           .              .              .            -0.6771      
+1.7           .              .              .            -0.6733      
+1.8           .       3.469447E-18          .            -0.6694      
+1.9           .       -8.67362E-19          .            -0.6655      
+1.10          .       -6.93889E-18          .            -0.6617      
+1.11          .              .              .            -0.6581      
+1.12          .              .              .            -0.6641      
+1.13          .              .              .            -0.6709      
+1.14          .              .              .            -0.6783      
+1.15          .              .              .            -0.6863      
+1.16          .       1.387779E-17          .            -0.6949      
+1.17          .       -1.73472E-18          .            -0.7039      
+1.18          .              .              .            -0.7131      
+1.19          .              .              .            -0.7224      
+1.20          .              .              .            -0.7315      
+1.21          .       -5.55112E-17          .            -0.7400      
+1.22          .              .              .            -0.7113      
+1.23          .       5.551115E-17          .            -0.6789      
+1.24          .       5.551115E-17          .            -0.6449      
+1.25          .       -5.55112E-17          .            -0.6105      
+1.26          .              .              .            -0.5767      
+1.27          .       -1.38778E-17          .            -0.5443      
+1.28          .              .              .            -0.5141      
+1.29          .              .              .            -0.4868      
+1.30          .       1.110223E-16          .            -0.4630      
+1.31          .              .              .            -0.4433      
+2.2           .              .              .             0.4530      
+2.3           .       -4.44089E-16          .             0.3458      
+2.4           .       -4.44089E-16          .             0.2329      
+2.5           .              .              .             0.1144      
+2.6           .              .              .            -0.0091      
+2.7           .       2.220446E-16          .            -0.1372      
+2.8           .              .              .            -0.2692      
+2.9           .              .              .            -0.4046      
+2.10          .              .              .            -0.5432      
+2.11          .       1.110223E-16          .            -0.6855      
+2.12          .       5.551115E-17          .            -0.6548      
+2.13          .              .              .            -0.6236      
+2.14          .       5.551115E-17          .            -0.5928      
+2.15          .              .              .            -0.5632      
+2.16          .              .              .            -0.5353      
+2.17          .              .              .            -0.5098      
+2.18          .       -5.55112E-17          .            -0.4873      
+2.19          .              .              .            -0.4682      
+2.20          .              .              .            -0.4532      
+2.21          .       2.220446E-16          .            -0.5528      
+2.22          .       -1.11022E-16          .            -0.5410      
+2.23          .              .              .            -0.5314      
+2.24          .              .              .            -0.5243      
+2.25          .              .              .            -0.5197      
+2.26          .       6.071532E-18          .            -0.5178      
+2.27          .       2.775558E-17          .            -0.5187      
+2.28          .       5.551115E-17          .            -0.5223      
+2.29          .       1.110223E-16          .            -0.5287      
+2.30          .       -1.11022E-16          .            -0.5379      
+2.31          .              .              .            -0.5497      
+3.2           .       8.881784E-16          .          -105.2595      
+3.3           .              .              .           -64.2363      
+3.4           .       -1.77636E-15          .           -23.2398      
+3.5           .              .              .            18.2720      
+3.6           .              .              .            19.2131      
+3.7           .              .              .            19.2131      
+3.8           .              .              .            19.2131      
+3.9           .              .              .            19.2131      
+3.10          .              .              .            19.2131      
+3.11          .              .              .            19.2131      
+3.12          .       1.776357E-15          .            11.5247      
+3.13          .              .              .            11.5247      
+3.14          .              .              .            11.5247      
+3.15          .              .              .            11.5247      
+3.16          .              .              .            11.5247      
+3.17          .              .              .            11.5247      
+3.18          .              .              .            11.5247      
+3.19          .              .              .            11.5247      
+3.20          .              .              .            11.5247      
+3.21          .       -1.77636E-15          .            11.5247      
+3.22          .              .              .            -1.1637      
+3.23          .              .              .            -1.1637      
+3.24          .              .              .            -1.1637      
+3.25          .              .              .            -1.1637      
+3.26          .              .              .            -1.1637      
+3.27          .              .              .            -1.1637      
+3.28          .              .              .            -1.1637      
+3.29          .              .              .            -1.1637      
+3.30          .              .              .            -0.9050      
+3.31          .              .              .            -0.0309      
+
+---- EQU dynamics_position  lower bound of a vehicle position
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.2           .              .              .            -0.1256      
+1.3           .       -1.38778E-17          .            -0.1256      
+1.4           .       6.938894E-18          .            -0.1256      
+1.5           .       -6.93889E-18          .            -0.1256      
+1.6           .       -5.20417E-18          .            -0.1256      
+1.7           .       1.734723E-18          .            -0.1256      
+1.8           .              .              .            -0.1256      
+1.9           .       -3.46945E-18          .            -0.1256      
+1.10          .       -3.46945E-18          .            -0.1256      
+1.11          .       3.469447E-18          .            -0.1256      
+1.12          .              .              .            -0.1075      
+1.13          .              .              .            -0.1075      
+1.14          .              .              .            -0.1075      
+1.15          .       -2.77556E-17          .            -0.1075      
+1.16          .       -5.55112E-17          .            -0.1075      
+1.17          .              .              .            -0.1075      
+1.18          .              .              .            -0.1075      
+1.19          .              .              .            -0.1075      
+1.20          .       -1.38778E-17          .            -0.1075      
+1.21          .       6.938894E-18          .            -0.1075      
+1.22          .              .              .            -0.1749      
+1.23          .              .              .            -0.1749      
+1.24          .              .              .            -0.1749      
+1.25          .              .              .            -0.1749      
+1.26          .       -1.11022E-16          .            -0.1749      
+1.27          .              .              .            -0.1749      
+1.28          .       1.110223E-16          .            -0.1749      
+1.29          .       -1.11022E-16          .            -0.1749      
+1.30          .              .              .            -0.1749      
+1.31          .       -4.16334E-17          .            -0.1749      
+2.2           .              .              .             0.1867      
+2.3           .              .              .             0.1867      
+2.4           .              .              .             0.1867      
+2.5           .       -1.77636E-15          .             0.1867      
+2.6           .       1.776357E-15          .             0.1867      
+2.7           .              .              .             0.1867      
+2.8           .              .              .             0.1867      
+2.9           .       8.881784E-16          .             0.1867      
+2.10          .              .              .             0.1867      
+2.11          .       8.881784E-16          .             0.1867      
+2.12          .              .              .            -0.1655      
+2.13          .              .              .            -0.1655      
+2.14          .              .              .            -0.1655      
+2.15          .       -8.88178E-16          .            -0.1655      
+2.16          .              .              .            -0.1655      
+2.17          .              .              .            -0.1655      
+2.18          .       -8.88178E-16          .            -0.1655      
+2.19          .              .              .            -0.1655      
+2.20          .              .              .            -0.1655      
+2.21          .              .              .            -0.1655      
+2.22          .       -8.88178E-16          .            -0.1119      
+2.23          .       8.881784E-16          .            -0.1119      
+2.24          .       8.881784E-16          .            -0.1119      
+2.25          .              .              .            -0.1119      
+2.26          .              .              .            -0.1119      
+2.27          .              .              .            -0.1119      
+2.28          .       8.881784E-16          .            -0.1119      
+2.29          .              .              .            -0.1119      
+2.30          .              .              .            -0.1119      
+2.31          .              .              .            -0.1119      
+3.2           .              .              .           -83.2014      
+3.3           .       -2.84217E-14          .           -83.2014      
+3.4           .              .              .           -83.2014      
+3.5           .       2.842171E-14          .           -83.2014      
+3.6           .              .              .           -83.2014      
+3.7           .       -2.84217E-14          .           -83.2014      
+3.8           .              .              .           -83.2014      
+3.9           .              .              .           -83.2014      
+3.10          .       -2.84217E-14          .           -83.2014      
+3.11          .       1.421085E-14          .           -83.2014      
+3.12          .       -1.42109E-14          .           -52.4478      
+3.13          .       1.421085E-14          .           -52.4478      
+3.14          .              .              .           -52.4478      
+3.15          .       -1.42109E-14          .           -52.4478      
+3.16          .              .              .           -52.4478      
+3.17          .       -1.42109E-14          .           -52.4478      
+3.18          .       1.421085E-14          .           -52.4478      
+3.19          .              .              .           -52.4478      
+3.20          .       -1.42109E-14          .           -52.4478      
+3.21          .              .              .           -52.4478      
+3.22          .              .              .            -1.6942      
+3.23          .       7.105427E-15          .            -1.6942      
+3.24          .              .              .            -1.6942      
+3.25          .              .              .            -1.6942      
+3.26          .       -7.10543E-15          .            -1.6942      
+3.27          .              .              .            -1.6942      
+3.28          .              .              .            -1.6942      
+3.29          .              .              .            -1.6942      
+3.30          .              .              .            -1.6942      
+3.31          .              .              .            -1.6942      
+
+---- EQU car_following  car-following model
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.2           .            16.1414        +INF      1.354189E-12      
+1.3           .            14.0780        +INF      1.552708E-12      
+1.4           .            12.3313        +INF      1.772672E-12      
+1.5           .            10.8819        +INF      2.008810E-12      
+1.6           .             9.7074        +INF      2.251891E-12      
+1.7           .             8.7818        +INF      2.489256E-12      
+1.8           .             8.0748        +INF      2.707217E-12      
+1.9           .             7.5502        +INF      2.895340E-12      
+1.10          .             7.1633        +INF      3.051713E-12      
+1.11          .             6.8560        +INF      3.188541E-12      
+1.12          .             6.5728        +INF      3.325914E-12      
+1.13          .             6.3043        +INF      3.467587E-12      
+1.14          .             6.0745        +INF      3.598777E-12      
+1.15          .             5.9066        +INF      3.701084E-12      
+1.16          .             5.8232        +INF      3.754100E-12      
+1.17          .             5.8464        +INF      3.739191E-12      
+1.18          .             5.9978        +INF      3.644763E-12      
+1.19          .             6.2984        +INF      3.470834E-12      
+1.20          .             6.7676        +INF      3.230197E-12      
+1.21          .             6.8508        +INF      3.190959E-12      
+1.22          .             6.5513        +INF      3.336821E-12      
+1.23          .             6.4025        +INF      3.414378E-12      
+1.24          .             6.3696        +INF      3.432056E-12      
+1.25          .             6.4273        +INF      3.401231E-12      
+1.26          .             6.5544        +INF      3.335247E-12      
+1.27          .             6.7316        +INF      3.247475E-12      
+1.28          .             6.9401        +INF      3.149890E-12      
+1.29          .             7.1616        +INF      3.052443E-12      
+1.30          .             7.3775        +INF      2.963106E-12      
+1.31          .             7.5685        +INF      2.888339E-12      
+2.2           .           152.6397        +INF      1.430078E-13      
+2.3           .           151.3358        +INF      1.442419E-13      
+2.4           .           148.7083        +INF      1.467944E-13      
+2.5           .           145.1447        +INF      1.504039E-13      
+2.6           .           141.1598        +INF      1.546558E-13      
+2.7           .           136.8966        +INF      1.594789E-13      
+2.8           .           132.3758        +INF      1.649328E-13      
+2.9           .           127.6219        +INF      1.710846E-13      
+2.10          .           122.6645        +INF      1.780078E-13      
+2.11          .           117.5377        +INF      1.857817E-13      
+2.12          .           112.3260        +INF      1.944118E-13      
+2.13          .           107.1031        +INF      2.039029E-13      
+2.14          .           101.8488        +INF      2.144334E-13      
+2.15          .            96.5451        +INF      2.262254E-13      
+2.16          .            91.1757        +INF      2.395607E-13      
+2.17          .            85.7257        +INF      2.548045E-13      
+2.18          .            80.1815        +INF      2.724385E-13      
+2.19          .            74.5302        +INF      2.931129E-13      
+2.20          .            68.7602        +INF      3.177275E-13      
+2.21          .            62.0602        +INF      3.520529E-13      
+2.22          .            57.1267        +INF      3.824756E-13      
+2.23          .            52.1008        +INF      4.193921E-13      
+2.24          .            46.9783        +INF      4.651459E-13      
+2.25          .            41.7558        +INF      5.233508E-13      
+2.26          .            36.4304        +INF      5.998867E-13      
+2.27          .            31.0002        +INF      7.050051E-13      
+2.28          .            25.4643        +INF      8.583188E-13      
+2.29          .            19.8229        +INF      1.102647E-12      
+2.30          .            14.1007        +INF      1.550203E-12      
+2.31          .             8.3911        +INF      2.605154E-12      
+
+---- EQU fuel_consumption  calculate fuel consumption rate
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1          0.2736         0.2736         0.2736         1.0000      
+1.2          0.2736         0.2736         0.2736         1.0000      
+1.3          0.2736         0.2736         0.2736         1.0000      
+1.4          0.2736         0.2736         0.2736         1.0000      
+1.5          0.2736         0.2736         0.2736         1.0000      
+1.6          0.2736         0.2736         0.2736         1.0000      
+1.7          0.2736         0.2736         0.2736         1.0000      
+1.8          0.2736         0.2736         0.2736         1.0000      
+1.9          0.2736         0.2736         0.2736         1.0000      
+1.10         0.2736         0.2736         0.2736         1.0000      
+1.11         0.2736         0.2736         0.2736         1.0000      
+1.12         0.2736         0.2736         0.2736         1.0000      
+1.13         0.2736         0.2736         0.2736         1.0000      
+1.14         0.2736         0.2736         0.2736         1.0000      
+1.15         0.2736         0.2736         0.2736         1.0000      
+1.16         0.2736         0.2736         0.2736         1.0000      
+1.17         0.2736         0.2736         0.2736         1.0000      
+1.18         0.2736         0.2736         0.2736         1.0000      
+1.19         0.2736         0.2736         0.2736         1.0000      
+1.20         0.2736         0.2736         0.2736         1.0000      
+1.21         0.2736         0.2736         0.2736         1.0000      
+1.22         0.2736         0.2736         0.2736         1.0000      
+1.23         0.2736         0.2736         0.2736         1.0000      
+1.24         0.2736         0.2736         0.2736         1.0000      
+1.25         0.2736         0.2736         0.2736         1.0000      
+1.26         0.2736         0.2736         0.2736         1.0000      
+1.27         0.2736         0.2736         0.2736         1.0000      
+1.28         0.2736         0.2736         0.2736         1.0000      
+1.29         0.2736         0.2736         0.2736         1.0000      
+1.30         0.2736         0.2736         0.2736         1.0000      
+1.31         0.2736         0.2736         0.2736         1.0000      
+2.1          0.2736         0.2736         0.2736         1.0000      
+2.2          0.2736         0.2736         0.2736         1.0000      
+2.3          0.2736         0.2736         0.2736         1.0000      
+2.4          0.2736         0.2736         0.2736         1.0000      
+2.5          0.2736         0.2736         0.2736         1.0000      
+2.6          0.2736         0.2736         0.2736         1.0000      
+2.7          0.2736         0.2736         0.2736         1.0000      
+2.8          0.2736         0.2736         0.2736         1.0000      
+2.9          0.2736         0.2736         0.2736         1.0000      
+2.10         0.2736         0.2736         0.2736         1.0000      
+2.11         0.2736         0.2736         0.2736         1.0000      
+2.12         0.2736         0.2736         0.2736         1.0000      
+2.13         0.2736         0.2736         0.2736         1.0000      
+2.14         0.2736         0.2736         0.2736         1.0000      
+2.15         0.2736         0.2736         0.2736         1.0000      
+2.16         0.2736         0.2736         0.2736         1.0000      
+2.17         0.2736         0.2736         0.2736         1.0000      
+2.18         0.2736         0.2736         0.2736         1.0000      
+2.19         0.2736         0.2736         0.2736         1.0000      
+2.20         0.2736         0.2736         0.2736         1.0000      
+2.21         0.2736         0.2736         0.2736         1.0000      
+2.22         0.2736         0.2736         0.2736         1.0000      
+2.23         0.2736         0.2736         0.2736         1.0000      
+2.24         0.2736         0.2736         0.2736         1.0000      
+2.25         0.2736         0.2736         0.2736         1.0000      
+2.26         0.2736         0.2736         0.2736         1.0000      
+2.27         0.2736         0.2736         0.2736         1.0000      
+2.28         0.2736         0.2736         0.2736         1.0000      
+2.29         0.2736         0.2736         0.2736         1.0000      
+2.30         0.2736         0.2736         0.2736         1.0000      
+2.31         0.2736         0.2736         0.2736         1.0000      
+3.1          0.2736         0.2736         0.2736         1.0000      
+3.2          0.2736         0.2736         0.2736         1.0000      
+3.3          0.2736         0.2736         0.2736         1.0000      
+3.4          0.2736         0.2736         0.2736         1.0000      
+3.5          0.2736         0.2736         0.2736         1.0000      
+3.6          0.2736         0.2736         0.2736         1.0000      
+3.7          0.2736         0.2736         0.2736         1.0000      
+3.8          0.2736         0.2736         0.2736         1.0000      
+3.9          0.2736         0.2736         0.2736         1.0000      
+3.10         0.2736         0.2736         0.2736         1.0000      
+3.11         0.2736         0.2736         0.2736         1.0000      
+3.12         0.2736         0.2736         0.2736         1.0000      
+3.13         0.2736         0.2736         0.2736         1.0000      
+3.14         0.2736         0.2736         0.2736         1.0000      
+3.15         0.2736         0.2736         0.2736         1.0000      
+3.16         0.2736         0.2736         0.2736         1.0000      
+3.17         0.2736         0.2736         0.2736         1.0000      
+3.18         0.2736         0.2736         0.2736         1.0000      
+3.19         0.2736         0.2736         0.2736         1.0000      
+3.20         0.2736         0.2736         0.2736         1.0000      
+3.21         0.2736         0.2736         0.2736         1.0000      
+3.22         0.2736         0.2736         0.2736         1.0000      
+3.23         0.2736         0.2736         0.2736         1.0000      
+3.24         0.2736         0.2736         0.2736         1.0000      
+3.25         0.2736         0.2736         0.2736         1.0000      
+3.26         0.2736         0.2736         0.2736         1.0000      
+3.27         0.2736         0.2736         0.2736         1.0000      
+3.28         0.2736         0.2736         0.2736         1.0000      
+3.29         0.2736         0.2736         0.2736         1.0000      
+3.30         0.2736         0.2736         0.2736         1.0000      
+3.31         0.2736         0.2736         0.2736         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR f                 -INF          916.2205        +INF             .          
+
+  f  cost function
+
+---- VAR f_inst  the instantanuous fuel consumption rate
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1         -INF            0.2904        +INF            EPS         
+1.2         -INF            0.2866        +INF            EPS         
+1.3         -INF            0.2824        +INF            EPS         
+1.4         -INF            0.2779        +INF            EPS         
+1.5         -INF            0.2731        +INF            EPS         
+1.6         -INF            0.2682        +INF            EPS         
+1.7         -INF            0.2632        +INF            EPS         
+1.8         -INF            0.2581        +INF            EPS         
+1.9         -INF            0.2532        +INF            EPS         
+1.10        -INF            0.2484        +INF            EPS         
+1.11        -INF            0.2492        +INF            EPS         
+1.12        -INF            0.2569        +INF            EPS         
+1.13        -INF            0.2665        +INF            EPS         
+1.14        -INF            0.2781        +INF            EPS         
+1.15        -INF            0.2917        +INF            EPS         
+1.16        -INF            0.3069        +INF            EPS         
+1.17        -INF            0.3232        +INF            EPS         
+1.18        -INF            0.3397        +INF            EPS         
+1.19        -INF            0.3551        +INF            EPS         
+1.20        -INF            0.3680        +INF            EPS         
+1.21        -INF            0.3396        +INF            EPS         
+1.22        -INF            0.2947        +INF            EPS         
+1.23        -INF            0.2592        +INF            EPS         
+1.24        -INF            0.2279        +INF            EPS         
+1.25        -INF            0.1989        +INF            EPS         
+1.26        -INF            0.1710        +INF            EPS         
+1.27        -INF            0.1438        +INF            EPS         
+1.28        -INF            0.1165        +INF            EPS         
+1.29        -INF            0.0888        +INF            EPS         
+1.30        -INF            0.0602        +INF            EPS         
+1.31        -INF           -0.0550        +INF            EPS         
+2.1         -INF            0.2389        +INF            EPS         
+2.2         -INF            0.2207        +INF            EPS         
+2.3         -INF            0.2004        +INF            EPS         
+2.4         -INF            0.1795        +INF            EPS         
+2.5         -INF            0.1600        +INF            EPS         
+2.6         -INF            0.1444        +INF            EPS         
+2.7         -INF            0.1363        +INF            EPS         
+2.8         -INF            0.1409        +INF            EPS         
+2.9         -INF            0.1661        +INF            EPS         
+2.10        -INF            0.2281        +INF            EPS         
+2.11        -INF            0.2696        +INF            EPS         
+2.12        -INF            0.2414        +INF            EPS         
+2.13        -INF            0.2149        +INF            EPS         
+2.14        -INF            0.1896        +INF            EPS         
+2.15        -INF            0.1647        +INF            EPS         
+2.16        -INF            0.1400        +INF            EPS         
+2.17        -INF            0.1150        +INF            EPS         
+2.18        -INF            0.0895        +INF            EPS         
+2.19        -INF            0.0632        +INF            EPS         
+2.20        -INF           -0.8979        +INF            EPS         
+2.21        -INF            0.2014        +INF            EPS         
+2.22        -INF            0.1887        +INF            EPS         
+2.23        -INF            0.1760        +INF            EPS         
+2.24        -INF            0.1635        +INF            EPS         
+2.25        -INF            0.1514        +INF            EPS         
+2.26        -INF            0.1397        +INF            EPS         
+2.27        -INF            0.1288        +INF            EPS         
+2.28        -INF            0.1191        +INF            EPS         
+2.29        -INF            0.1111        +INF            EPS         
+2.30        -INF            0.1055        +INF            EPS         
+2.31        -INF           -0.0550        +INF            EPS         
+3.1         -INF            2.0416        +INF            EPS         
+3.2         -INF            3.1736        +INF            EPS         
+3.3         -INF            4.3545        +INF            EPS         
+3.4         -INF            1.5349        +INF            EPS         
+3.5         -INF            0.4969        +INF            EPS         
+3.6         -INF            0.4969        +INF            EPS         
+3.7         -INF            0.4969        +INF            EPS         
+3.8         -INF            0.4969        +INF            EPS         
+3.9         -INF            0.4969        +INF            EPS         
+3.10        -INF            0.4969        +INF            EPS         
+3.11        -INF            0.4969        +INF            EPS         
+3.12        -INF            0.4969        +INF            EPS         
+3.13        -INF            0.4969        +INF            EPS         
+3.14        -INF            0.4969        +INF            EPS         
+3.15        -INF            0.4969        +INF            EPS         
+3.16        -INF            0.4969        +INF            EPS         
+3.17        -INF            0.4969        +INF            EPS         
+3.18        -INF            0.4969        +INF            EPS         
+3.19        -INF            0.4969        +INF            EPS         
+3.20        -INF            0.4969        +INF            EPS         
+3.21        -INF            0.4969        +INF            EPS         
+3.22        -INF            0.4969        +INF            EPS         
+3.23        -INF            0.4969        +INF            EPS         
+3.24        -INF            0.4969        +INF            EPS         
+3.25        -INF            0.4969        +INF            EPS         
+3.26        -INF            0.4969        +INF            EPS         
+3.27        -INF            0.4969        +INF            EPS         
+3.28        -INF            0.4969        +INF            EPS         
+3.29        -INF            0.3618        +INF            EPS         
+3.30        -INF            0.1192        +INF            EPS         
+3.31        -INF            0.1020        +INF            EPS         
+
+---- VAR a  acceleration of vehicle i at time step k
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1         -5.0000         0.0469         4.0000   -1.19852E-12      
+1.2         -5.0000         0.0325         4.0000   -1.16604E-12      
+1.3         -5.0000         0.0180         4.0000   -1.13357E-12      
+1.4         -5.0000         0.0038         4.0000   -1.10168E-12      
+1.5         -5.0000        -0.0099         4.0000   -1.07087E-12      
+1.6         -5.0000        -0.0230         4.0000   -1.04154E-12      
+1.7         -5.0000        -0.0354         4.0000   -1.01405E-12      
+1.8         -5.0000        -0.0467         4.0000   -9.88706E-13      
+1.9         -5.0000        -0.0570         4.0000   -9.65805E-13      
+1.10        -5.0000        -0.0661         4.0000   -9.45619E-13      
+1.11        -5.0000        -0.0579         4.0000   -9.63895E-13      
+1.12        -5.0000        -0.0309         4.0000   -1.02398E-12      
+1.13        -5.0000        -0.0008         4.0000   -1.09124E-12      
+1.14        -5.0000         0.0320         4.0000   -1.16507E-12      
+1.15        -5.0000         0.0671         4.0000   -1.24420E-12      
+1.16        -5.0000         0.1032         4.0000   -1.32633E-12      
+1.17        -5.0000         0.1388         4.0000   -1.40769E-12      
+1.18        -5.0000         0.1714         4.0000   -1.48260E-12      
+1.19        -5.0000         0.1978         4.0000   -1.54387E-12      
+1.20        -5.0000         0.2154         4.0000   -1.58479E-12      
+1.21        -5.0000         0.1238         4.0000   -1.37341E-12      
+1.22        -5.0000        -0.0071         4.0000   -1.07730E-12      
+1.23        -5.0000        -0.1070         4.0000   -8.55067E-13      
+1.24        -5.0000        -0.1918         4.0000   -6.68601E-13      
+1.25        -5.0000        -0.2669         4.0000   -5.04574E-13      
+1.26        -5.0000        -0.3350         4.0000   -3.56728E-13      
+1.27        -5.0000        -0.3974         4.0000   -2.21736E-13      
+1.28        -5.0000        -0.4547         4.0000   -9.77823E-14      
+1.29        -5.0000        -0.5074         4.0000   1.603833E-14      
+1.30        -5.0000        -0.5556         4.0000   1.199952E-13      
+1.31        -5.0000        -1.2612         4.0000   1.692107E-12      
+2.1         -5.0000        -1.3034         4.0000   1.791797E-12      
+2.2         -5.0000        -1.2536         4.0000   1.674225E-12      
+2.3         -5.0000        -1.1954         4.0000   1.538208E-12      
+2.4         -5.0000        -1.1267         4.0000   1.380043E-12      
+2.5         -5.0000        -1.0453         4.0000   1.195001E-12      
+2.6         -5.0000        -0.9479         4.0000   9.767053E-13      
+2.7         -5.0000        -0.8298         4.0000   7.159018E-13      
+2.8         -5.0000        -0.6839         4.0000   3.977026E-13      
+2.9         -5.0000        -0.4973         4.0000   -5.82426E-15      
+2.10        -5.0000        -0.2399         4.0000   -5.63497E-13      
+2.11        -5.0000        -0.0976         4.0000   -8.75911E-13      
+2.12        -5.0000        -0.1731         4.0000   -7.09653E-13      
+2.13        -5.0000        -0.2407         4.0000   -5.61839E-13      
+2.14        -5.0000        -0.3022         4.0000   -4.27905E-13      
+2.15        -5.0000        -0.3587         4.0000   -3.05348E-13      
+2.16        -5.0000        -0.4108         4.0000   -1.92785E-13      
+2.17        -5.0000        -0.4585         4.0000   -8.95472E-14      
+2.18        -5.0000        -0.5021         4.0000   4.523864E-15      
+2.19        -5.0000        -0.5413         4.0000   8.916678E-14      
+2.20        -5.0000         4.0000         4.0000        -1.9711      
+2.21        -5.0000        -0.3797         4.0000   -2.59941E-13      
+2.22        -5.0000        -0.3945         4.0000   -2.27905E-13      
+2.23        -5.0000        -0.4063         4.0000   -2.02457E-13      
+2.24        -5.0000        -0.4146         4.0000   -1.84373E-13      
+2.25        -5.0000        -0.4192         4.0000   -1.74584E-13      
+2.26        -5.0000        -0.4193         4.0000   -1.74211E-13      
+2.27        -5.0000        -0.4145         4.0000   -1.84614E-13      
+2.28        -5.0000        -0.4040         4.0000   -2.07482E-13      
+2.29        -5.0000        -0.3866         4.0000   -2.44957E-13      
+2.30        -5.0000        -0.3613         4.0000   -2.99871E-13      
+2.31        -5.0000        -1.2612         4.0000   1.692107E-12      
+3.1         -5.0000         4.0000         4.0000       -63.4892      
+3.2         -5.0000         4.0000         4.0000       -42.5058      
+3.3         -5.0000         4.0000         4.0000       -21.5198      
+3.4         -5.0000         1.0021         4.0000   -3.64994E-12      
+3.5         -5.0000   2.318968E-14         4.0000   -1.09310E-12      
+3.6         -5.0000   3.841491E-16         4.0000   -1.09310E-12      
+3.7         -5.0000   -1.76289E-16         4.0000   -1.09310E-12      
+3.8         -5.0000   1.139805E-15         4.0000   -1.09310E-12      
+3.9         -5.0000   6.603211E-16         4.0000   -1.09310E-12      
+3.10        -5.0000   -2.37191E-13         4.0000   -1.09310E-12      
+3.11        -5.0000   -3.79146E-13         4.0000   -1.09310E-12      
+3.12        -5.0000   -7.70689E-16         4.0000   -1.09310E-12      
+3.13        -5.0000   -1.66435E-15         4.0000   -1.09310E-12      
+3.14        -5.0000   -1.52326E-15         4.0000   -1.09310E-12      
+3.15        -5.0000   7.124375E-16         4.0000   -1.09310E-12      
+3.16        -5.0000   3.380560E-16         4.0000   -1.09310E-12      
+3.17        -5.0000   1.579263E-15         4.0000   -1.09310E-12      
+3.18        -5.0000   -4.90527E-17         4.0000   -1.09310E-12      
+3.19        -5.0000   -5.29308E-16         4.0000   -1.09310E-12      
+3.20        -5.0000   -1.56382E-12         4.0000   -1.09310E-12      
+3.21        -5.0000   -4.86848E-11         4.0000   -1.09310E-12      
+3.22        -5.0000   -6.32095E-16         4.0000   -1.09310E-12      
+3.23        -5.0000   4.032333E-16         4.0000   -1.09310E-12      
+3.24        -5.0000   -4.62347E-17         4.0000   -1.09310E-12      
+3.25        -5.0000   -2.08970E-16         4.0000   -1.09310E-12      
+3.26        -5.0000   -4.74614E-16         4.0000   -1.09310E-12      
+3.27        -5.0000   1.010550E-15         4.0000   -1.09310E-12      
+3.28        -5.0000   -2.16784E-11         4.0000   -1.09310E-12      
+3.29        -5.0000        -0.1851         4.0000   -6.83247E-13      
+3.30        -5.0000        -0.7249         4.0000   4.868804E-13      
+3.31        -5.0000        -0.9679         4.0000   1.021229E-12      
+
+---- VAR v  speed of vehicle i on lane k at time step k
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1           .              .              .            -0.6918      
+1.2         -1.0000         0.0234        11.0000   1.936968E-11      
+1.3         -1.0000         0.0397        11.0000   1.903318E-11      
+1.4         -1.0000         0.0487        11.0000   1.885074E-11      
+1.5         -1.0000         0.0506        11.0000   1.881241E-11      
+1.6         -1.0000         0.0456        11.0000   1.891209E-11      
+1.7         -1.0000         0.0341        11.0000   1.914717E-11      
+1.8         -1.0000         0.0164        11.0000   1.951820E-11      
+1.9         -1.0000        -0.0069        11.0000   2.002865E-11      
+1.10        -1.0000        -0.0355        11.0000   2.068472E-11      
+1.11        -1.0000        -0.0685        11.0000   2.149516E-11      
+1.12        -1.0000        -0.0975        11.0000   2.225314E-11      
+1.13        -1.0000        -0.1129        11.0000   2.267800E-11      
+1.14        -1.0000        -0.1133        11.0000   2.268961E-11      
+1.15        -1.0000        -0.0973        11.0000   2.224918E-11      
+1.16        -1.0000        -0.0638        11.0000   2.137560E-11      
+1.17        -1.0000        -0.0122        11.0000   2.014621E-11      
+1.18        -1.0000         0.0572        11.0000   1.868075E-11      
+1.19        -1.0000         0.1429        11.0000   1.711482E-11      
+1.20        -1.0000         0.2418        11.0000   1.557274E-11      
+1.21        -1.0000         0.3495        11.0000   1.414711E-11      
+1.22        -1.0000         0.4114        11.0000   1.342440E-11      
+1.23        -1.0000         0.4079        11.0000   1.346391E-11      
+1.24        -1.0000         0.3544        11.0000   1.408771E-11      
+1.25        -1.0000         0.2585        11.0000   1.533605E-11      
+1.26        -1.0000         0.1250        11.0000   1.742191E-11      
+1.27        -1.0000        -0.0425        11.0000   2.085175E-11      
+1.28        -1.0000        -0.2411        11.0000   2.686441E-11      
+1.29        -1.0000        -0.4685        11.0000   3.922674E-11      
+1.30        -1.0000        -0.7222        11.0000   7.683702E-11      
+1.31        -1.0000        -1.0000        11.0000         0.5369      
+2.1          5.1040         5.1040         5.1040         0.5544      
+2.2         -1.0000         4.4524        11.0000   6.707344E-13      
+2.3         -1.0000         3.8255        11.0000   1.483288E-12      
+2.4         -1.0000         3.2278        11.0000   2.358098E-12      
+2.5         -1.0000         2.6645        11.0000   3.343188E-12      
+2.6         -1.0000         2.1418        11.0000   4.490404E-12      
+2.7         -1.0000         1.6679        11.0000   5.851855E-12      
+2.8         -1.0000         1.2530        11.0000   7.460588E-12      
+2.9         -1.0000         0.9111        11.0000   9.272836E-12      
+2.10        -1.0000         0.6624        11.0000   1.103604E-11      
+2.11        -1.0000         0.5425        11.0000   1.208298E-11      
+2.12        -1.0000         0.4937        11.0000   1.255567E-11      
+2.13        -1.0000         0.4071        11.0000   1.347279E-11      
+2.14        -1.0000         0.2868        11.0000   1.494881E-11      
+2.15        -1.0000         0.1357        11.0000   1.723762E-11      
+2.16        -1.0000        -0.0437        11.0000   2.088065E-11      
+2.17        -1.0000        -0.2490        11.0000   2.716870E-11      
+2.18        -1.0000        -0.4783        11.0000   4.000127E-11      
+2.19        -1.0000        -0.7294        11.0000   7.891373E-11      
+2.20        -1.0000        -1.0000        11.0000         0.3373      
+2.21        -1.0000         1.0000        11.0000   8.744820E-12      
+2.22        -1.0000         0.8102        11.0000   9.932004E-12      
+2.23        -1.0000         0.6129        11.0000   1.144980E-11      
+2.24        -1.0000         0.4098        11.0000   1.344330E-11      
+2.25        -1.0000         0.2024        11.0000   1.615673E-11      
+2.26        -1.0000        -0.0071        11.0000   2.003328E-11      
+2.27        -1.0000        -0.2168        11.0000   2.596541E-11      
+2.28        -1.0000        -0.4241        11.0000   3.604689E-11      
+2.29        -1.0000        -0.6261        11.0000   5.658566E-11      
+2.30        -1.0000        -0.8194        11.0000   1.193321E-10      
+2.31        -1.0000        -1.0000        11.0000         0.6432      
+3.1          4.4990         4.4990         4.4990      -146.3048      
+3.2         -1.0000         6.4990        11.0000   -1.94178E-12      
+3.3         -1.0000         8.4990        11.0000   -6.43970E-12      
+3.4         -1.0000        10.4990        11.0000   -4.17330E-11      
+3.5         -1.0000        11.0000        11.0000       -40.6547      
+3.6         -1.0000        11.0000        11.0000       -41.5958      
+3.7         -1.0000        11.0000        11.0000       -41.5958      
+3.8         -1.0000        11.0000        11.0000       -41.5958      
+3.9         -1.0000        11.0000        11.0000       -41.5958      
+3.10        -1.0000        11.0000        11.0000       -41.5958      
+3.11        -1.0000        11.0000        11.0000       -33.9074      
+3.12        -1.0000        11.0000        11.0000       -26.2190      
+3.13        -1.0000        11.0000        11.0000       -26.2190      
+3.14        -1.0000        11.0000        11.0000       -26.2190      
+3.15        -1.0000        11.0000        11.0000       -26.2190      
+3.16        -1.0000        11.0000        11.0000       -26.2190      
+3.17        -1.0000        11.0000        11.0000       -26.2190      
+3.18        -1.0000        11.0000        11.0000       -26.2190      
+3.19        -1.0000        11.0000        11.0000       -26.2190      
+3.20        -1.0000        11.0000        11.0000       -26.2190      
+3.21        -1.0000        11.0000        11.0000       -13.5306      
+3.22        -1.0000        11.0000        11.0000        -0.8422      
+3.23        -1.0000        11.0000        11.0000        -0.8422      
+3.24        -1.0000        11.0000        11.0000        -0.8422      
+3.25        -1.0000        11.0000        11.0000        -0.8422      
+3.26        -1.0000        11.0000        11.0000        -0.8422      
+3.27        -1.0000        11.0000        11.0000        -0.8422      
+3.28        -1.0000        11.0000        11.0000        -0.8422      
+3.29        -1.0000        11.0000        11.0000        -0.5941      
+3.30        -1.0000        10.9074        11.0000   -2.34366E-10      
+3.31        -1.0000        10.5450        11.0000   -4.61526E-11      
+
+---- VAR s  position of vehicle i on lane k at time step k
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1         -0.1000        -0.1000        -0.1000        -0.1256      
+1.2       -200.0000        -0.0941       700.0000   7.813442E-14      
+1.3       -200.0000        -0.0784       700.0000   7.812509E-14      
+1.4       -200.0000        -0.0563       700.0000   7.811202E-14      
+1.5       -200.0000        -0.0315       700.0000   7.809734E-14      
+1.6       -200.0000        -0.0074       700.0000   7.808311E-14      
+1.7       -200.0000         0.0125       700.0000   7.807133E-14      
+1.8       -200.0000         0.0252       700.0000   7.806386E-14      
+1.9       -200.0000         0.0276       700.0000   7.806246E-14      
+1.10      -200.0000         0.0170       700.0000   7.806872E-14      
+1.11      -200.0000        -0.0090       700.0000   7.808409E-14      
+1.12      -200.0000        -0.0505       700.0000   7.810863E-14      
+1.13      -200.0000        -0.1031       700.0000   7.813975E-14      
+1.14      -200.0000        -0.1597       700.0000   7.817323E-14      
+1.15      -200.0000        -0.2124       700.0000   7.820442E-14      
+1.16      -200.0000        -0.2527       700.0000   7.822828E-14      
+1.17      -200.0000        -0.2716       700.0000   7.823953E-14      
+1.18      -200.0000        -0.2604       700.0000   7.823286E-14      
+1.19      -200.0000        -0.2103       700.0000   7.820321E-14      
+1.20      -200.0000        -0.1142       700.0000   7.814627E-14      
+1.21      -200.0000         0.0337       700.0000   7.805884E-14      
+1.22      -200.0000         0.2239       700.0000   7.794651E-14      
+1.23      -200.0000         0.4288       700.0000   7.782577E-14      
+1.24      -200.0000         0.6193       700.0000   7.771363E-14      
+1.25      -200.0000         0.7726       700.0000   7.762361E-14      
+1.26      -200.0000         0.8685       700.0000   7.756734E-14      
+1.27      -200.0000         0.8891       700.0000   7.755524E-14      
+1.28      -200.0000         0.8182       700.0000   7.759683E-14      
+1.29      -200.0000         0.6408       700.0000   7.770102E-14      
+1.30      -200.0000         0.3431       700.0000   7.787622E-14      
+1.31      -200.0000        -0.0874       700.0000   7.813046E-14      
+2.1        -18.6387       -18.6387       -18.6387         0.1867      
+2.2       -200.0000       -16.2496       700.0000   8.845394E-14      
+2.3       -200.0000       -14.1801       700.0000   8.704045E-14      
+2.4       -200.0000       -12.4168       700.0000   8.585871E-14      
+2.5       -200.0000       -10.9437       700.0000   8.488703E-14      
+2.6       -200.0000        -9.7421       700.0000   8.410466E-14      
+2.7       -200.0000        -8.7897       700.0000   8.349091E-14      
+2.8       -200.0000        -8.0595       700.0000   8.302412E-14      
+2.9       -200.0000        -7.5185       700.0000   8.268037E-14      
+2.10      -200.0000        -7.1251       700.0000   8.243154E-14      
+2.11      -200.0000        -6.8239       700.0000   8.224162E-14      
+2.12      -200.0000        -6.5649       700.0000   8.207873E-14      
+2.13      -200.0000        -6.3397       700.0000   8.193744E-14      
+2.14      -200.0000        -6.1662       700.0000   8.182880E-14      
+2.15      -200.0000        -6.0606       700.0000   8.176274E-14      
+2.16      -200.0000        -6.0376       700.0000   8.174836E-14      
+2.17      -200.0000        -6.1107       700.0000   8.179411E-14      
+2.18      -200.0000        -6.2926       700.0000   8.190793E-14      
+2.19      -200.0000        -6.5945       700.0000   8.209734E-14      
+2.20      -200.0000        -7.0268       700.0000   8.236951E-14      
+2.21      -200.0000        -7.0268       700.0000   8.236951E-14      
+2.22      -200.0000        -6.5743       700.0000   8.208465E-14      
+2.23      -200.0000        -6.2185       700.0000   8.186156E-14      
+2.24      -200.0000        -5.9629       700.0000   8.170170E-14      
+2.25      -200.0000        -5.8098       700.0000   8.160618E-14      
+2.26      -200.0000        -5.7610       700.0000   8.157574E-14      
+2.27      -200.0000        -5.8170       700.0000   8.161066E-14      
+2.28      -200.0000        -5.9772       700.0000   8.171066E-14      
+2.29      -200.0000        -6.2397       700.0000   8.187484E-14      
+2.30      -200.0000        -6.6011       700.0000   8.210149E-14      
+2.31      -200.0000        -7.0559       700.0000   8.238788E-14      
+3.1       -174.3102      -174.3102      -174.3102       -83.2014      
+3.2       -200.0000      -171.5608       700.0000   7.436445E-13      
+3.3       -200.0000      -167.8113       700.0000   6.539913E-13      
+3.4       -200.0000      -163.0618       700.0000   5.665238E-13      
+3.5       -200.0000      -157.6870       700.0000   4.911856E-13      
+3.6       -200.0000      -152.1870       700.0000   4.315871E-13      
+3.7       -200.0000      -146.6870       700.0000   3.842494E-13      
+3.8       -200.0000      -141.1870       700.0000   3.457322E-13      
+3.9       -200.0000      -135.6870       700.0000   3.137717E-13      
+3.10      -200.0000      -130.1870       700.0000   2.868179E-13      
+3.11      -200.0000      -124.6870       700.0000   2.637732E-13      
+3.12      -200.0000      -119.1870       700.0000   2.438391E-13      
+3.13      -200.0000      -113.6870       700.0000   2.264203E-13      
+3.14      -200.0000      -108.1870       700.0000   2.110644E-13      
+3.15      -200.0000      -102.6870       700.0000   1.974211E-13      
+3.16      -200.0000       -97.1870       700.0000   1.852151E-13      
+3.17      -200.0000       -91.6870       700.0000   1.742270E-13      
+3.18      -200.0000       -86.1870       700.0000   1.642798E-13      
+3.19      -200.0000       -80.6870       700.0000   1.552292E-13      
+3.20      -200.0000       -75.1870       700.0000   1.469562E-13      
+3.21      -200.0000       -69.6870       700.0000   1.393619E-13      
+3.22      -200.0000       -64.1870       700.0000   1.323635E-13      
+3.23      -200.0000       -58.6870       700.0000   1.258910E-13      
+3.24      -200.0000       -53.1870       700.0000   1.198848E-13      
+3.25      -200.0000       -47.6870       700.0000   1.142942E-13      
+3.26      -200.0000       -42.1870       700.0000   1.090751E-13      
+3.27      -200.0000       -36.6870       700.0000   1.041898E-13      
+3.28      -200.0000       -31.1870       700.0000   9.960518E-14      
+3.29      -200.0000       -25.6870       700.0000   9.529238E-14      
+3.30      -200.0000       -20.2102       700.0000   9.124272E-14      
+3.31      -200.0000       -14.8471       700.0000   8.749281E-14      
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:44 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+EXECUTION TIME       =        0.250 SECONDS      4 MB  49.1.0 5c4d4ed6 WEX-WEI
+
+
+USER: Chris Ritthikarn                               G250228+0003Ac-GEN
+      pritthik@uw.edu                                         CLA107628
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\UW_intersection_faster.gms
+Output     C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\_gams_py_gjo187.lst

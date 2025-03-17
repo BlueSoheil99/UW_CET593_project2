@@ -1,0 +1,563 @@
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  *option nlp=SCIP;
+   2  option nlp=IPOPT;
+   3  *option nlp=CONOPT;
+   4   
+   5  parameter
+   6           model_status,
+   7           solver_status;
+   8  sets
+   9           i 'vehicles',
+  10           k 'prediction steps';
+  11   
+  12  parameter
+  13           h 'length of the time interval',
+  14           tau 'tau in the car-following model',
+  15           d_0 'd_0 in the car-following model',
+  16           k_dynamics(k) 'dynamic prediction steps used to calculate the differences',
+  17           k_critical_points(k) 'the position where there should be critical points',
+  18           s_init(i) 'initial position of vehicle i',
+  19           s_critical(i,k) 'critical position points of vehicle i at time k',
+  20           v_init(i) 'initial speed of vehicle i',
+  21           veh_dynamics(i) 'indicator of vehicles to calculate the car-following distances';
+  22  *$gdxin _gams_py_gdb1
+GDXIN   C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\_gams_py_gdb368.gdx
+--- LOAD  i = 7:i
+--- LOAD  k = 1:k
+--- LOAD  h = 2:h
+--- LOAD  tau = 3:tau
+--- LOAD  d_0 = 4:d_0
+--- LOAD  k_dynamics = 5:k_dynamics
+--- LOAD  k_critical_points = 6:k_critical_points
+--- LOAD  s_init = 9:s_init
+--- LOAD  s_critical = 8:s_critical
+--- LOAD  v_init = 10:v_init
+--- LOAD  veh_dynamics = 11:veh_dynamics
+  27   
+  28  variable
+  29           f 'cost function',
+  30           f_inst(i,k) 'the instantanuous fuel consumption rate',
+  31           f_position(i,k) 'position penalty',
+  32           a(i,k) 'acceleration of vehicle i at time step k',
+  33           v(i,k) 'speed of vehicle i on lane k at time step k',
+  34           s(i,k) 'position of vehicle i on lane k at time step k';
+  35   
+  36  equations
+  37           cost 'cost function',
+  38           fuel_consumption(i,k) 'calculate fuel consumption rate',
+  39           dynamics_speed(i,k) 'dynamics of the speed',
+  40           dynamics_position(i,k) 'lower bound of a vehicle position',
+  41           car_following(i,k) 'car-following model',
+  42           position_penalty(i,k) 'car-following model';
+  43   
+  44  *Cost function. A relaxed version of Equation (24). We do not require exact match for the critical points. Instead, we try to minimizze the errors for matching those points.
+  45  cost..                                                                           f =e= sum(k, sum(i, f_inst(i,k))) + sum(k$(k_critical_points(k) ne 0), sum(i, power(s(i,k) - s_critical(i,k), 2)));
+  46   
+  47  *Equation (25a)
+  48  dynamics_speed(i,k)$(k_dynamics(k) ne 0)..                                       v(i,k) - v(i,k-1) =e= h*a(i,k-1);
+  49   
+  50  *Equation (25b)
+  51  dynamics_position(i,k)$(k_dynamics(k) ne 0)..                                    s(i,k) - s(i,k-1) =e= h*v(i,k-1) + a(i,k-1)*h*h/2;
+  52   
+  53  *A relaxed version of Equation (25c)
+  54  car_following(i,k)$(veh_dynamics(i) ne 0 and k_dynamics(k) ne 0)..               s(i,k) - s(i+1,k) =g= tau*v(i,k);
+  55   
+  56  *Fuel consumption.
+  57  fuel_consumption(i,k)..                                                          f_inst(i,k) =e= 0.2736 + 0.0599*v(i,k) + 0.3547*a(i,k) - 0.0058*power(v(i,k),2) + 0.0179*v(i,k)*a(i,k) + 0.0663*power(a(i,k),2) + 0.0002*power(v(i,k),3) + 0.002*power(v(i,k),2)*a(i,k) + 0.0245*v(i,k)*power(a(i,k),2) - 0.0489*power(a(i,k),3);
+  58   
+  59  *Equation (25e)
+  60  a.up(i,k) = 4;
+  61  a.lo(i,k) = -5;
+  62  v.up(i,k) = 11;
+  63  v.lo(i,k) = -1;
+  64  s.up(i,k) = 700;
+  65  s.lo(i,k) = -200;
+  66  v.fx(i,'1') = v_init(i);
+  67  s.fx(i,'1') = s_init(i);
+  68   
+  69  model m /cost, dynamics_speed, dynamics_position, car_following, fuel_consumption/;
+  70   
+  71  solve m using nlp minimizing f;
+  72  model_status = m.Modelstat;
+  73  solver_status = m.solvestat;
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\UW_intersection_faster.gms
+     2       24 GDXIN          1      24  C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\_gams_py_gdb368.gdx
+
+
+COMPILATION TIME     =        0.000 SECONDS      3 MB  49.1.0 5c4d4ed6 WEX-WEI
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Equation Listing    SOLVE m Using NLP From line 71
+
+
+---- cost  =E=  cost function
+
+cost..  f - f_inst(1,1) - f_inst(1,2) - f_inst(1,3) - f_inst(1,4) - f_inst(1,5) - f_inst(1,6) - f_inst(1,7) - f_inst(1,8) - f_inst(1,9) - f_inst(1,10) - f_inst(1,11) - f_inst(1,12) - f_inst(1,13) - f_inst(1,14) - f_inst(1,15) - f_inst(1,16) - f_inst(1,17) - f_inst(1,18) - f_inst(1,19) - f_inst(1,20) - f_inst(1,21) - f_inst(1,22) - f_inst(1,23) - f_inst(1,24) - f_inst(1,25) - f_inst(1,26) - f_inst(1,27) - f_inst(1,28) - f_inst(1,29) - f_inst(1,30) - f_inst(1,31) - (63.0847762355605)*s(1,11) + (0)*s(1,21) + (0)*s(1,31) =E= 0 ; (LHS = -994.922248172685, INFES = 994.922248172685 ****)
+     
+
+---- dynamics_speed  =E=  dynamics of the speed
+
+dynamics_speed(1,2)..  - 0.5*a(1,1) - v(1,1) + v(1,2) =E= 0 ; (LHS = -7.96854916795784, INFES = 7.96854916795784 ****)
+     
+dynamics_speed(1,3)..  - 0.5*a(1,2) - v(1,2) + v(1,3) =E= 0 ; (LHS = 0)
+     
+dynamics_speed(1,4)..  - 0.5*a(1,3) - v(1,3) + v(1,4) =E= 0 ; (LHS = 0)
+     
+REMAINING 27 ENTRIES SKIPPED
+
+
+---- dynamics_position  =E=  lower bound of a vehicle position
+
+dynamics_position(1,2)..  - 0.125*a(1,1) - 0.5*v(1,1) - s(1,1) + s(1,2) =E= 0 ; (LHS = 92.5581135338013, INFES = 92.5581135338013 ****)
+     
+dynamics_position(1,3)..  - 0.125*a(1,2) - 0.5*v(1,2) - s(1,2) + s(1,3) =E= 0 ; (LHS = 0)
+     
+dynamics_position(1,4)..  - 0.125*a(1,3) - 0.5*v(1,3) - s(1,3) + s(1,4) =E= 0 ; (LHS = 0)
+     
+REMAINING 27 ENTRIES SKIPPED
+
+
+---- car_following  =G=  car-following model
+
+                NONE
+
+
+---- fuel_consumption  =E=  calculate fuel consumption rate
+
+fuel_consumption(1,1)..  f_inst(1,1) - (0.624332581790768)*a(1,1) - (0.00556349515698602)*v(1,1) =E= 0.2736 ; (LHS = -0.210226025046983, INFES = 0.483826025046983 ****)
+     
+fuel_consumption(1,2)..  f_inst(1,2) - (0.3547)*a(1,2) - (0.0599)*v(1,2) =E= 0.2736 ; (LHS = 0, INFES = 0.2736 ****)
+     
+fuel_consumption(1,3)..  f_inst(1,3) - (0.3547)*a(1,3) - (0.0599)*v(1,3) =E= 0.2736 ; (LHS = 0, INFES = 0.2736 ****)
+     
+REMAINING 28 ENTRIES SKIPPED
+
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 4
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Column Listing      SOLVE m Using NLP From line 71
+
+
+---- f  cost function
+
+f
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+        1       cost
+
+
+---- f_inst  the instantanuous fuel consumption rate
+
+f_inst(1,1)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       cost
+        1       fuel_consumption(1,1)
+
+f_inst(1,2)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       cost
+        1       fuel_consumption(1,2)
+
+f_inst(1,3)
+                (.LO, .L, .UP, .M = -INF, 0, +INF, 0)
+       -1       cost
+        1       fuel_consumption(1,3)
+
+REMAINING 28 ENTRIES SKIPPED
+
+---- a  acceleration of vehicle i at time step k
+
+a(1,1)
+                (.LO, .L, .UP, .M = -5, 0, 4, 0)
+       -0.5     dynamics_speed(1,2)
+       -0.125   dynamics_position(1,2)
+      (-0.6243) fuel_consumption(1,1)
+
+a(1,2)
+                (.LO, .L, .UP, .M = -5, 0, 4, 0)
+       -0.5     dynamics_speed(1,3)
+       -0.125   dynamics_position(1,3)
+      (-0.3547) fuel_consumption(1,2)
+
+a(1,3)
+                (.LO, .L, .UP, .M = -5, 0, 4, 0)
+       -0.5     dynamics_speed(1,4)
+       -0.125   dynamics_position(1,4)
+      (-0.3547) fuel_consumption(1,3)
+
+REMAINING 28 ENTRIES SKIPPED
+
+---- v  speed of vehicle i on lane k at time step k
+
+v(1,1)
+                (.LO, .L, .UP, .M = 7.96854916795784, 7.96854916795784, 7.96854916795784, 0)
+       -1       dynamics_speed(1,2)
+       -0.5     dynamics_position(1,2)
+      (-0.0056) fuel_consumption(1,1)
+
+v(1,2)
+                (.LO, .L, .UP, .M = -1, 0, 11, 0)
+        1       dynamics_speed(1,2)
+       -1       dynamics_speed(1,3)
+       -0.5     dynamics_position(1,3)
+      (-0.0599) fuel_consumption(1,2)
+
+v(1,3)
+                (.LO, .L, .UP, .M = -1, 0, 11, 0)
+        1       dynamics_speed(1,3)
+       -1       dynamics_speed(1,4)
+       -0.5     dynamics_position(1,4)
+      (-0.0599) fuel_consumption(1,3)
+
+REMAINING 28 ENTRIES SKIPPED
+
+---- s  position of vehicle i on lane k at time step k
+
+s(1,1)
+                (.LO, .L, .UP, .M = -96.5423881177803, -96.5423881177803, -96.5423881177803, 0)
+       -1       dynamics_position(1,2)
+
+s(1,2)
+                (.LO, .L, .UP, .M = -200, 0, 700, 0)
+        1       dynamics_position(1,2)
+       -1       dynamics_position(1,3)
+
+s(1,3)
+                (.LO, .L, .UP, .M = -200, 0, 700, 0)
+        1       dynamics_position(1,3)
+       -1       dynamics_position(1,4)
+
+REMAINING 28 ENTRIES SKIPPED
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 5
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Model Statistics    SOLVE m Using NLP From line 71
+
+
+MODEL STATISTICS
+
+BLOCKS OF EQUATIONS           5     SINGLE EQUATIONS           92
+BLOCKS OF VARIABLES           5     SINGLE VARIABLES          125
+NON ZERO ELEMENTS           338     NON LINEAR N-Z             65
+CODE LENGTH               1,191     CONSTANT POOL              26
+
+
+GENERATION TIME      =        0.031 SECONDS      4 MB  49.1.0 5c4d4ed6 WEX-WEI
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 6
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Solution Report     SOLVE m Using NLP From line 71
+
+
+               S O L V E      S U M M A R Y
+
+     MODEL   m                   OBJECTIVE  f
+     TYPE    NLP                 DIRECTION  MINIMIZE
+     SOLVER  IPOPT               FROM LINE  71
+
+**** SOLVER STATUS     1 Normal Completion
+**** MODEL STATUS      2 Locally Optimal
+**** OBJECTIVE VALUE              145.5255
+
+ RESOURCE USAGE, LIMIT          0.031 10000000000.000
+ ITERATION COUNT, LIMIT        12    2147483647
+ EVALUATION ERRORS              0             0
+
+COIN-OR Ipopt    49.1.0 5c4d4ed6 Feb 15, 2025          WEI x86 64bit/MS Window
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- EQU cost                .              .              .             1.0000      
+
+  cost  cost function
+
+---- EQU dynamics_speed  dynamics of the speed
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.2           .              .              .            -8.3693      
+1.3           .              .              .             3.0415      
+1.4           .              .              .             4.2319      
+1.5           .              .              .             4.2319      
+1.6           .              .              .             4.2319      
+1.7           .              .              .             4.2319      
+1.8           .              .              .             4.2319      
+1.9           .              .              .             4.2319      
+1.10          .              .              .             4.2319      
+1.11          .              .              .             4.2319      
+1.12          .              .              .            -0.7745      
+1.13          .              .              .            -0.3850      
+1.14          .              .              .             0.0087      
+1.15          .              .              .             0.4034      
+1.16          .       -1.77636E-15          .             0.7954      
+1.17          .              .              .             1.1806      
+1.18          .              .              .             1.5547      
+1.19          .       -8.88178E-16          .             1.9126      
+1.20          .              .              .             2.2486      
+1.21          .              .              .             2.5561      
+1.22          .              .              .             2.0311      
+1.23          .              .              .             1.5009      
+1.24          .              .              .             0.9683      
+1.25          .       3.122502E-17          .             0.4371      
+1.26          .              .              .            -0.0886      
+1.27          .              .              .            -0.6059      
+1.28          .              .              .            -0.9016      
+1.29          .              .              .            -0.9016      
+1.30          .              .              .            -0.9016      
+1.31          .       2.220446E-16          .            -0.9016      
+
+---- EQU dynamics_position  lower bound of a vehicle position
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.2           .              .              .           -23.2763      
+1.3           .              .              .           -23.2763      
+1.4           .       1.421085E-14          .           -23.2763      
+1.5           .       -1.42109E-14          .           -23.2763      
+1.6           .       -1.42109E-14          .           -23.2763      
+1.7           .       -1.42109E-14          .           -23.2763      
+1.8           .       7.105427E-15          .           -23.2763      
+1.9           .       7.105427E-15          .           -23.2763      
+1.10          .              .              .           -23.2763      
+1.11          .       7.105427E-15          .           -23.2763      
+1.12          .              .              .            -0.7291      
+1.13          .              .              .            -0.7291      
+1.14          .              .              .            -0.7291      
+1.15          .              .              .            -0.7291      
+1.16          .              .              .            -0.7291      
+1.17          .       1.776357E-15          .            -0.7291      
+1.18          .              .              .            -0.7291      
+1.19          .       -8.88178E-16          .            -0.7291      
+1.20          .       8.881784E-16          .            -0.7291      
+1.21          .       2.220446E-16          .            -0.7291      
+1.22          .       -1.11022E-16          .             0.8958      
+1.23          .              .              .             0.8958      
+1.24          .              .              .             0.8958      
+1.25          .              .              .             0.8958      
+1.26          .       4.440892E-16          .             0.8958      
+1.27          .       -4.44089E-16          .             0.8958      
+1.28          .       4.440892E-16          .             0.8958      
+1.29          .              .              .             0.8958      
+1.30          .       1.110223E-16          .             0.8958      
+1.31          .       -5.55112E-17          .             0.8958      
+
+---- EQU car_following  car-following model
+
+                NONE
+
+
+---- EQU fuel_consumption  calculate fuel consumption rate
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1          0.2736         0.2736         0.2736         1.0000      
+1.2          0.2736         0.2736         0.2736         1.0000      
+1.3          0.2736         0.2736         0.2736         1.0000      
+1.4          0.2736         0.2736         0.2736         1.0000      
+1.5          0.2736         0.2736         0.2736         1.0000      
+1.6          0.2736         0.2736         0.2736         1.0000      
+1.7          0.2736         0.2736         0.2736         1.0000      
+1.8          0.2736         0.2736         0.2736         1.0000      
+1.9          0.2736         0.2736         0.2736         1.0000      
+1.10         0.2736         0.2736         0.2736         1.0000      
+1.11         0.2736         0.2736         0.2736         1.0000      
+1.12         0.2736         0.2736         0.2736         1.0000      
+1.13         0.2736         0.2736         0.2736         1.0000      
+1.14         0.2736         0.2736         0.2736         1.0000      
+1.15         0.2736         0.2736         0.2736         1.0000      
+1.16         0.2736         0.2736         0.2736         1.0000      
+1.17         0.2736         0.2736         0.2736         1.0000      
+1.18         0.2736         0.2736         0.2736         1.0000      
+1.19         0.2736         0.2736         0.2736         1.0000      
+1.20         0.2736         0.2736         0.2736         1.0000      
+1.21         0.2736         0.2736         0.2736         1.0000      
+1.22         0.2736         0.2736         0.2736         1.0000      
+1.23         0.2736         0.2736         0.2736         1.0000      
+1.24         0.2736         0.2736         0.2736         1.0000      
+1.25         0.2736         0.2736         0.2736         1.0000      
+1.26         0.2736         0.2736         0.2736         1.0000      
+1.27         0.2736         0.2736         0.2736         1.0000      
+1.28         0.2736         0.2736         0.2736         1.0000      
+1.29         0.2736         0.2736         0.2736         1.0000      
+1.30         0.2736         0.2736         0.2736         1.0000      
+1.31         0.2736         0.2736         0.2736         1.0000      
+
+                           LOWER          LEVEL          UPPER         MARGINAL
+
+---- VAR f                 -INF          145.5255        +INF             .          
+
+  f  cost function
+
+---- VAR f_inst  the instantanuous fuel consumption rate
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1         -INF            4.0360        +INF            EPS         
+1.2         -INF            2.8945        +INF            EPS         
+1.3         -INF            0.4969        +INF            EPS         
+1.4         -INF            0.4969        +INF            EPS         
+1.5         -INF            0.4969        +INF            EPS         
+1.6         -INF            0.4969        +INF            EPS         
+1.7         -INF            0.4969        +INF            EPS         
+1.8         -INF            0.4969        +INF            EPS         
+1.9         -INF            0.4969        +INF            EPS         
+1.10        -INF            0.4969        +INF            EPS         
+1.11        -INF            0.2220        +INF            EPS         
+1.12        -INF            0.1400        +INF            EPS         
+1.13        -INF            0.1089        +INF            EPS         
+1.14        -INF            0.1244        +INF            EPS         
+1.15        -INF            0.1829        +INF            EPS         
+1.16        -INF            0.2806        +INF            EPS         
+1.17        -INF            0.4129        +INF            EPS         
+1.18        -INF            0.5736        +INF            EPS         
+1.19        -INF            0.7546        +INF            EPS         
+1.20        -INF            0.9446        +INF            EPS         
+1.21        -INF            0.9010        +INF            EPS         
+1.22        -INF            0.6301        +INF            EPS         
+1.23        -INF            0.3808        +INF            EPS         
+1.24        -INF            0.1721        +INF            EPS         
+1.25        -INF            0.0335        +INF            EPS         
+1.26        -INF            0.0276        +INF            EPS         
+1.27        -INF            0.2077        +INF            EPS         
+1.28        -INF            0.2077        +INF            EPS         
+1.29        -INF            0.2077        +INF            EPS         
+1.30        -INF            0.2077        +INF            EPS         
+1.31        -INF           -0.0550        +INF            EPS         
+
+---- VAR a  acceleration of vehicle i at time step k
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1         -5.0000         4.0000         4.0000        -6.7248      
+1.2         -5.0000         2.0629         4.0000   -3.74651E-12      
+1.3         -5.0000   1.954885E-13         4.0000   -5.00000E-13      
+1.4         -5.0000   8.571565E-16         4.0000   -5.00000E-13      
+1.5         -5.0000   4.632856E-16         4.0000   -5.00000E-13      
+1.6         -5.0000   -6.30852E-16         4.0000   -5.00000E-13      
+1.7         -5.0000   -1.05550E-15         4.0000   -5.00000E-13      
+1.8         -5.0000   3.049032E-16         4.0000   -5.00000E-13      
+1.9         -5.0000   1.328898E-15         4.0000   -5.00000E-13      
+1.10        -5.0000   -1.99401E-12         4.0000   -5.00000E-13      
+1.11        -5.0000        -0.4291         4.0000   -7.00157E-14      
+1.12        -5.0000        -0.6559         4.0000   1.542020E-13      
+1.13        -5.0000        -0.8718         4.0000   3.697539E-13      
+1.14        -5.0000        -1.0809         4.0000   5.834713E-13      
+1.15        -5.0000        -1.2862         4.0000   8.009144E-13      
+1.16        -5.0000        -1.4898         4.0000   1.027252E-12      
+1.17        -5.0000        -1.6934         4.0000   1.267869E-12      
+1.18        -5.0000        -1.8985         4.0000   1.528908E-12      
+1.19        -5.0000        -2.1061         4.0000   1.817902E-12      
+1.20        -5.0000        -2.3173         4.0000   2.144615E-12      
+1.21        -5.0000        -2.3466         4.0000   2.193115E-12      
+1.22        -5.0000        -2.1678         4.0000   1.909548E-12      
+1.23        -5.0000        -1.9490         4.0000   1.596613E-12      
+1.24        -5.0000        -1.6723         4.0000   1.242156E-12      
+1.25        -5.0000        -1.3024         4.0000   8.185483E-13      
+1.26        -5.0000        -0.7327         4.0000   2.304612E-13      
+1.27        -5.0000   -5.07439E-11         4.0000   -5.00000E-13      
+1.28        -5.0000   -4.71101E-17         4.0000   -5.00000E-13      
+1.29        -5.0000   -2.08658E-16         4.0000   -5.00000E-13      
+1.30        -5.0000   -1.83621E-11         4.0000   -5.00000E-13      
+1.31        -5.0000        -1.2612         4.0000   7.739928E-13      
+
+---- VAR v  speed of vehicle i on lane k at time step k
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1          7.9685         7.9685         7.9685       -19.4107      
+1.2         -1.0000         9.9685        11.0000   -8.78338E-12      
+1.3         -1.0000        11.0000        11.0000       -10.4429      
+1.4         -1.0000        11.0000        11.0000       -11.6332      
+1.5         -1.0000        11.0000        11.0000       -11.6332      
+1.6         -1.0000        11.0000        11.0000       -11.6332      
+1.7         -1.0000        11.0000        11.0000       -11.6332      
+1.8         -1.0000        11.0000        11.0000       -11.6332      
+1.9         -1.0000        11.0000        11.0000       -11.6332      
+1.10        -1.0000        11.0000        11.0000       -11.6332      
+1.11        -1.0000        11.0000        11.0000        -5.3881      
+1.12        -1.0000        10.7854        11.0000   -4.57578E-11      
+1.13        -1.0000        10.4575        11.0000   -1.75592E-11      
+1.14        -1.0000        10.0216        11.0000   -9.31299E-12      
+1.15        -1.0000         9.4811        11.0000   -5.62960E-12      
+1.16        -1.0000         8.8380        11.0000   -3.60890E-12      
+1.17        -1.0000         8.0931        11.0000   -2.34038E-12      
+1.18        -1.0000         7.2464        11.0000   -1.45146E-12      
+1.19        -1.0000         6.2972        11.0000   -7.55975E-13      
+1.20        -1.0000         5.2441        11.0000   -1.35826E-13      
+1.21        -1.0000         4.0854        11.0000   5.201760E-13      
+1.22        -1.0000         2.9121        11.0000   1.319730E-12      
+1.23        -1.0000         1.8282        11.0000   2.445495E-12      
+1.24        -1.0000         0.8537        11.0000   4.408930E-12      
+1.25        -1.0000         0.0176        11.0000   8.916763E-12      
+1.26        -1.0000        -0.6336        11.0000   2.643611E-11      
+1.27        -1.0000        -1.0000        11.0000         0.2244      
+1.28        -1.0000        -1.0000        11.0000         0.5200      
+1.29        -1.0000        -1.0000        11.0000         0.5200      
+1.30        -1.0000        -1.0000        11.0000         0.5200      
+1.31        -1.0000        -1.0000        11.0000         0.9951      
+
+---- VAR s  position of vehicle i on lane k at time step k
+
+            LOWER          LEVEL          UPPER         MARGINAL
+
+1.1        -96.5424       -96.5424       -96.5424       -23.2763      
+1.2       -200.0000       -92.0581       700.0000   8.001711E-14      
+1.3       -200.0000       -86.8160       700.0000   7.564224E-14      
+1.4       -200.0000       -81.3160       700.0000   7.145842E-14      
+1.5       -200.0000       -75.8160       700.0000   6.763600E-14      
+1.6       -200.0000       -70.3160       700.0000   6.412881E-14      
+1.7       -200.0000       -64.8160       700.0000   6.089820E-14      
+1.8       -200.0000       -59.3160       700.0000   5.791153E-14      
+1.9       -200.0000       -53.8160       700.0000   5.514109E-14      
+1.10      -200.0000       -48.3160       700.0000   5.256318E-14      
+1.11      -200.0000       -42.8160       700.0000   5.015741E-14      
+1.12      -200.0000       -37.3696       700.0000   4.792741E-14      
+1.13      -200.0000       -32.0589       700.0000   4.588458E-14      
+1.14      -200.0000       -26.9391       700.0000   4.402683E-14      
+1.15      -200.0000       -22.0635       700.0000   4.235062E-14      
+1.16      -200.0000       -17.4837       700.0000   4.085203E-14      
+1.17      -200.0000       -13.2509       700.0000   3.952747E-14      
+1.18      -200.0000        -9.4160       700.0000   3.837421E-14      
+1.19      -200.0000        -6.0301       700.0000   3.739070E-14      
+1.20      -200.0000        -3.1448       700.0000   3.657695E-14      
+1.21      -200.0000        -0.8125       700.0000   3.593479E-14      
+1.22      -200.0000         0.9369       700.0000   3.546200E-14      
+1.23      -200.0000         2.1220       700.0000   3.514591E-14      
+1.24      -200.0000         2.7925       700.0000   3.496855E-14      
+1.25      -200.0000         3.0103       700.0000   3.491116E-14      
+1.26      -200.0000         2.8563       700.0000   3.495173E-14      
+1.27      -200.0000         2.4479       700.0000   3.505957E-14      
+1.28      -200.0000         1.9479       700.0000   3.519214E-14      
+1.29      -200.0000         1.4479       700.0000   3.532530E-14      
+1.30      -200.0000         0.9479       700.0000   3.545905E-14      
+1.31      -200.0000         0.4479       700.0000   3.559341E-14      
+
+
+**** REPORT SUMMARY :        0     NONOPT
+                             0 INFEASIBLE
+                             0  UNBOUNDED
+                             0     ERRORS
+GAMS 49.1.0  5c4d4ed6 Feb 15, 2025          WEX-WEI x86 64bit/MS Windows - 03/17/25 12:14:42 Page 7
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+EXECUTION TIME       =        0.265 SECONDS      4 MB  49.1.0 5c4d4ed6 WEX-WEI
+
+
+USER: Chris Ritthikarn                               G250228+0003Ac-GEN
+      pritthik@uw.edu                                         CLA107628
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\UW_intersection_faster.gms
+Output     C:\Users\chris\PycharmProjects\UW_CET593_project2\agent\gams_models\_gams_py_gjo184.lst

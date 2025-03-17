@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2025-03-17 12:12:41 by Eclipse SUMO GUI Version 1.22.0
+<sumoConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/network_model/UW_intersection_pedestrian_X.net.xml"/>
+        <route-files value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/network_model/UW_IntersectionNormalDemand.rou.xml"/>
+        <additional-files value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/network_model/UW_intersection_Exclusive.add.xml"/>
+    </input>
+
+    <output>
+        <queue-output value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/simulation_data/UW_intersection/queues_multi_scale_symmetric_pene_50.xml"/>
+        <tripinfo-output value="C:\Users\chris\PycharmProjects\UW_CET593_project2\environment/simulation_data/UW_intersection/tripinfo_multi_scale_symmetric_pene_50.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <waiting-time-memory value="1000"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="56011"/>
+    </traci_server>
+
+    <gui_only>
+        <start value="true"/>
+    </gui_only>
+
+</sumoConfiguration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="NS.0" depart="0.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="37.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="11.22" duration="37.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.61" rerouteNo="0" devices="tripinfo_NS.0 routing_NS.0" vType="DEFAULT_VEHTYPE" speedFactor="1.06" vaporized=""/>
+    <tripinfo id="EN.0" depart="0.00" departLane="4_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="38.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="10.98" duration="38.00" routeLength="382.62" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.59" rerouteNo="0" devices="tripinfo_EN.0 routing_EN.0" vType="DEFAULT_VEHTYPE" speedFactor="0.98" vaporized=""/>
+    <tripinfo id="NE.0" depart="0.00" departLane="5_1_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="41.50" arrivalLane="1_4_2" arrivalPos="186.40" arrivalSpeed="10.60" duration="41.50" routeLength="392.89" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.08" rerouteNo="0" devices="tripinfo_NE.0 routing_NE.0" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+    <tripinfo id="NW.0" depart="3.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="42.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="11.06" duration="39.50" routeLength="382.62" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.39" rerouteNo="0" devices="tripinfo_NW.0 routing_NW.0" vType="DEFAULT_VEHTYPE" speedFactor="0.99" vaporized=""/>
+    <tripinfo id="WE.0" depart="0.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="45.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.26" duration="45.50" routeLength="395.13" waitingTime="5.50" waitingCount="1" stopTime="0.00" timeLoss="12.90" rerouteNo="0" devices="tripinfo_WE.0 routing_WE.0" vType="DEFAULT_VEHTYPE" speedFactor="1.09" vaporized=""/>
+    <tripinfo id="WN.0" depart="2.50" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="2.50" arrival="47.00" arrivalLane="1_5_2" arrivalPos="189.60" arrivalSpeed="12.46" duration="44.50" routeLength="392.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="12.67" rerouteNo="0" devices="tripinfo_WN.0 routing_WN.0" vType="DEFAULT_VEHTYPE" speedFactor="1.11" vaporized=""/>
+    <tripinfo id="WS.0" depart="5.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="5.00" arrival="49.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="12.02" duration="44.00" routeLength="385.10" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="11.51" rerouteNo="0" devices="tripinfo_WS.0 routing_WS.0" vType="DEFAULT_VEHTYPE" speedFactor="1.07" vaporized=""/>
+    <tripinfo id="ES.0" depart="0.00" departLane="4_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="49.50" arrivalLane="1_3_2" arrivalPos="189.60" arrivalSpeed="11.68" duration="49.50" routeLength="392.89" waitingTime="7.00" waitingCount="2" stopTime="0.00" timeLoss="15.47" rerouteNo="0" devices="tripinfo_ES.0 routing_ES.0" vType="DEFAULT_VEHTYPE" speedFactor="1.04" vaporized=""/>
+    <tripinfo id="EW.0" depart="2.50" departLane="4_1_2" departPos="5.10" departSpeed="0.00" departDelay="2.50" arrival="53.00" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.70" duration="50.50" routeLength="394.90" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="14.52" rerouteNo="0" devices="tripinfo_EW.0 routing_EW.0" vType="DEFAULT_VEHTYPE" speedFactor="0.98" vaporized=""/>
+    <tripinfo id="NS.1" depart="19.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="56.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="13.00" duration="37.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.45" rerouteNo="0" devices="tripinfo_NS.1 routing_NS.1" vType="DEFAULT_VEHTYPE" speedFactor="1.21" vaporized=""/>
+    <tripinfo id="SE.0" depart="0.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="58.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="11.10" duration="58.50" routeLength="379.93" waitingTime="18.50" waitingCount="1" stopTime="0.00" timeLoss="23.49" rerouteNo="0" devices="tripinfo_SE.0 routing_SE.0" vType="DEFAULT_VEHTYPE" speedFactor="0.99" vaporized=""/>
+    <tripinfo id="SN.0" depart="0.00" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="59.50" arrivalLane="1_5_2" arrivalPos="189.60" arrivalSpeed="11.53" duration="59.50" routeLength="395.22" waitingTime="18.50" waitingCount="1" stopTime="0.00" timeLoss="25.79" rerouteNo="0" devices="tripinfo_SN.0 routing_SN.0" vType="DEFAULT_VEHTYPE" speedFactor="1.05" vaporized=""/>
+    <tripinfo id="SW.0" depart="0.00" departLane="3_1_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="61.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.12" duration="61.50" routeLength="392.89" waitingTime="15.00" waitingCount="1" stopTime="0.00" timeLoss="22.32" rerouteNo="0" devices="tripinfo_SW.0 routing_SW.0" vType="DEFAULT_VEHTYPE" speedFactor="0.90" vaporized=""/>
+    <tripinfo id="SN.1" depart="27.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.23" arrival="66.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="12.74" duration="39.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.99" rerouteNo="0" devices="tripinfo_SN.1 routing_SN.1" vType="DEFAULT_VEHTYPE" speedFactor="1.15" vaporized=""/>
+    <tripinfo id="NS.2" depart="37.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="73.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="12.68" duration="36.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.82" rerouteNo="0" devices="tripinfo_NS.2 routing_NS.2" vType="DEFAULT_VEHTYPE" speedFactor="1.13" vaporized=""/>
+    <tripinfo id="NW.1" depart="50.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="90.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.58" duration="40.50" routeLength="382.62" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.46" rerouteNo="0" devices="tripinfo_NW.1 routing_NW.1" vType="DEFAULT_VEHTYPE" speedFactor="0.98" vaporized=""/>
+    <tripinfo id="SN.2" depart="55.00" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.45" arrival="95.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="12.55" duration="40.00" routeLength="395.22" waitingTime="1.50" waitingCount="1" stopTime="0.00" timeLoss="9.46" rerouteNo="0" devices="tripinfo_SN.2 routing_SN.2" vType="DEFAULT_VEHTYPE" speedFactor="1.16" vaporized=""/>
+    <tripinfo id="NS.3" depart="56.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="99.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.79" duration="42.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.08" rerouteNo="0" devices="tripinfo_NS.3 routing_NS.3" vType="DEFAULT_VEHTYPE" speedFactor="0.87" vaporized=""/>
+    <tripinfo id="SE.1" depart="55.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.46" arrival="101.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.62" duration="46.00" routeLength="379.93" waitingTime="6.00" waitingCount="2" stopTime="0.00" timeLoss="15.59" rerouteNo="0" devices="tripinfo_SE.1 routing_SE.1" vType="DEFAULT_VEHTYPE" speedFactor="1.13" vaporized=""/>
+    <tripinfo id="WE.1" depart="50.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="103.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.83" duration="53.00" routeLength="395.13" waitingTime="15.00" waitingCount="1" stopTime="0.00" timeLoss="23.08" rerouteNo="0" devices="tripinfo_WE.1 routing_WE.1" vType="DEFAULT_VEHTYPE" speedFactor="1.18" vaporized=""/>
+    <tripinfo id="WS.1" depart="67.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.33" arrival="119.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.71" duration="52.00" routeLength="385.10" waitingTime="6.50" waitingCount="1" stopTime="0.00" timeLoss="11.32" rerouteNo="0" devices="tripinfo_WS.1 routing_WS.1" vType="DEFAULT_VEHTYPE" speedFactor="0.87" vaporized=""/>
+    <tripinfo id="NS.4" depart="75.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="121.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.24" duration="46.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.41" rerouteNo="0" devices="tripinfo_NS.4 routing_NS.4" vType="DEFAULT_VEHTYPE" speedFactor="0.82" vaporized=""/>
+    <tripinfo id="SN.3" depart="82.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.18" arrival="123.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="9.90" duration="41.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.34" rerouteNo="0" devices="tripinfo_SN.3 routing_SN.3" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <tripinfo id="NS.5" depart="94.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="133.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="11.00" duration="39.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.16" rerouteNo="0" devices="tripinfo_NS.5 routing_NS.5" vType="DEFAULT_VEHTYPE" speedFactor="1.01" vaporized=""/>
+    <tripinfo id="NW.2" depart="100.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="141.00" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.37" duration="41.00" routeLength="382.62" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.22" rerouteNo="0" devices="tripinfo_NW.2 routing_NW.2" vType="DEFAULT_VEHTYPE" speedFactor="0.93" vaporized=""/>
+    <personinfo id="person_NS_e.0" depart="5.50" type="DEFAULT_PEDTYPE" speedFactor="1.25" duration="142.50" waitingTime="0.00" timeLoss="16.07" traveltime="142.50">
+        <walk depart="5.50" departPos="100.00" arrival="148.00" arrivalPos="94.80" duration="142.50" routeLength="219.53" timeLoss="16.07" maxSpeed="1.74"/>
+    </personinfo>
+    <tripinfo id="SN.4" depart="109.50" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.41" arrival="150.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="10.07" duration="41.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.69" rerouteNo="0" devices="tripinfo_SN.4 routing_SN.4" vType="DEFAULT_VEHTYPE" speedFactor="0.90" vaporized=""/>
+    <tripinfo id="NS.6" depart="112.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="151.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.72" duration="39.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.05" rerouteNo="0" devices="tripinfo_NS.6 routing_NS.6" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+    <tripinfo id="SE.2" depart="109.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.41" arrival="153.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="10.78" duration="44.00" routeLength="379.93" waitingTime="2.50" waitingCount="1" stopTime="0.00" timeLoss="9.45" rerouteNo="0" devices="tripinfo_SE.2 routing_SE.2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="person_NW_diag.0" depart="4.50" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="156.50" waitingTime="0.00" timeLoss="16.83" traveltime="156.50">
+        <walk depart="4.50" departPos="100.00" arrival="161.00" arrivalPos="93.20" duration="156.50" routeLength="190.90" timeLoss="16.83" maxSpeed="1.37"/>
+    </personinfo>
+    <personinfo id="person_SW_diag.0" depart="30.00" type="DEFAULT_PEDTYPE" speedFactor="1.30" duration="136.50" waitingTime="0.00" timeLoss="15.39" traveltime="136.50">
+        <walk depart="30.00" departPos="100.00" arrival="166.50" arrivalPos="93.20" duration="136.50" routeLength="218.63" timeLoss="15.39" maxSpeed="1.81"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.1" depart="20.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="153.00" waitingTime="0.00" timeLoss="14.99" traveltime="153.00">
+        <walk depart="20.50" departPos="100.00" arrival="173.50" arrivalPos="93.20" duration="153.00" routeLength="190.90" timeLoss="14.99" maxSpeed="1.38"/>
+    </personinfo>
+    <personinfo id="person_WE_s.0" depart="2.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="175.50" waitingTime="0.00" timeLoss="21.00" traveltime="175.50">
+        <walk depart="2.00" departPos="100.00" arrival="177.50" arrivalPos="93.20" duration="175.50" routeLength="209.26" timeLoss="21.00" maxSpeed="1.35"/>
+    </personinfo>
+    <personinfo id="person_SN_w.0" depart="3.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="174.50" waitingTime="0.00" timeLoss="17.98" traveltime="174.50">
+        <walk depart="3.00" departPos="100.00" arrival="177.50" arrivalPos="94.80" duration="174.50" routeLength="217.89" timeLoss="17.98" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="person_SE_diag.0" depart="25.50" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="155.50" waitingTime="0.00" timeLoss="15.37" traveltime="155.50">
+        <walk depart="25.50" departPos="100.00" arrival="181.00" arrivalPos="93.20" duration="155.50" routeLength="187.66" timeLoss="15.37" maxSpeed="1.34"/>
+    </personinfo>
+    <personinfo id="person_SE_diag.1" depart="44.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="151.00" waitingTime="0.00" timeLoss="15.37" traveltime="151.00">
+        <walk depart="44.00" departPos="100.00" arrival="195.00" arrivalPos="93.20" duration="151.00" routeLength="187.66" timeLoss="15.37" maxSpeed="1.38"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.2" depart="32.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="167.00" waitingTime="0.00" timeLoss="18.00" traveltime="167.00">
+        <walk depart="32.00" departPos="100.00" arrival="199.00" arrivalPos="93.20" duration="167.00" routeLength="190.90" timeLoss="18.00" maxSpeed="1.28"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.3" depart="56.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="144.50" waitingTime="0.00" timeLoss="15.37" traveltime="144.50">
+        <walk depart="56.00" departPos="100.00" arrival="200.50" arrivalPos="93.20" duration="144.50" routeLength="190.90" timeLoss="15.37" maxSpeed="1.48"/>
+    </personinfo>
+    <personinfo id="person_NS_e.2" depart="45.50" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="156.50" waitingTime="0.00" timeLoss="16.31" traveltime="156.50">
+        <walk depart="45.50" departPos="100.00" arrival="202.00" arrivalPos="94.80" duration="156.50" routeLength="219.53" timeLoss="16.31" maxSpeed="1.57"/>
+    </personinfo>
+    <personinfo id="person_SN_e.0" depart="43.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="161.00" waitingTime="0.00" timeLoss="14.81" traveltime="161.00">
+        <walk depart="43.00" departPos="100.00" arrival="204.00" arrivalPos="94.80" duration="161.00" routeLength="209.13" timeLoss="14.81" maxSpeed="1.43"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.4" depart="67.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="139.50" waitingTime="0.00" timeLoss="13.63" traveltime="139.50">
+        <walk depart="67.00" departPos="100.00" arrival="206.50" arrivalPos="93.20" duration="139.50" routeLength="190.90" timeLoss="13.63" maxSpeed="1.52"/>
+    </personinfo>
+    <tripinfo id="NS.8" depart="150.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="213.00" arrivalLane="1_3_2" arrivalPos="189.60" arrivalSpeed="11.45" duration="63.00" routeLength="395.22" waitingTime="20.00" waitingCount="1" stopTime="0.00" timeLoss="28.43" rerouteNo="0" devices="tripinfo_NS.8 routing_NS.8" vType="DEFAULT_VEHTYPE" speedFactor="1.02" vaporized=""/>
+    <tripinfo id="NS.7" depart="131.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="214.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.83" duration="82.50" routeLength="395.22" waitingTime="41.00" waitingCount="1" stopTime="0.00" timeLoss="47.98" rerouteNo="0" devices="tripinfo_NS.7 routing_NS.7" vType="DEFAULT_VEHTYPE" speedFactor="1.02" vaporized=""/>
+    <tripinfo id="SN.5" depart="136.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.14" arrival="214.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="10.47" duration="78.00" routeLength="395.22" waitingTime="34.00" waitingCount="1" stopTime="0.00" timeLoss="40.24" rerouteNo="0" devices="tripinfo_SN.5 routing_SN.5" vType="DEFAULT_VEHTYPE" speedFactor="0.93" vaporized=""/>
+    <tripinfo id="SN.6" depart="164.00" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.36" arrival="216.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="9.67" duration="52.00" routeLength="395.22" waitingTime="6.00" waitingCount="1" stopTime="0.00" timeLoss="11.15" rerouteNo="0" devices="tripinfo_SN.6 routing_SN.6" vType="DEFAULT_VEHTYPE" speedFactor="0.86" vaporized=""/>
+    <tripinfo id="NS.9" depart="169.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="216.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.89" duration="47.00" routeLength="395.22" waitingTime="2.00" waitingCount="1" stopTime="0.00" timeLoss="11.62" rerouteNo="0" devices="tripinfo_NS.9 routing_NS.9" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="NE.1" depart="150.00" departLane="5_1_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="218.50" arrivalLane="1_4_2" arrivalPos="186.40" arrivalSpeed="12.43" duration="68.50" routeLength="392.89" waitingTime="24.50" waitingCount="3" stopTime="0.00" timeLoss="38.01" rerouteNo="0" devices="tripinfo_NE.1 routing_NE.1" vType="DEFAULT_VEHTYPE" speedFactor="1.16" vaporized=""/>
+    <tripinfo id="NW.3" depart="150.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="220.00" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.80" duration="70.00" routeLength="382.62" waitingTime="21.00" waitingCount="2" stopTime="0.00" timeLoss="33.48" rerouteNo="0" devices="tripinfo_NW.3 routing_NW.3" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+    <personinfo id="person_NS_e.1" depart="28.50" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="192.00" waitingTime="0.00" timeLoss="19.14" traveltime="192.00">
+        <walk depart="28.50" departPos="100.00" arrival="220.50" arrivalPos="94.80" duration="192.00" routeLength="219.53" timeLoss="19.14" maxSpeed="1.27"/>
+    </personinfo>
+    <tripinfo id="WS.2" depart="133.50" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.17" arrival="223.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="11.31" duration="89.50" routeLength="385.10" waitingTime="42.50" waitingCount="1" stopTime="0.00" timeLoss="54.84" rerouteNo="0" devices="tripinfo_WS.2 routing_WS.2" vType="DEFAULT_VEHTYPE" speedFactor="1.01" vaporized=""/>
+    <tripinfo id="WE.2" depart="100.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="223.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="10.50" duration="123.50" routeLength="395.13" waitingTime="79.50" waitingCount="1" stopTime="0.00" timeLoss="86.44" rerouteNo="0" devices="tripinfo_WE.2 routing_WE.2" vType="DEFAULT_VEHTYPE" speedFactor="0.95" vaporized=""/>
+    <tripinfo id="WE.3" depart="150.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="225.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="13.00" duration="75.00" routeLength="395.13" waitingTime="28.00" waitingCount="1" stopTime="0.00" timeLoss="44.73" rerouteNo="0" devices="tripinfo_WE.3 routing_WE.3" vType="DEFAULT_VEHTYPE" speedFactor="1.17" vaporized=""/>
+    <personinfo id="person_NW_diag.5" depart="88.00" type="DEFAULT_PEDTYPE" speedFactor="1.11" duration="138.50" waitingTime="0.00" timeLoss="14.64" traveltime="138.50">
+        <walk depart="88.00" departPos="100.00" arrival="226.50" arrivalPos="93.20" duration="138.50" routeLength="190.90" timeLoss="14.64" maxSpeed="1.54"/>
+    </personinfo>
+    <tripinfo id="EW.1" depart="150.00" departLane="4_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="226.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="9.66" duration="76.50" routeLength="394.90" waitingTime="29.00" waitingCount="1" stopTime="0.00" timeLoss="36.64" rerouteNo="0" devices="tripinfo_EW.1 routing_EW.1" vType="DEFAULT_VEHTYPE" speedFactor="0.89" vaporized=""/>
+    <personinfo id="person_WE_s.2" depart="51.50" type="DEFAULT_PEDTYPE" speedFactor="1.20" duration="175.50" waitingTime="0.00" timeLoss="49.99" traveltime="175.50">
+        <walk depart="51.50" departPos="100.00" arrival="227.00" arrivalPos="93.20" duration="175.50" routeLength="209.26" timeLoss="49.99" maxSpeed="1.67"/>
+    </personinfo>
+    <personinfo id="person_SN_w.1" depart="52.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="176.50" waitingTime="0.00" timeLoss="20.06" traveltime="176.50">
+        <walk depart="52.50" departPos="100.00" arrival="229.00" arrivalPos="94.80" duration="176.50" routeLength="217.89" timeLoss="20.06" maxSpeed="1.39"/>
+    </personinfo>
+    <personinfo id="person_WE_n.1" depart="31.50" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="199.50" waitingTime="0.00" timeLoss="55.31" traveltime="199.50">
+        <walk depart="31.50" departPos="100.00" arrival="231.00" arrivalPos="93.20" duration="199.50" routeLength="224.16" timeLoss="55.31" maxSpeed="1.55"/>
+    </personinfo>
+    <personinfo id="person_WE_s.1" depart="43.50" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="188.00" waitingTime="0.00" timeLoss="48.84" traveltime="188.00">
+        <walk depart="43.50" departPos="100.00" arrival="231.50" arrivalPos="93.20" duration="188.00" routeLength="209.26" timeLoss="48.84" maxSpeed="1.50"/>
+    </personinfo>
+    <tripinfo id="EN.1" depart="150.00" departLane="4_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="233.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="13.00" duration="83.00" routeLength="382.62" waitingTime="42.00" waitingCount="2" stopTime="0.00" timeLoss="53.40" rerouteNo="0" devices="tripinfo_EN.1 routing_EN.1" vType="DEFAULT_VEHTYPE" speedFactor="1.18" vaporized=""/>
+    <personinfo id="person_EW_n.1" depart="17.50" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="216.00" waitingTime="0.00" timeLoss="77.04" traveltime="216.00">
+        <walk depart="17.50" departPos="100.00" arrival="233.50" arrivalPos="93.20" duration="216.00" routeLength="210.56" timeLoss="77.04" maxSpeed="1.52"/>
+    </personinfo>
+    <personinfo id="person_EW_n.4" depart="85.50" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="148.50" waitingTime="0.00" timeLoss="15.76" traveltime="148.50">
+        <walk depart="85.50" departPos="100.00" arrival="234.00" arrivalPos="93.20" duration="148.50" routeLength="210.56" timeLoss="15.76" maxSpeed="1.59"/>
+    </personinfo>
+    <personinfo id="person_WE_s.3" depart="62.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="172.50" waitingTime="0.00" timeLoss="28.43" traveltime="172.50">
+        <walk depart="62.00" departPos="100.00" arrival="234.50" arrivalPos="93.20" duration="172.50" routeLength="209.26" timeLoss="28.43" maxSpeed="1.45"/>
+    </personinfo>
+    <tripinfo id="SN.7" depart="191.00" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.09" arrival="234.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="10.98" duration="43.50" routeLength="395.22" waitingTime="0.50" waitingCount="1" stopTime="0.00" timeLoss="7.24" rerouteNo="0" devices="tripinfo_SN.7 routing_SN.7" vType="DEFAULT_VEHTYPE" speedFactor="0.98" vaporized=""/>
+    <personinfo id="person_NE_diag.1" depart="28.50" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="208.50" waitingTime="0.00" timeLoss="49.56" traveltime="208.50">
+        <walk depart="28.50" departPos="100.00" arrival="237.00" arrivalPos="93.20" duration="208.50" routeLength="225.71" timeLoss="49.56" maxSpeed="1.42"/>
+    </personinfo>
+    <tripinfo id="NS.10" depart="187.50" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="237.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.64" duration="49.50" routeLength="395.22" waitingTime="3.50" waitingCount="1" stopTime="0.00" timeLoss="12.05" rerouteNo="0" devices="tripinfo_NS.10 routing_NS.10" vType="DEFAULT_VEHTYPE" speedFactor="0.95" vaporized=""/>
+    <personinfo id="person_NS_e.3" depart="58.50" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="180.00" waitingTime="0.00" timeLoss="19.34" traveltime="180.00">
+        <walk depart="58.50" departPos="100.00" arrival="238.50" arrivalPos="94.80" duration="180.00" routeLength="219.53" timeLoss="19.34" maxSpeed="1.37"/>
+    </personinfo>
+    <personinfo id="person_WE_n.3" depart="37.00" type="DEFAULT_PEDTYPE" speedFactor="0.99" duration="204.50" waitingTime="0.00" timeLoss="40.98" traveltime="204.50">
+        <walk depart="37.00" departPos="100.00" arrival="241.50" arrivalPos="93.20" duration="204.50" routeLength="224.16" timeLoss="40.98" maxSpeed="1.37"/>
+    </personinfo>
+    <tripinfo id="NS.11" depart="206.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="241.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="12.50" duration="35.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.79" rerouteNo="0" devices="tripinfo_NS.11 routing_NS.11" vType="DEFAULT_VEHTYPE" speedFactor="1.13" vaporized=""/>
+    <personinfo id="person_WE_n.0" depart="10.00" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="232.50" waitingTime="0.00" timeLoss="70.62" traveltime="232.50">
+        <walk depart="10.00" departPos="100.00" arrival="242.50" arrivalPos="93.20" duration="232.50" routeLength="224.16" timeLoss="70.62" maxSpeed="1.38"/>
+    </personinfo>
+    <personinfo id="person_WE_n.2" depart="31.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="211.50" waitingTime="0.00" timeLoss="49.77" traveltime="211.50">
+        <walk depart="31.50" departPos="100.00" arrival="243.00" arrivalPos="93.20" duration="211.50" routeLength="224.16" timeLoss="49.77" maxSpeed="1.39"/>
+    </personinfo>
+    <tripinfo id="SE.3" depart="164.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.37" arrival="244.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.39" duration="80.50" routeLength="379.93" waitingTime="33.00" waitingCount="3" stopTime="0.00" timeLoss="48.82" rerouteNo="0" devices="tripinfo_SE.3 routing_SE.3" vType="DEFAULT_VEHTYPE" speedFactor="1.11" vaporized=""/>
+    <personinfo id="person_EW_n.0" depart="14.50" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="231.50" waitingTime="0.00" timeLoss="72.09" traveltime="231.50">
+        <walk depart="14.50" departPos="100.00" arrival="246.00" arrivalPos="93.20" duration="231.50" routeLength="210.56" timeLoss="72.09" maxSpeed="1.32"/>
+    </personinfo>
+    <personinfo id="person_EW_n.6" depart="95.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="151.00" waitingTime="0.00" timeLoss="18.47" traveltime="151.00">
+        <walk depart="95.00" departPos="100.00" arrival="246.00" arrivalPos="93.20" duration="151.00" routeLength="210.56" timeLoss="18.47" maxSpeed="1.59"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.7" depart="94.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="152.50" waitingTime="0.00" timeLoss="20.41" traveltime="152.50">
+        <walk depart="94.00" departPos="100.00" arrival="246.50" arrivalPos="93.20" duration="152.50" routeLength="190.90" timeLoss="20.41" maxSpeed="1.45"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.10" depart="111.00" type="DEFAULT_PEDTYPE" speedFactor="1.14" duration="135.50" waitingTime="0.00" timeLoss="14.88" traveltime="135.50">
+        <walk depart="111.00" departPos="100.00" arrival="246.50" arrivalPos="93.20" duration="135.50" routeLength="190.90" timeLoss="14.88" maxSpeed="1.58"/>
+    </personinfo>
+    <tripinfo id="NW.4" depart="200.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="246.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.02" duration="46.50" routeLength="382.62" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="9.42" rerouteNo="0" devices="tripinfo_NW.4 routing_NW.4" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="person_NW_diag.9" depart="107.50" type="DEFAULT_PEDTYPE" speedFactor="1.15" duration="139.50" waitingTime="0.00" timeLoss="20.18" traveltime="139.50">
+        <walk depart="107.50" departPos="100.00" arrival="247.00" arrivalPos="93.20" duration="139.50" routeLength="190.90" timeLoss="20.18" maxSpeed="1.60"/>
+    </personinfo>
+    <personinfo id="person_EW_n.5" depart="91.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="156.00" waitingTime="0.00" timeLoss="17.83" traveltime="156.00">
+        <walk depart="91.00" departPos="100.00" arrival="247.00" arrivalPos="93.20" duration="156.00" routeLength="210.56" timeLoss="17.83" maxSpeed="1.52"/>
+    </personinfo>
+    <tripinfo id="WE.4" depart="200.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="249.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.39" duration="49.00" routeLength="395.13" waitingTime="9.00" waitingCount="1" stopTime="0.00" timeLoss="17.09" rerouteNo="0" devices="tripinfo_WE.4 routing_WE.4" vType="DEFAULT_VEHTYPE" speedFactor="1.11" vaporized=""/>
+    <personinfo id="person_NE_diag.0" depart="11.50" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="238.00" waitingTime="0.00" timeLoss="55.42" traveltime="238.00">
+        <walk depart="11.50" departPos="100.00" arrival="249.50" arrivalPos="93.20" duration="238.00" routeLength="225.71" timeLoss="55.42" maxSpeed="1.24"/>
+    </personinfo>
+    <personinfo id="person_EW_n.3" depart="50.50" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="200.50" waitingTime="0.00" timeLoss="33.26" traveltime="200.50">
+        <walk depart="50.50" departPos="100.00" arrival="251.00" arrivalPos="93.20" duration="200.50" routeLength="210.56" timeLoss="33.26" maxSpeed="1.26"/>
+    </personinfo>
+    <personinfo id="person_WE_n.4" depart="63.50" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="187.50" waitingTime="0.00" timeLoss="19.33" traveltime="187.50">
+        <walk depart="63.50" departPos="100.00" arrival="251.00" arrivalPos="93.20" duration="187.50" routeLength="224.16" timeLoss="19.33" maxSpeed="1.33"/>
+    </personinfo>
+    <personinfo id="person_WE_s.4" depart="99.50" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="156.50" waitingTime="0.00" timeLoss="16.70" traveltime="156.50">
+        <walk depart="99.50" departPos="100.00" arrival="256.00" arrivalPos="93.20" duration="156.50" routeLength="209.26" timeLoss="16.70" maxSpeed="1.50"/>
+    </personinfo>
+    <personinfo id="person_EW_s.1" depart="103.00" type="DEFAULT_PEDTYPE" speedFactor="1.16" duration="153.00" waitingTime="0.00" timeLoss="15.18" traveltime="153.00">
+        <walk depart="103.00" departPos="100.00" arrival="256.00" arrivalPos="93.20" duration="153.00" routeLength="222.86" timeLoss="15.18" maxSpeed="1.62"/>
+    </personinfo>
+    <tripinfo id="WS.3" depart="202.50" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="2.50" arrival="256.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.21" duration="53.50" routeLength="385.10" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="10.74" rerouteNo="0" devices="tripinfo_WS.3 routing_WS.3" vType="DEFAULT_VEHTYPE" speedFactor="0.82" vaporized=""/>
+    <personinfo id="person_EW_n.2" depart="18.00" type="DEFAULT_PEDTYPE" speedFactor="0.86" duration="238.50" waitingTime="0.00" timeLoss="62.38" traveltime="238.50">
+        <walk depart="18.00" departPos="100.00" arrival="256.50" arrivalPos="93.20" duration="238.50" routeLength="210.56" timeLoss="62.38" maxSpeed="1.20"/>
+    </personinfo>
+    <personinfo id="person_EW_s.0" depart="86.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="171.00" waitingTime="0.00" timeLoss="17.42" traveltime="171.00">
+        <walk depart="86.00" departPos="100.00" arrival="257.00" arrivalPos="93.20" duration="171.00" routeLength="222.86" timeLoss="17.42" maxSpeed="1.45"/>
+    </personinfo>
+    <tripinfo id="SN.8" depart="218.50" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.32" arrival="262.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="11.02" duration="43.50" routeLength="395.22" waitingTime="0.50" waitingCount="1" stopTime="0.00" timeLoss="8.34" rerouteNo="0" devices="tripinfo_SN.8 routing_SN.8" vType="DEFAULT_VEHTYPE" speedFactor="1.02" vaporized=""/>
+    <personinfo id="person_NW_diag.8" depart="101.50" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="162.00" waitingTime="0.00" timeLoss="20.91" traveltime="162.00">
+        <walk depart="101.50" departPos="100.00" arrival="263.50" arrivalPos="93.20" duration="162.00" routeLength="190.90" timeLoss="20.91" maxSpeed="1.35"/>
+    </personinfo>
+    <tripinfo id="NS.12" depart="225.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="270.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.13" duration="45.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.76" rerouteNo="0" devices="tripinfo_NS.12 routing_NS.12" vType="DEFAULT_VEHTYPE" speedFactor="0.82" vaporized=""/>
+    <personinfo id="person_NW_diag.6" depart="93.50" type="DEFAULT_PEDTYPE" speedFactor="0.85" duration="179.50" waitingTime="0.00" timeLoss="17.85" traveltime="179.50">
+        <walk depart="93.50" departPos="100.00" arrival="273.00" arrivalPos="93.20" duration="179.50" routeLength="190.90" timeLoss="17.85" maxSpeed="1.18"/>
+    </personinfo>
+    <personinfo id="person_NS_w.0" depart="117.00" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="159.00" waitingTime="0.00" timeLoss="18.67" traveltime="159.00">
+        <walk depart="117.00" departPos="100.00" arrival="276.00" arrivalPos="94.80" duration="159.00" routeLength="207.49" timeLoss="18.67" maxSpeed="1.48"/>
+    </personinfo>
+    <personinfo id="person_WE_s.7" depart="123.00" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="161.00" waitingTime="0.00" timeLoss="22.86" traveltime="161.00">
+        <walk depart="123.00" departPos="100.00" arrival="284.00" arrivalPos="93.20" duration="161.00" routeLength="209.26" timeLoss="22.86" maxSpeed="1.51"/>
+    </personinfo>
+    <personinfo id="person_SE_diag.2" depart="134.50" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="155.00" waitingTime="0.00" timeLoss="15.89" traveltime="155.00">
+        <walk depart="134.50" departPos="100.00" arrival="289.50" arrivalPos="93.20" duration="155.00" routeLength="187.66" timeLoss="15.89" maxSpeed="1.35"/>
+    </personinfo>
+    <personinfo id="person_WE_s.6" depart="120.50" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="169.50" waitingTime="0.00" timeLoss="21.35" traveltime="169.50">
+        <walk depart="120.50" departPos="100.00" arrival="290.00" arrivalPos="93.20" duration="169.50" routeLength="209.26" timeLoss="21.35" maxSpeed="1.41"/>
+    </personinfo>
+    <personinfo id="person_SN_w.2" depart="96.50" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="196.00" waitingTime="0.00" timeLoss="21.14" traveltime="196.00">
+        <walk depart="96.50" departPos="100.00" arrival="292.50" arrivalPos="94.80" duration="196.00" routeLength="217.89" timeLoss="21.14" maxSpeed="1.25"/>
+    </personinfo>
+    <personinfo id="person_NS_e.4" depart="91.00" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="205.00" waitingTime="0.00" timeLoss="22.90" traveltime="205.00">
+        <walk depart="91.00" departPos="100.00" arrival="296.00" arrivalPos="94.80" duration="205.00" routeLength="219.53" timeLoss="22.90" maxSpeed="1.21"/>
+    </personinfo>
+    <personinfo id="person_WE_s.5" depart="105.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="192.00" waitingTime="0.00" timeLoss="31.36" traveltime="192.00">
+        <walk depart="105.00" departPos="100.00" arrival="297.00" arrivalPos="93.20" duration="192.00" routeLength="209.26" timeLoss="31.36" maxSpeed="1.30"/>
+    </personinfo>
+    <personinfo id="person_EW_n.7" depart="105.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="192.50" waitingTime="0.00" timeLoss="35.92" traveltime="192.50">
+        <walk depart="105.00" departPos="100.00" arrival="297.50" arrivalPos="93.20" duration="192.50" routeLength="210.56" timeLoss="35.92" maxSpeed="1.34"/>
+    </personinfo>
+    <personinfo id="person_EW_n.9" depart="130.50" type="DEFAULT_PEDTYPE" speedFactor="1.07" duration="167.50" waitingTime="0.00" timeLoss="26.17" traveltime="167.50">
+        <walk depart="130.50" departPos="100.00" arrival="298.00" arrivalPos="93.20" duration="167.50" routeLength="210.56" timeLoss="26.17" maxSpeed="1.49"/>
+    </personinfo>
+    <personinfo id="person_EW_n.8" depart="118.50" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="180.00" waitingTime="0.00" timeLoss="20.20" traveltime="180.00">
+        <walk depart="118.50" departPos="100.00" arrival="298.50" arrivalPos="93.20" duration="180.00" routeLength="210.56" timeLoss="20.20" maxSpeed="1.32"/>
+    </personinfo>
+    <personinfo id="person_EW_n.10" depart="130.50" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="168.50" waitingTime="0.00" timeLoss="27.61" traveltime="168.50">
+        <walk depart="130.50" departPos="100.00" arrival="299.00" arrivalPos="93.20" duration="168.50" routeLength="210.56" timeLoss="27.61" maxSpeed="1.49"/>
+    </personinfo>
+    <personinfo id="person_NS_w.2" depart="156.50" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="142.50" waitingTime="0.00" timeLoss="15.79" traveltime="142.50">
+        <walk depart="156.50" departPos="100.00" arrival="299.00" arrivalPos="94.80" duration="142.50" routeLength="207.49" timeLoss="15.79" maxSpeed="1.64"/>
+    </personinfo>
+    <personinfo id="person_WE_n.6" depart="102.00" type="DEFAULT_PEDTYPE" speedFactor="0.95" duration="198.00" waitingTime="0.00" timeLoss="27.72" traveltime="198.00">
+        <walk depart="102.00" departPos="100.00" arrival="300.00" arrivalPos="93.20" duration="198.00" routeLength="224.16" timeLoss="27.72" maxSpeed="1.32"/>
+    </personinfo>
+    <tripinfo id="SE.4" depart="218.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.32" arrival="302.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="9.72" duration="83.50" routeLength="379.93" waitingTime="37.00" waitingCount="2" stopTime="0.00" timeLoss="45.08" rerouteNo="0" devices="tripinfo_SE.4 routing_SE.4" vType="DEFAULT_VEHTYPE" speedFactor="0.90" vaporized=""/>
+    <personinfo id="person_SN_e.1" depart="159.50" type="DEFAULT_PEDTYPE" speedFactor="1.16" duration="144.00" waitingTime="0.00" timeLoss="14.59" traveltime="144.00">
+        <walk depart="159.50" departPos="100.00" arrival="303.50" arrivalPos="94.80" duration="144.00" routeLength="209.13" timeLoss="14.59" maxSpeed="1.62"/>
+    </personinfo>
+    <personinfo id="person_WE_n.5" depart="82.50" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="222.00" waitingTime="0.00" timeLoss="44.02" traveltime="222.00">
+        <walk depart="82.50" departPos="100.00" arrival="304.50" arrivalPos="93.20" duration="222.00" routeLength="224.16" timeLoss="44.02" maxSpeed="1.26"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.11" depart="162.50" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="148.00" waitingTime="0.00" timeLoss="16.00" traveltime="148.00">
+        <walk depart="162.50" departPos="100.00" arrival="310.50" arrivalPos="93.20" duration="148.00" routeLength="190.90" timeLoss="16.00" maxSpeed="1.45"/>
+    </personinfo>
+    <personinfo id="person_WE_s.9" depart="155.50" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="155.50" waitingTime="0.00" timeLoss="21.32" traveltime="155.50">
+        <walk depart="155.50" departPos="100.00" arrival="311.00" arrivalPos="93.20" duration="155.50" routeLength="209.26" timeLoss="21.32" maxSpeed="1.56"/>
+    </personinfo>
+    <personinfo id="person_NS_e.5" depart="102.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="211.50" waitingTime="0.00" timeLoss="35.15" traveltime="211.50">
+        <walk depart="102.00" departPos="100.00" arrival="313.50" arrivalPos="94.80" duration="211.50" routeLength="219.53" timeLoss="35.15" maxSpeed="1.24"/>
+    </personinfo>
+    <personinfo id="person_NS_w.1" depart="145.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="170.00" waitingTime="0.00" timeLoss="17.21" traveltime="170.00">
+        <walk depart="145.00" departPos="100.00" arrival="315.00" arrivalPos="94.80" duration="170.00" routeLength="207.49" timeLoss="17.21" maxSpeed="1.36"/>
+    </personinfo>
+    <tripinfo id="SN.9" depart="245.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.04" arrival="316.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="11.58" duration="70.50" routeLength="395.22" waitingTime="29.00" waitingCount="1" stopTime="0.00" timeLoss="36.13" rerouteNo="0" devices="tripinfo_SN.9 routing_SN.9" vType="DEFAULT_VEHTYPE" speedFactor="1.03" vaporized=""/>
+    <tripinfo id="NS.13" depart="244.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="317.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.88" duration="73.00" routeLength="395.22" waitingTime="29.00" waitingCount="1" stopTime="0.00" timeLoss="36.48" rerouteNo="0" devices="tripinfo_NS.13 routing_NS.13" vType="DEFAULT_VEHTYPE" speedFactor="0.97" vaporized=""/>
+    <tripinfo id="NW.5" depart="250.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="318.00" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="10.93" duration="68.00" routeLength="382.62" waitingTime="22.00" waitingCount="1" stopTime="0.00" timeLoss="32.20" rerouteNo="0" devices="tripinfo_NW.5 routing_NW.5" vType="DEFAULT_VEHTYPE" speedFactor="0.98" vaporized=""/>
+    <tripinfo id="NS.14" depart="262.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="318.50" arrivalLane="1_3_2" arrivalPos="189.60" arrivalSpeed="10.59" duration="56.00" routeLength="395.22" waitingTime="12.00" waitingCount="1" stopTime="0.00" timeLoss="18.77" rerouteNo="0" devices="tripinfo_NS.14 routing_NS.14" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+    <personinfo id="person_NE_diag.2" depart="168.00" type="DEFAULT_PEDTYPE" speedFactor="1.19" duration="151.00" waitingTime="0.00" timeLoss="16.52" traveltime="151.00">
+        <walk depart="168.00" departPos="100.00" arrival="319.00" arrivalPos="93.20" duration="151.00" routeLength="223.02" timeLoss="16.52" maxSpeed="1.66"/>
+    </personinfo>
+    <tripinfo id="SN.10" depart="273.00" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.27" arrival="320.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="9.63" duration="47.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="5.48" rerouteNo="0" devices="tripinfo_SN.10 routing_SN.10" vType="DEFAULT_VEHTYPE" speedFactor="0.86" vaporized=""/>
+    <tripinfo id="NS.15" depart="281.50" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="320.00" arrivalLane="1_3_2" arrivalPos="189.60" arrivalSpeed="13.00" duration="38.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="8.33" rerouteNo="0" devices="tripinfo_NS.15 routing_NS.15" vType="DEFAULT_VEHTYPE" speedFactor="1.19" vaporized=""/>
+    <personinfo id="person_NS_e.6" depart="151.50" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="170.00" waitingTime="0.00" timeLoss="21.20" traveltime="170.00">
+        <walk depart="151.50" departPos="100.00" arrival="321.50" arrivalPos="94.80" duration="170.00" routeLength="219.53" timeLoss="21.20" maxSpeed="1.48"/>
+    </personinfo>
+    <personinfo id="person_WE_n.7" depart="146.00" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="176.00" waitingTime="0.00" timeLoss="18.10" traveltime="176.00">
+        <walk depart="146.00" departPos="100.00" arrival="322.00" arrivalPos="93.20" duration="176.00" routeLength="224.16" timeLoss="18.10" maxSpeed="1.42"/>
+    </personinfo>
+    <personinfo id="person_NS_w.3" depart="163.00" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="164.50" waitingTime="0.00" timeLoss="16.10" traveltime="164.50">
+        <walk depart="163.00" departPos="100.00" arrival="327.50" arrivalPos="94.80" duration="164.50" routeLength="207.49" timeLoss="16.10" maxSpeed="1.40"/>
+    </personinfo>
+    <personinfo id="person_WE_s.8" depart="131.00" type="DEFAULT_PEDTYPE" speedFactor="0.92" duration="197.00" waitingTime="0.00" timeLoss="33.73" traveltime="197.00">
+        <walk depart="131.00" departPos="100.00" arrival="328.00" arrivalPos="93.20" duration="197.00" routeLength="209.26" timeLoss="33.73" maxSpeed="1.28"/>
+    </personinfo>
+    <personinfo id="person_SW_diag.1" depart="110.50" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="221.00" waitingTime="0.00" timeLoss="41.31" traveltime="221.00">
+        <walk depart="110.50" departPos="100.00" arrival="331.50" arrivalPos="93.20" duration="221.00" routeLength="228.04" timeLoss="41.31" maxSpeed="1.27"/>
+    </personinfo>
+    <personinfo id="person_NS_e.9" depart="167.50" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="167.00" waitingTime="0.00" timeLoss="21.95" traveltime="167.00">
+        <walk depart="167.50" departPos="100.00" arrival="334.50" arrivalPos="94.80" duration="167.00" routeLength="219.53" timeLoss="21.95" maxSpeed="1.51"/>
+    </personinfo>
+    <tripinfo id="WE.5" depart="250.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="334.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="11.59" duration="84.50" routeLength="395.13" waitingTime="42.00" waitingCount="1" stopTime="0.00" timeLoss="49.92" rerouteNo="0" devices="tripinfo_WE.5 routing_WE.5" vType="DEFAULT_VEHTYPE" speedFactor="1.03" vaporized=""/>
+    <tripinfo id="EW.2" depart="300.00" departLane="4_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="336.00" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="13.00" duration="36.00" routeLength="394.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.31" rerouteNo="0" devices="tripinfo_EW.2 routing_EW.2" vType="DEFAULT_VEHTYPE" speedFactor="1.20" vaporized=""/>
+    <personinfo id="person_NW_diag.13" depart="200.50" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="136.00" waitingTime="0.00" timeLoss="14.11" traveltime="136.00">
+        <walk depart="200.50" departPos="100.00" arrival="336.50" arrivalPos="93.20" duration="136.00" routeLength="190.90" timeLoss="14.11" maxSpeed="1.57"/>
+    </personinfo>
+    <tripinfo id="WS.4" depart="267.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.33" arrival="339.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.25" duration="72.00" routeLength="385.10" waitingTime="24.00" waitingCount="1" stopTime="0.00" timeLoss="35.08" rerouteNo="0" devices="tripinfo_WS.4 routing_WS.4" vType="DEFAULT_VEHTYPE" speedFactor="0.95" vaporized=""/>
+    <personinfo id="person_EW_s.2" depart="171.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="169.50" waitingTime="0.00" timeLoss="17.33" traveltime="169.50">
+        <walk depart="171.00" departPos="100.00" arrival="340.50" arrivalPos="93.20" duration="169.50" routeLength="222.86" timeLoss="17.33" maxSpeed="1.46"/>
+    </personinfo>
+    <tripinfo id="WE.6" depart="300.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="340.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="10.65" duration="40.50" routeLength="395.13" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.99" rerouteNo="0" devices="tripinfo_WE.6 routing_WE.6" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <personinfo id="person_EW_n.11" depart="163.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="178.00" waitingTime="0.00" timeLoss="31.45" traveltime="178.00">
+        <walk depart="163.00" departPos="100.00" arrival="341.00" arrivalPos="93.20" duration="178.00" routeLength="210.56" timeLoss="31.45" maxSpeed="1.44"/>
+    </personinfo>
+    <personinfo id="person_SE_diag.3" depart="191.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="150.00" waitingTime="0.00" timeLoss="15.49" traveltime="150.00">
+        <walk depart="191.50" departPos="100.00" arrival="341.50" arrivalPos="93.20" duration="150.00" routeLength="187.66" timeLoss="15.49" maxSpeed="1.40"/>
+    </personinfo>
+    <tripinfo id="WN.1" depart="302.50" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="2.50" arrival="341.50" arrivalLane="1_5_2" arrivalPos="189.60" arrivalSpeed="12.77" duration="39.00" routeLength="392.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.59" rerouteNo="0" devices="tripinfo_WN.1 routing_WN.1" vType="DEFAULT_VEHTYPE" speedFactor="1.14" vaporized=""/>
+    <personinfo id="person_NS_e.8" depart="166.50" type="DEFAULT_PEDTYPE" speedFactor="1.02" duration="176.50" waitingTime="0.00" timeLoss="22.30" traveltime="176.50">
+        <walk depart="166.50" departPos="100.00" arrival="343.00" arrivalPos="94.80" duration="176.50" routeLength="219.53" timeLoss="22.30" maxSpeed="1.42"/>
+    </personinfo>
+    <personinfo id="person_NS_e.11" depart="172.50" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="171.00" waitingTime="0.00" timeLoss="25.11" traveltime="171.00">
+        <walk depart="172.50" departPos="100.00" arrival="343.50" arrivalPos="94.80" duration="171.00" routeLength="219.53" timeLoss="25.11" maxSpeed="1.50"/>
+    </personinfo>
+    <tripinfo id="SE.5" depart="273.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.28" arrival="347.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.14" duration="74.00" routeLength="379.93" waitingTime="30.50" waitingCount="2" stopTime="0.00" timeLoss="41.93" rerouteNo="0" devices="tripinfo_SE.5 routing_SE.5" vType="DEFAULT_VEHTYPE" speedFactor="1.08" vaporized=""/>
+    <personinfo id="person_NS_e.7" depart="163.00" type="DEFAULT_PEDTYPE" speedFactor="0.96" duration="184.50" waitingTime="0.00" timeLoss="19.15" traveltime="184.50">
+        <walk depart="163.00" departPos="100.00" arrival="347.50" arrivalPos="94.80" duration="184.50" routeLength="219.53" timeLoss="19.15" maxSpeed="1.33"/>
+    </personinfo>
+    <tripinfo id="EN.2" depart="300.00" departLane="4_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="347.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="10.63" duration="47.50" routeLength="382.62" waitingTime="5.50" waitingCount="1" stopTime="0.00" timeLoss="10.49" rerouteNo="0" devices="tripinfo_EN.2 routing_EN.2" vType="DEFAULT_VEHTYPE" speedFactor="0.95" vaporized=""/>
+    <personinfo id="person_NS_e.10" depart="169.00" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="179.00" waitingTime="0.00" timeLoss="18.17" traveltime="179.00">
+        <walk depart="169.00" departPos="100.00" arrival="348.00" arrivalPos="94.80" duration="179.00" routeLength="219.53" timeLoss="18.17" maxSpeed="1.36"/>
+    </personinfo>
+    <personinfo id="person_WE_n.8" depart="151.50" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="200.00" waitingTime="0.00" timeLoss="26.06" traveltime="200.00">
+        <walk depart="151.50" departPos="100.00" arrival="351.50" arrivalPos="93.20" duration="200.00" routeLength="224.16" timeLoss="26.06" maxSpeed="1.29"/>
+    </personinfo>
+    <tripinfo id="NE.2" depart="300.00" departLane="5_1_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="352.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="9.61" duration="52.00" routeLength="392.89" waitingTime="4.50" waitingCount="1" stopTime="0.00" timeLoss="12.50" rerouteNo="0" devices="tripinfo_NE.2 routing_NE.2" vType="DEFAULT_VEHTYPE" speedFactor="0.90" vaporized=""/>
+    <tripinfo id="NS.17" depart="319.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="354.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="11.90" duration="35.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.57" rerouteNo="0" devices="tripinfo_NS.17 routing_NS.17" vType="DEFAULT_VEHTYPE" speedFactor="1.11" vaporized=""/>
+    <personinfo id="person_NS_e.12" depart="174.50" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="181.00" waitingTime="0.00" timeLoss="17.51" traveltime="181.00">
+        <walk depart="174.50" departPos="100.00" arrival="355.50" arrivalPos="94.80" duration="181.00" routeLength="219.53" timeLoss="17.51" maxSpeed="1.34"/>
+    </personinfo>
+    <tripinfo id="NW.6" depart="302.50" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="2.50" arrival="357.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="12.52" duration="55.00" routeLength="382.62" waitingTime="7.50" waitingCount="3" stopTime="0.00" timeLoss="23.65" rerouteNo="0" devices="tripinfo_NW.6 routing_NW.6" vType="DEFAULT_VEHTYPE" speedFactor="1.12" vaporized=""/>
+    <tripinfo id="NS.16" depart="300.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="358.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="11.13" duration="58.50" routeLength="395.22" waitingTime="12.50" waitingCount="1" stopTime="0.00" timeLoss="22.62" rerouteNo="0" devices="tripinfo_NS.16 routing_NS.16" vType="DEFAULT_VEHTYPE" speedFactor="0.99" vaporized=""/>
+    <personinfo id="person_NS_e.13" depart="185.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="174.50" waitingTime="0.00" timeLoss="20.48" traveltime="174.50">
+        <walk depart="185.00" departPos="100.00" arrival="359.50" arrivalPos="94.80" duration="174.50" routeLength="219.53" timeLoss="20.48" maxSpeed="1.43"/>
+    </personinfo>
+    <personinfo id="person_WE_n.9" depart="190.50" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="169.00" waitingTime="0.00" timeLoss="16.12" traveltime="169.00">
+        <walk depart="190.50" departPos="100.00" arrival="359.50" arrivalPos="93.20" duration="169.00" routeLength="224.16" timeLoss="16.12" maxSpeed="1.47"/>
+    </personinfo>
+    <tripinfo id="SW.1" depart="300.00" departLane="3_1_3" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="359.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="12.49" duration="59.50" routeLength="392.89" waitingTime="17.00" waitingCount="1" stopTime="0.00" timeLoss="27.44" rerouteNo="0" devices="tripinfo_SW.1 routing_SW.1" vType="DEFAULT_VEHTYPE" speedFactor="1.11" vaporized=""/>
+    <tripinfo id="SN.11" depart="300.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.50" arrival="360.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="11.38" duration="59.50" routeLength="395.22" waitingTime="11.00" waitingCount="2" stopTime="0.00" timeLoss="24.76" rerouteNo="0" devices="tripinfo_SN.11 routing_SN.11" vType="DEFAULT_VEHTYPE" speedFactor="1.02" vaporized=""/>
+    <personinfo id="person_NW_diag.12" depart="191.50" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="171.00" waitingTime="0.00" timeLoss="16.63" traveltime="171.00">
+        <walk depart="191.50" departPos="100.00" arrival="362.50" arrivalPos="93.20" duration="171.00" routeLength="190.90" timeLoss="16.63" maxSpeed="1.24"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.14" depart="231.00" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="135.00" waitingTime="0.00" timeLoss="13.22" traveltime="135.00">
+        <walk depart="231.00" departPos="100.00" arrival="366.00" arrivalPos="93.20" duration="135.00" routeLength="190.90" timeLoss="13.22" maxSpeed="1.57"/>
+    </personinfo>
+    <tripinfo id="SN.12" depart="327.50" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.22" arrival="367.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="11.35" duration="40.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.97" rerouteNo="0" devices="tripinfo_SN.12 routing_SN.12" vType="DEFAULT_VEHTYPE" speedFactor="1.01" vaporized=""/>
+    <tripinfo id="SE.6" depart="327.50" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.23" arrival="369.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="10.47" duration="42.00" routeLength="379.93" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.92" rerouteNo="0" devices="tripinfo_SE.6 routing_SE.6" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="person_WE_s.11" depart="183.50" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="187.00" waitingTime="0.00" timeLoss="24.43" traveltime="187.00">
+        <walk depart="183.50" departPos="100.00" arrival="370.50" arrivalPos="93.20" duration="187.00" routeLength="209.26" timeLoss="24.43" maxSpeed="1.29"/>
+    </personinfo>
+    <personinfo id="person_WE_s.10" depart="183.00" type="DEFAULT_PEDTYPE" speedFactor="0.90" duration="188.00" waitingTime="0.00" timeLoss="20.68" traveltime="188.00">
+        <walk depart="183.00" departPos="100.00" arrival="371.00" arrivalPos="93.20" duration="188.00" routeLength="209.26" timeLoss="20.68" maxSpeed="1.25"/>
+    </personinfo>
+    <tripinfo id="NS.18" depart="337.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="379.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.36" duration="41.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.50" rerouteNo="0" devices="tripinfo_NS.18 routing_NS.18" vType="DEFAULT_VEHTYPE" speedFactor="0.93" vaporized=""/>
+    <personinfo id="person_EW_n.14" depart="253.50" type="DEFAULT_PEDTYPE" speedFactor="1.25" duration="137.00" waitingTime="0.00" timeLoss="15.52" traveltime="137.00">
+        <walk depart="253.50" departPos="100.00" arrival="390.50" arrivalPos="93.20" duration="137.00" routeLength="210.56" timeLoss="15.52" maxSpeed="1.73"/>
+    </personinfo>
+    <personinfo id="person_SW_diag.3" depart="218.50" type="DEFAULT_PEDTYPE" speedFactor="1.23" duration="172.00" waitingTime="0.00" timeLoss="38.29" traveltime="172.00">
+        <walk depart="218.50" departPos="100.00" arrival="390.50" arrivalPos="93.20" duration="172.00" routeLength="228.04" timeLoss="38.29" maxSpeed="1.71"/>
+    </personinfo>
+    <tripinfo id="SN.13" depart="355.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.45" arrival="391.50" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="12.01" duration="36.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.61" rerouteNo="0" devices="tripinfo_SN.13 routing_SN.13" vType="DEFAULT_VEHTYPE" speedFactor="1.08" vaporized=""/>
+    <personinfo id="person_NS_e.14" depart="195.50" type="DEFAULT_PEDTYPE" speedFactor="0.93" duration="196.50" waitingTime="0.00" timeLoss="26.74" traveltime="196.50">
+        <walk depart="195.50" departPos="100.00" arrival="392.00" arrivalPos="94.80" duration="196.50" routeLength="219.53" timeLoss="26.74" maxSpeed="1.29"/>
+    </personinfo>
+    <personinfo id="person_NS_e.15" depart="203.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="189.50" waitingTime="0.00" timeLoss="21.67" traveltime="189.50">
+        <walk depart="203.00" departPos="100.00" arrival="392.50" arrivalPos="94.80" duration="189.50" routeLength="219.53" timeLoss="21.67" maxSpeed="1.31"/>
+    </personinfo>
+    <personinfo id="person_SE_diag.4" depart="250.50" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="143.00" waitingTime="0.00" timeLoss="14.48" traveltime="143.00">
+        <walk depart="250.50" departPos="100.00" arrival="393.50" arrivalPos="93.20" duration="143.00" routeLength="187.66" timeLoss="14.48" maxSpeed="1.46"/>
+    </personinfo>
+    <personinfo id="person_WE_n.10" depart="223.50" type="DEFAULT_PEDTYPE" speedFactor="1.12" duration="173.00" waitingTime="0.00" timeLoss="28.60" traveltime="173.00">
+        <walk depart="223.50" departPos="100.00" arrival="396.50" arrivalPos="93.20" duration="173.00" routeLength="224.16" timeLoss="28.60" maxSpeed="1.55"/>
+    </personinfo>
+    <tripinfo id="NW.7" depart="350.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="397.00" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="8.81" duration="47.00" routeLength="382.62" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.92" rerouteNo="0" devices="tripinfo_NW.7 routing_NW.7" vType="DEFAULT_VEHTYPE" speedFactor="0.81" vaporized=""/>
+    <personinfo id="person_WE_s.14" depart="214.50" type="DEFAULT_PEDTYPE" speedFactor="1.08" duration="183.50" waitingTime="0.00" timeLoss="44.33" traveltime="183.50">
+        <walk depart="214.50" departPos="100.00" arrival="398.00" arrivalPos="93.20" duration="183.50" routeLength="209.26" timeLoss="44.33" maxSpeed="1.50"/>
+    </personinfo>
+    <tripinfo id="NS.19" depart="356.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="398.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="10.13" duration="42.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.59" rerouteNo="0" devices="tripinfo_NS.19 routing_NS.19" vType="DEFAULT_VEHTYPE" speedFactor="0.92" vaporized=""/>
+    <personinfo id="person_EW_n.13" depart="214.50" type="DEFAULT_PEDTYPE" speedFactor="1.06" duration="187.00" waitingTime="0.00" timeLoss="44.62" traveltime="187.00">
+        <walk depart="214.50" departPos="100.00" arrival="401.50" arrivalPos="93.20" duration="187.00" routeLength="210.56" timeLoss="44.62" maxSpeed="1.48"/>
+    </personinfo>
+    <personinfo id="person_WE_s.12" depart="207.00" type="DEFAULT_PEDTYPE" speedFactor="1.04" duration="194.50" waitingTime="0.00" timeLoss="49.92" traveltime="194.50">
+        <walk depart="207.00" departPos="100.00" arrival="401.50" arrivalPos="93.20" duration="194.50" routeLength="209.26" timeLoss="49.92" maxSpeed="1.45"/>
+    </personinfo>
+    <personinfo id="person_NE_diag.3" depart="217.00" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="184.50" waitingTime="0.00" timeLoss="39.78" traveltime="184.50">
+        <walk depart="217.00" departPos="100.00" arrival="401.50" arrivalPos="93.20" duration="184.50" routeLength="220.38" timeLoss="39.78" maxSpeed="1.52"/>
+    </personinfo>
+    <personinfo id="person_NE_diag.4" depart="223.50" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="178.50" waitingTime="0.00" timeLoss="33.55" traveltime="178.50">
+        <walk depart="223.50" departPos="100.00" arrival="402.00" arrivalPos="93.20" duration="178.50" routeLength="220.38" timeLoss="33.55" maxSpeed="1.52"/>
+    </personinfo>
+    <personinfo id="person_WE_s.16" depart="225.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="177.50" waitingTime="0.00" timeLoss="31.08" traveltime="177.50">
+        <walk depart="225.00" departPos="100.00" arrival="402.50" arrivalPos="93.20" duration="177.50" routeLength="209.26" timeLoss="31.08" maxSpeed="1.43"/>
+    </personinfo>
+    <personinfo id="person_WE_s.15" depart="215.50" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="189.50" waitingTime="0.00" timeLoss="40.35" traveltime="189.50">
+        <walk depart="215.50" departPos="100.00" arrival="405.00" arrivalPos="93.20" duration="189.50" routeLength="209.26" timeLoss="40.35" maxSpeed="1.40"/>
+    </personinfo>
+    <personinfo id="person_SN_e.2" depart="184.50" type="DEFAULT_PEDTYPE" speedFactor="0.83" duration="222.50" waitingTime="0.00" timeLoss="40.58" traveltime="222.50">
+        <walk depart="184.50" departPos="100.00" arrival="407.00" arrivalPos="94.80" duration="222.50" routeLength="209.13" timeLoss="40.58" maxSpeed="1.15"/>
+    </personinfo>
+    <personinfo id="person_SN_w.3" depart="241.50" type="DEFAULT_PEDTYPE" speedFactor="1.09" duration="165.50" waitingTime="0.00" timeLoss="21.29" traveltime="165.50">
+        <walk depart="241.50" departPos="100.00" arrival="407.00" arrivalPos="94.80" duration="165.50" routeLength="217.89" timeLoss="21.29" maxSpeed="1.51"/>
+    </personinfo>
+    <personinfo id="person_EW_n.12" depart="211.50" type="DEFAULT_PEDTYPE" speedFactor="0.98" duration="198.00" waitingTime="0.00" timeLoss="42.91" traveltime="198.00">
+        <walk depart="211.50" departPos="100.00" arrival="409.50" arrivalPos="93.20" duration="198.00" routeLength="210.56" timeLoss="42.91" maxSpeed="1.36"/>
+    </personinfo>
+    <personinfo id="person_WE_s.13" depart="210.00" type="DEFAULT_PEDTYPE" speedFactor="0.94" duration="201.00" waitingTime="0.00" timeLoss="40.07" traveltime="201.00">
+        <walk depart="210.00" departPos="100.00" arrival="411.00" arrivalPos="93.20" duration="201.00" routeLength="209.26" timeLoss="40.07" maxSpeed="1.30"/>
+    </personinfo>
+    <personinfo id="person_EW_s.4" depart="236.50" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="176.00" waitingTime="0.00" timeLoss="17.88" traveltime="176.00">
+        <walk depart="236.50" departPos="100.00" arrival="412.50" arrivalPos="93.20" duration="176.00" routeLength="222.86" timeLoss="17.88" maxSpeed="1.41"/>
+    </personinfo>
+    <personinfo id="person_WE_s.17" depart="225.50" type="DEFAULT_PEDTYPE" speedFactor="0.89" duration="191.00" waitingTime="0.00" timeLoss="21.63" traveltime="191.00">
+        <walk depart="225.50" departPos="100.00" arrival="416.50" arrivalPos="93.20" duration="191.00" routeLength="209.26" timeLoss="21.63" maxSpeed="1.24"/>
+    </personinfo>
+    <tripinfo id="WS.5" depart="333.50" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.17" arrival="418.00" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.59" duration="84.50" routeLength="385.10" waitingTime="37.50" waitingCount="2" stopTime="0.00" timeLoss="45.92" rerouteNo="0" devices="tripinfo_WS.5 routing_WS.5" vType="DEFAULT_VEHTYPE" speedFactor="0.91" vaporized=""/>
+    <tripinfo id="WE.7" depart="350.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="421.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.27" duration="71.50" routeLength="395.13" waitingTime="19.00" waitingCount="3" stopTime="0.00" timeLoss="38.97" rerouteNo="0" devices="tripinfo_WE.7 routing_WE.7" vType="DEFAULT_VEHTYPE" speedFactor="1.10" vaporized=""/>
+    <personinfo id="person_NE_diag.5" depart="238.00" type="DEFAULT_PEDTYPE" speedFactor="1.05" duration="184.00" waitingTime="0.00" timeLoss="27.47" traveltime="184.00">
+        <walk depart="238.00" departPos="100.00" arrival="422.00" arrivalPos="93.20" duration="184.00" routeLength="228.35" timeLoss="27.47" maxSpeed="1.46"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.15" depart="283.50" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="158.00" waitingTime="0.00" timeLoss="16.29" traveltime="158.00">
+        <walk depart="283.50" departPos="100.00" arrival="441.50" arrivalPos="93.20" duration="158.00" routeLength="190.90" timeLoss="16.29" maxSpeed="1.35"/>
+    </personinfo>
+    <personinfo id="person_SW_diag.2" depart="183.00" type="DEFAULT_PEDTYPE" speedFactor="0.75" duration="260.50" waitingTime="0.00" timeLoss="42.28" traveltime="260.50">
+        <walk depart="183.00" departPos="100.00" arrival="443.50" arrivalPos="93.20" duration="260.50" routeLength="228.04" timeLoss="42.28" maxSpeed="1.04"/>
+    </personinfo>
+    <personinfo id="person_NS_e.16" depart="258.00" type="DEFAULT_PEDTYPE" speedFactor="0.91" duration="193.00" waitingTime="0.00" timeLoss="19.78" traveltime="193.00">
+        <walk depart="258.00" departPos="100.00" arrival="451.00" arrivalPos="94.80" duration="193.00" routeLength="219.53" timeLoss="19.78" maxSpeed="1.27"/>
+    </personinfo>
+    <personinfo id="person_EW_s.3" depart="208.50" type="DEFAULT_PEDTYPE" speedFactor="0.73" duration="243.00" waitingTime="0.00" timeLoss="24.27" traveltime="243.00">
+        <walk depart="208.50" departPos="100.00" arrival="451.50" arrivalPos="93.20" duration="243.00" routeLength="222.86" timeLoss="24.27" maxSpeed="1.02"/>
+    </personinfo>
+    <personinfo id="person_SN_e.3" depart="257.50" type="DEFAULT_PEDTYPE" speedFactor="0.87" duration="196.00" waitingTime="0.00" timeLoss="22.55" traveltime="196.00">
+        <walk depart="257.50" departPos="100.00" arrival="453.50" arrivalPos="94.80" duration="196.00" routeLength="209.13" timeLoss="22.55" maxSpeed="1.21"/>
+    </personinfo>
+    <tripinfo id="NW.8" depart="400.00" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="453.50" arrivalLane="1_2_1" arrivalPos="186.40" arrivalSpeed="12.76" duration="53.50" routeLength="382.62" waitingTime="8.00" waitingCount="1" stopTime="0.00" timeLoss="22.96" rerouteNo="0" devices="tripinfo_NW.8 routing_NW.8" vType="DEFAULT_VEHTYPE" speedFactor="1.14" vaporized=""/>
+    <tripinfo id="SN.14" depart="382.00" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.18" arrival="455.00" arrivalLane="1_5_1" arrivalPos="189.60" arrivalSpeed="10.76" duration="73.00" routeLength="395.22" waitingTime="29.50" waitingCount="1" stopTime="0.00" timeLoss="36.27" rerouteNo="0" devices="tripinfo_SN.14 routing_SN.14" vType="DEFAULT_VEHTYPE" speedFactor="0.96" vaporized=""/>
+    <tripinfo id="NS.20" depart="375.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="457.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="9.45" duration="82.50" routeLength="395.22" waitingTime="34.50" waitingCount="1" stopTime="0.00" timeLoss="40.65" rerouteNo="0" devices="tripinfo_NS.20 routing_NS.20" vType="DEFAULT_VEHTYPE" speedFactor="0.84" vaporized=""/>
+    <tripinfo id="NS.21" depart="394.00" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="457.50" arrivalLane="1_3_2" arrivalPos="189.60" arrivalSpeed="9.52" duration="63.50" routeLength="395.22" waitingTime="10.50" waitingCount="1" stopTime="0.00" timeLoss="21.81" rerouteNo="0" devices="tripinfo_NS.21 routing_NS.21" vType="DEFAULT_VEHTYPE" speedFactor="0.85" vaporized=""/>
+    <personinfo id="person_SN_e.4" depart="295.00" type="DEFAULT_PEDTYPE" speedFactor="1.03" duration="163.00" waitingTime="0.00" timeLoss="17.52" traveltime="163.00">
+        <walk depart="295.00" departPos="100.00" arrival="458.00" arrivalPos="94.80" duration="163.00" routeLength="209.13" timeLoss="17.52" maxSpeed="1.44"/>
+    </personinfo>
+    <tripinfo id="NS.22" depart="412.50" departLane="5_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="459.50" arrivalLane="1_3_2" arrivalPos="189.60" arrivalSpeed="9.99" duration="47.00" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="7.33" rerouteNo="0" devices="tripinfo_NS.22 routing_NS.22" vType="DEFAULT_VEHTYPE" speedFactor="0.90" vaporized=""/>
+    <tripinfo id="SE.7" depart="382.00" departLane="3_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.19" arrival="462.00" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="9.54" duration="80.00" routeLength="379.93" waitingTime="33.50" waitingCount="2" stopTime="0.00" timeLoss="39.30" rerouteNo="0" devices="tripinfo_SE.7 routing_SE.7" vType="DEFAULT_VEHTYPE" speedFactor="0.85" vaporized=""/>
+    <tripinfo id="WE.8" depart="400.00" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="463.50" arrivalLane="1_4_1" arrivalPos="186.40" arrivalSpeed="12.35" duration="63.50" routeLength="395.13" waitingTime="21.50" waitingCount="1" stopTime="0.00" timeLoss="31.20" rerouteNo="0" devices="tripinfo_WE.8 routing_WE.8" vType="DEFAULT_VEHTYPE" speedFactor="1.10" vaporized=""/>
+    <tripinfo id="WS.6" depart="402.50" departLane="2_1_1" departPos="5.10" departSpeed="0.00" departDelay="2.50" arrival="465.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="11.30" duration="63.00" routeLength="385.10" waitingTime="18.00" waitingCount="1" stopTime="0.00" timeLoss="29.61" rerouteNo="0" devices="tripinfo_WS.6 routing_WS.6" vType="DEFAULT_VEHTYPE" speedFactor="1.06" vaporized=""/>
+    <personinfo id="person_EW_n.19" depart="290.50" type="DEFAULT_PEDTYPE" speedFactor="1.18" duration="177.00" waitingTime="0.00" timeLoss="48.21" traveltime="177.00">
+        <walk depart="290.50" departPos="100.00" arrival="467.50" arrivalPos="93.20" duration="177.00" routeLength="210.56" timeLoss="48.21" maxSpeed="1.63"/>
+    </personinfo>
+    <personinfo id="person_WE_s.18" depart="250.50" type="DEFAULT_PEDTYPE" speedFactor="1.01" duration="220.00" waitingTime="0.00" timeLoss="70.59" traveltime="220.00">
+        <walk depart="250.50" departPos="100.00" arrival="470.50" arrivalPos="93.20" duration="220.00" routeLength="209.26" timeLoss="70.59" maxSpeed="1.40"/>
+    </personinfo>
+    <personinfo id="person_SE_diag.5" depart="285.00" type="DEFAULT_PEDTYPE" speedFactor="0.81" duration="186.00" waitingTime="0.00" timeLoss="18.57" traveltime="186.00">
+        <walk depart="285.00" departPos="100.00" arrival="471.00" arrivalPos="93.20" duration="186.00" routeLength="187.66" timeLoss="18.57" maxSpeed="1.12"/>
+    </personinfo>
+    <personinfo id="person_NW_diag.17" depart="314.00" type="DEFAULT_PEDTYPE" speedFactor="0.97" duration="158.00" waitingTime="0.00" timeLoss="16.68" traveltime="158.00">
+        <walk depart="314.00" departPos="100.00" arrival="472.00" arrivalPos="93.20" duration="158.00" routeLength="190.90" timeLoss="16.68" maxSpeed="1.35"/>
+    </personinfo>
+    <personinfo id="person_EW_n.17" depart="280.50" type="DEFAULT_PEDTYPE" speedFactor="1.10" duration="192.50" waitingTime="0.00" timeLoss="54.23" traveltime="192.50">
+        <walk depart="280.50" departPos="100.00" arrival="473.00" arrivalPos="93.20" duration="192.50" routeLength="210.56" timeLoss="54.23" maxSpeed="1.52"/>
+    </personinfo>
+    <personinfo id="person_EW_n.20" depart="302.50" type="DEFAULT_PEDTYPE" speedFactor="1.13" duration="171.00" waitingTime="0.00" timeLoss="36.95" traveltime="171.00">
+        <walk depart="302.50" departPos="100.00" arrival="473.50" arrivalPos="93.20" duration="171.00" routeLength="210.56" timeLoss="36.95" maxSpeed="1.57"/>
+    </personinfo>
+    <tripinfo id="SN.16" depart="436.50" departLane="3_1_2" departPos="5.10" departSpeed="0.00" departDelay="0.13" arrival="474.00" arrivalLane="1_5_2" arrivalPos="189.60" arrivalSpeed="11.82" duration="37.50" routeLength="395.22" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.47" rerouteNo="0" devices="tripinfo_SN.16 routing_SN.16" vType="DEFAULT_VEHTYPE" speedFactor="1.07" vaporized=""/>
+    <personinfo id="person_EW_s.5" depart="273.50" type="DEFAULT_PEDTYPE" speedFactor="1.00" duration="202.00" waitingTime="0.00" timeLoss="41.89" traveltime="202.00">
+        <walk depart="273.50" departPos="100.00" arrival="475.50" arrivalPos="93.20" duration="202.00" routeLength="222.86" timeLoss="41.89" maxSpeed="1.39"/>
+    </personinfo>
+    <tripinfo id="NS.23" depart="431.50" departLane="5_1_1" departPos="5.10" departSpeed="0.00" departDelay="0.25" arrival="475.50" arrivalLane="1_3_1" arrivalPos="189.60" arrivalSpeed="13.00" duration="44.00" routeLength="395.22" waitingTime="3.50" waitingCount="1" stopTime="0.00" timeLoss="13.96" rerouteNo="0" devices="tripinfo_NS.23 routing_NS.23" vType="DEFAULT_VEHTYPE" speedFactor="1.19" vaporized=""/>
+</tripinfos>
