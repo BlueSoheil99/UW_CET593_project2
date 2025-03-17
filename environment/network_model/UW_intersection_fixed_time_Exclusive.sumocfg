@@ -4,7 +4,7 @@
 
     <input>
         <net-file value="UW_intersection_pedestrian_X.net.xml"/>
-        <route-files value="UW_IntersectionsRouteTest.rou.xml"/>
+        <route-files value="UW_IntersectionNormalDemand.rou.xml"/>
         <additional-files value="UW_intersection_signalFixed_X.add.xml"/>
     </input>
 
