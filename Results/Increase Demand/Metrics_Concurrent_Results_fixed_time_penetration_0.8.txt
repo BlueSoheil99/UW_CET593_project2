@@ -1,0 +1,11 @@
+average CAV fuel consumption for fixed_time scenario (external model) (in mg): 59.6806535469394
+average waiting time for fixed_time scenario (in s): 13.621527777777779
+average time loss for fixed_time scenario (in s): 21.451944444444447
+average queue length for fixed_time scenario (in m): 7.290709961474931
+average pedestrian time loss for fixed_time scenario (in s): 28.803023255813944
+number of right-turn conflicts between vehicles and pedestrians: 102
+number of CAVs passing through the specific intersection in fixed_time scenario: 114
+number of pedestrians passing through the specific intersection in fixed_time scenario: 258
+The time of simulation termination in fixed_time scenario: 852.0
+average phase lengths:  {0: 5.0, 1: 30.0, 2: 3.0, 3: 1.5, 4: 25.0, 5: 2.5, 6: 3.0}
+number of times each phase happened: {0: 13.0, 1: 72.0, 2: 7.2, 3: 3.6, 4: 60.0, 5: 6.0, 6: 7.2}
