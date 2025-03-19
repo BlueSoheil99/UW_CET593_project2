@@ -23,13 +23,6 @@ if __name__ == "__main__":
     # control_type: "multi_scale", "actuated", "fixed_time"
     """
     generate = 'result'
-    inputs = {}
-    inputs['network_type'] = 'UW_intersection'
-    inputs['volume_type'] = "symmetric"
-    inputs['control_type'] = 'multi_scale'
-    inputs['ped_phasing'] = 'Concurrent'
-    inputs['pene_value'] = 0.5
-    main(generate, inputs)
     for control_type in ["actuated", "fixed_time", "multi_scale"]:
         for ped_phasing in ["Exclusive", "Concurrent"]:
             for pene_value in [1, 0.8, 0.5, 0.2]:
@@ -47,6 +40,16 @@ if __name__ == "__main__":
                     main(generate, inputs)
                 else:
                     continue
+    """
+    """
+    generate = 'result'
+    inputs = {}
+    inputs['network_type'] = 'UW_intersection'
+    inputs['volume_type'] = "symmetric"
+    inputs['control_type'] = 'multi_scale'
+    inputs['ped_phasing'] = 'Exclusive'
+    inputs['pene_value'] = 0.2
+    main(generate, inputs)
     """
     generate = 'plot'
     inputs = {}
